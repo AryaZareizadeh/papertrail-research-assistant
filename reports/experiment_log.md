@@ -28,9 +28,9 @@ downloads require network access beyond the restricted shell sandbox.
 
 ### Task status
 
-- Task 1: package, configuration, schemas, CLI, and doctor implemented and tested.
-  Full runtime install and `requirements.lock.txt` remain pending; the smaller
-  bootstrap lock was reproduced in a second clean environment.
+- Task 1: complete — package, configuration, schemas, CLI, doctor, full dependency
+  installation, and `requirements.lock.txt` verified. All 80 dependency versions
+  reproduced exactly in a fresh `.venv-repro`; 47 tests passed there.
 - Task 2: complete — downloaded official archives, preserved archive/source hashes,
   normalized isolated corpus/evaluation records, verified split counts, saved pilot
   selections, and read five training examples. No test answers were inspected.
@@ -89,3 +89,20 @@ See `training_retrieval_notes.md` for corpus counts and qualitative retrieval mi
 No quality improvement has been claimed. Next: finish full dependency/model setup,
 verify real dense/hybrid retrieval and timing, then implement the evaluated answer
 pipeline before adding the API and UI.
+
+## 2026-10-26 — Checklist audit, starting at Task 1
+
+Task 1: all eight checkboxes verified in order. Configuration tests: 16 passed.
+CLI help/doctor and ignore rules passed. Full runtime dependency install succeeded
+after retrying with four concurrent downloads and 180-second HTTP timeouts.
+Primary environment: 81 compatible installed packages including this project.
+Import/operation smoke: PyTorch 2.14.1+cpu, NumPy 2.1.2, Sentence Transformers 6.2.0,
+Transformers 5.20.2, FastAPI 0.162.0, and Streamlit 1.66.1 loaded; matrix operation
+returned the expected result. The lock contains 80 dependency pins, excluding this
+editable project and machine-specific paths. It was installed into a fresh
+`.venv-repro`; all 80 versions matched exactly, `uv pip check` passed, and the full
+47-test suite passed. Local verification required an unrestricted retry after
+Windows sandbox permissions blocked a PyTorch launcher, with no network needed.
+
+Next audit: Task 2's real archives, split isolation, runtime/evaluation boundaries,
+pilot selection, and retained-question counts.

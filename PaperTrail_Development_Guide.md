@@ -13,8 +13,8 @@
 **Prepared:** 26 October 2026. **Deliverable type:** A development guide and implementation plan, not a completed software project.
 
 **Implementation progress (26 October 2026):** The SQLite/BM25 foundation is now
-implemented and tested. Tasks 2 and 3 are complete; Task 1's full runtime lock and
-Task 4's real dense/hybrid model checks remain pending. See
+implemented and tested. Tasks 1, 2, and 3 are complete; Task 4's real dense/hybrid
+model checks remain pending. See
 `reports/experiment_log.md` for evidence, setup decisions, and remaining work.
 
 ## 1. How to use this guide
@@ -242,7 +242,7 @@ python -m pip install --upgrade pip
 If script activation is restricted, invoke `.\.venv\Scripts\python.exe` directly instead of changing system execution policy.
 
 - [x] In `pyproject.toml`, declare a `src/` package using setuptools, the supported Python floor, runtime dependencies, and a development extra. Start with `numpy`, `rank-bm25`, `sentence-transformers`, `fastapi`, `uvicorn`, `httpx`, `pydantic`, `pyyaml`, and `streamlit`; use `pytest` and `ruff` for development. Avoid adding an orchestration framework before you have a need for it.
-- [ ] Install with `python -m pip install -e ".[dev]"`. After a clean install works, record exact resolved versions in `requirements.lock.txt` and verify installation from that lock in a second environment.
+- [x] Install with `python -m pip install -e ".[dev]"`. After a clean install works, record exact resolved versions in `requirements.lock.txt` and verify installation from that lock in a second environment.
 - [x] Add a test that rejects `top_k=0`, an unknown retrieval method, and overlapping data directories. It must accept valid default configuration.
 - [x] Implement configuration with these initial settings: `seed=42`, `top_k=5`, `candidate_k=20`, `rrf_k=60`, `chunk_tokens=192`, `chunk_overlap_tokens=32`, `generator_context_tokens=4096`, `max_evidence_tokens=1536`, `max_output_tokens=512`, and `context_safety_margin_tokens=256`. Validate the configured model/tokenizer combination; embedding and generation token counts are different measurements.
 - [x] Add `python -m evidence_assistant.cli doctor`. It prints Python/package versions, configured paths, selected model identifiers, and whether required artifacts exist. Missing artifacts are reported clearly without downloading them automatically.

@@ -10,14 +10,23 @@ Python 3.11 or newer is required. From the repository root in PowerShell:
 
 ```powershell
 python -m venv .venv
-.\.venv\Scripts\python.exe -m pip install -e ".[dev]"
+.\.venv\Scripts\python.exe -m pip install -r requirements.lock.txt
+.\.venv\Scripts\python.exe -m pip install --no-deps --no-build-isolation -e .
 .\.venv\Scripts\python.exe -m evidence_assistant.cli --help
 .\.venv\Scripts\python.exe -m evidence_assistant.cli doctor
 .\.venv\Scripts\python.exe -m pytest -q
 ```
 
 If Python's bundled `ensurepip` is unavailable, create the environment with
-`uv venv .venv` and install using `uv pip install --python .venv\Scripts\python.exe -e ".[dev]"`.
+`uv venv .venv` and install with:
+
+```powershell
+uv pip install --python .venv\Scripts\python.exe -r requirements.lock.txt
+uv pip install --python .venv\Scripts\python.exe --no-deps --no-build-isolation -e .
+```
+
+The full lock was reproduced in a fresh environment on Windows / Python 3.13.0;
+all 80 dependency versions matched, dependency checks passed, and all 47 tests passed.
 
 Configuration paths resolve relative to the YAML file, rather than the current
 working directory. `doctor` inspects local files and package metadata without
@@ -37,8 +46,8 @@ retrieval. Dense/hybrid ranking mechanics have synthetic tests; real embedding
 indexing needs the model dependencies and weights. Answer generation, evaluation,
 API, UI, and Docker packaging are still pending.
 
-The complete dependency installation timed out on large downloads in the initial
-setup. The smaller, tested foundation can be installed independently with uv:
+The complete dependency installation now works. For a smaller SQLite/BM25-only
+environment, the original bootstrap lock remains available:
 
 ```powershell
 uv venv .venv
@@ -46,9 +55,9 @@ uv pip install --python .venv\Scripts\python.exe -r requirements.bootstrap.lock.
 uv pip install --python .venv\Scripts\python.exe --no-deps --no-build-isolation -e .
 ```
 
-`requirements.bootstrap.lock.txt` covers only this milestone. The full runtime
-lock will be created after the full dependency installation is verified; a
-bootstrap install intentionally does not satisfy every dependency in `pyproject.toml`.
+`requirements.bootstrap.lock.txt` covers only the SQLite/BM25 milestone. Use
+`requirements.lock.txt` for the full dependency set. A bootstrap install intentionally
+does not satisfy every dependency in `pyproject.toml`.
 
 Prepare the data and run keyword retrieval:
 

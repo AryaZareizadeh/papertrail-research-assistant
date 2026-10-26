@@ -1,5 +1,6 @@
 .venv/
 .venv-verify/
+.venv-repro/
 .cache/
 .superpowers/
 .pytest_cache/

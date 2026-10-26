@@ -1,0 +1,29 @@
+# Paths resolve relative to this file. Runtime documents and benchmark labels stay separate.
+raw_dir: data/raw
+corpus_dir: data/corpus
+evaluation_dir: data/evaluation
+manifest_dir: data/manifests
+artifact_dir: artifacts
+report_dir: reports
+seed: 42
+retrieval_method: hybrid
+top_k: 5
+candidate_k: 20
+rrf_k: 60
+chunk_tokens: 192
+chunk_overlap_tokens: 32
+embedding_model: sentence-transformers/all-MiniLM-L6-v2
+# Resolved during explicit tokenizer preparation on 26 October 2026.
+embedding_revision: 1110a243fdf4706b3f48f1d95db1a4f5529b4d41
+# Choose after measuring hardware/access; no model is silently downloaded by doctor.
+generation_model: null
+generation_digest: null
+generation_endpoint: http://127.0.0.1:11434
+generation_tokenizer: null
+generation_tokenizer_revision: null
+generator_context_tokens: 4096
+max_evidence_tokens: 1536
+max_output_tokens: 512
+context_safety_margin_tokens: 256
+prompt_version: evidence-v1
+timeout_seconds: 60

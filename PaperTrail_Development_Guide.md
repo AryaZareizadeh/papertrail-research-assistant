@@ -12,6 +12,11 @@
 
 **Prepared:** 26 October 2026. **Deliverable type:** A development guide and implementation plan, not a completed software project.
 
+**Implementation progress (26 October 2026):** The SQLite/BM25 foundation is now
+implemented and tested. Tasks 2 and 3 are complete; Task 1's full runtime lock and
+Task 4's real dense/hybrid model checks remain pending. See
+`reports/experiment_log.md` for evidence, setup decisions, and remaining work.
+
 ## 1. How to use this guide
 
 Work through the tasks in order. Finish each task's acceptance checks before adding the next feature. Keep a short experiment log explaining what changed, why, and what the measurements showed.
@@ -224,8 +229,8 @@ For each task: write the specified failing test, confirm the failure comes from 
 
 **Interfaces:** `load_config(path: Path) -> AppConfig`. CLI entry: `python -m evidence_assistant.cli`.
 
-- [ ] Create a new project folder in your preferred development location and initialize Git.
-- [ ] Create a virtual environment. In PowerShell:
+- [x] Create a new project folder in your preferred development location and initialize Git.
+- [x] Create a virtual environment. In PowerShell:
 
 ```powershell
 python --version
@@ -236,12 +241,12 @@ python -m pip install --upgrade pip
 
 If script activation is restricted, invoke `.\.venv\Scripts\python.exe` directly instead of changing system execution policy.
 
-- [ ] In `pyproject.toml`, declare a `src/` package using setuptools, the supported Python floor, runtime dependencies, and a development extra. Start with `numpy`, `rank-bm25`, `sentence-transformers`, `fastapi`, `uvicorn`, `httpx`, `pydantic`, `pyyaml`, and `streamlit`; use `pytest` and `ruff` for development. Avoid adding an orchestration framework before you have a need for it.
+- [x] In `pyproject.toml`, declare a `src/` package using setuptools, the supported Python floor, runtime dependencies, and a development extra. Start with `numpy`, `rank-bm25`, `sentence-transformers`, `fastapi`, `uvicorn`, `httpx`, `pydantic`, `pyyaml`, and `streamlit`; use `pytest` and `ruff` for development. Avoid adding an orchestration framework before you have a need for it.
 - [ ] Install with `python -m pip install -e ".[dev]"`. After a clean install works, record exact resolved versions in `requirements.lock.txt` and verify installation from that lock in a second environment.
-- [ ] Add a test that rejects `top_k=0`, an unknown retrieval method, and overlapping data directories. It must accept valid default configuration.
-- [ ] Implement configuration with these initial settings: `seed=42`, `top_k=5`, `candidate_k=20`, `rrf_k=60`, `chunk_tokens=192`, `chunk_overlap_tokens=32`, `generator_context_tokens=4096`, `max_evidence_tokens=1536`, `max_output_tokens=512`, and `context_safety_margin_tokens=256`. Validate the configured model/tokenizer combination; embedding and generation token counts are different measurements.
-- [ ] Add `python -m evidence_assistant.cli doctor`. It prints Python/package versions, configured paths, selected model identifiers, and whether required artifacts exist. Missing artifacts are reported clearly without downloading them automatically.
-- [ ] Add ignore rules for `.venv/`, `.env`, downloaded data, model caches, databases, large embeddings, and local run outputs. Commit a sanitized `.env.example` and retain small aggregate reports explicitly.
+- [x] Add a test that rejects `top_k=0`, an unknown retrieval method, and overlapping data directories. It must accept valid default configuration.
+- [x] Implement configuration with these initial settings: `seed=42`, `top_k=5`, `candidate_k=20`, `rrf_k=60`, `chunk_tokens=192`, `chunk_overlap_tokens=32`, `generator_context_tokens=4096`, `max_evidence_tokens=1536`, `max_output_tokens=512`, and `context_safety_margin_tokens=256`. Validate the configured model/tokenizer combination; embedding and generation token counts are different measurements.
+- [x] Add `python -m evidence_assistant.cli doctor`. It prints Python/package versions, configured paths, selected model identifiers, and whether required artifacts exist. Missing artifacts are reported clearly without downloading them automatically.
+- [x] Add ignore rules for `.venv/`, `.env`, downloaded data, model caches, databases, large embeddings, and local run outputs. Commit a sanitized `.env.example` and retain small aggregate reports explicitly.
 
 **Check:** `python -m pytest tests/test_config.py -q` passes; the CLI help and doctor command work. Keep this first commit runnable even though no documents have been indexed yet.
 
@@ -265,15 +270,15 @@ Use the original v0.3 JSON archives as the canonical format. The official loader
 
 Verify download status, inspect archive members, and compute SHA-256 hashes. Extract only the expected files into the project's data directory. These URLs and version names are documented in the [official dataset loader](https://huggingface.co/datasets/allenai/qasper/raw/main/qasper.py).
 
-- [ ] Write a synthetic fixture matching the original release: a dictionary keyed by paper ID, with lists of sections, paragraphs, questions, and answer annotations. Do not mix this with Hugging Face's possible dictionary-of-lists representation.
-- [ ] Add `test_normalizer_separates_runtime_and_gold`. Put a distinctive secret string only in a fixture's gold answer; assert it is absent from exported paper text and runtime metadata. Reuse this fixture to test chunks in Task 3 and model prompts in Task 5.
-- [ ] Normalize the release into document-only records in `data/corpus/` and question/reference records in `data/evaluation/`. Runtime documents may contain the paper's natural text, including prose that happens to answer a question; they must not contain the separate QA annotations.
-- [ ] Make the abstract citable too. If it is not already present as a full-text paragraph, store it under a reserved `Abstract` section with `section_index=-1` and an ID such as `paper_id:abstract:p0000`. Preserve the original full-text section positions.
-- [ ] Preserve every answer annotation, its answer type, evidence strings, and highlighted evidence. An empty evidence list does not automatically mean a question is unanswerable.
-- [ ] Check paper-level split disjointness and count actual papers, questions, and annotations. The official release metadata lists 888 training, 281 validation, and 416 test papers. Record observed counts and investigate discrepancies rather than silently discarding rows. [Official split metadata](https://huggingface.co/datasets/allenai/qasper/blob/main/dataset_infos.json)
-- [ ] Select the debug/validation/test pilot papers by sorting a SHA-256 hash of `seed + split + paper_id` and taking the requested count. Save the IDs before inspecting performance. Do not choose papers based on how well a model answers them.
-- [ ] Retain all questions from those selected papers. Save dataset URLs, version, hashes, counts, selected IDs, and the selection rule in `data/manifests/`.
-- [ ] Read several training examples manually to understand the problem. Leave test answers out of the development workflow.
+- [x] Write a synthetic fixture matching the original release: a dictionary keyed by paper ID, with lists of sections, paragraphs, questions, and answer annotations. Do not mix this with Hugging Face's possible dictionary-of-lists representation.
+- [x] Add `test_normalizer_separates_runtime_and_gold`. Put a distinctive secret string only in a fixture's gold answer; assert it is absent from exported paper text and runtime metadata. Reuse this fixture to test chunks in Task 3 and model prompts in Task 5.
+- [x] Normalize the release into document-only records in `data/corpus/` and question/reference records in `data/evaluation/`. Runtime documents may contain the paper's natural text, including prose that happens to answer a question; they must not contain the separate QA annotations.
+- [x] Make the abstract citable too. If it is not already present as a full-text paragraph, store it under a reserved `Abstract` section with `section_index=-1` and an ID such as `paper_id:abstract:p0000`. Preserve the original full-text section positions.
+- [x] Preserve every answer annotation, its answer type, evidence strings, and highlighted evidence. An empty evidence list does not automatically mean a question is unanswerable.
+- [x] Check paper-level split disjointness and count actual papers, questions, and annotations. The official release metadata lists 888 training, 281 validation, and 416 test papers. Record observed counts and investigate discrepancies rather than silently discarding rows. [Official split metadata](https://huggingface.co/datasets/allenai/qasper/blob/main/dataset_infos.json)
+- [x] Select the debug/validation/test pilot papers by sorting a SHA-256 hash of `seed + split + paper_id` and taking the requested count. Save the IDs before inspecting performance. Do not choose papers based on how well a model answers them.
+- [x] Retain all questions from those selected papers. Save dataset URLs, version, hashes, counts, selected IDs, and the selection rule in `data/manifests/`.
+- [x] Read several training examples manually to understand the problem. Leave test answers out of the development workflow.
 
 **Commands after implementation:**
 
@@ -297,13 +302,13 @@ build_store(papers: list[Paper], paragraphs: list[Paragraph], chunks: list[Chunk
 get_chunk(db_path: Path, chunk_id: str) -> Chunk | None
 ```
 
-- [ ] Test a short paragraph, an empty paragraph, Unicode text, repeated identical paragraphs, and a paragraph longer than the embedding model's limit.
-- [ ] Store original text unchanged. Give repeated paragraphs different positional IDs even when their hashes match.
-- [ ] Split long paragraphs into overlapping token windows. Preserve `start_char`/`end_char` using tokenizer offsets; assert `paragraph.text[start_char:end_char] == chunk.text` for every chunk. Avoid trying to reconstruct character offsets by decoding tokens.
-- [ ] Target 192 content tokens with 32-token overlap. If a section/title prefix is embedded, cap that prefix and verify the combined input, including special tokens, fits the model's actual maximum. Do not allow silent tokenizer truncation.
-- [ ] Create SQLite tables for `papers`, `paragraphs`, and `chunks` with primary keys, foreign keys, split metadata, and source hashes. Add run-record tables when the answer service needs them.
-- [ ] Save a chunking manifest with configuration and version. A changed chunking policy requires rebuilding embeddings and invalidating incompatible caches.
-- [ ] Export paragraph statistics: counts, lengths, empty records, duplicate-text occurrences, and overlong paragraphs split. Keep malformed rows visible in a rejection log.
+- [x] Test a short paragraph, an empty paragraph, Unicode text, repeated identical paragraphs, and a paragraph longer than the embedding model's limit.
+- [x] Store original text unchanged. Give repeated paragraphs different positional IDs even when their hashes match.
+- [x] Split long paragraphs into overlapping token windows. Preserve `start_char`/`end_char` using tokenizer offsets; assert `paragraph.text[start_char:end_char] == chunk.text` for every chunk. Avoid trying to reconstruct character offsets by decoding tokens.
+- [x] Target 192 content tokens with 32-token overlap. If a section/title prefix is embedded, cap that prefix and verify the combined input, including special tokens, fits the model's actual maximum. Do not allow silent tokenizer truncation.
+- [x] Create SQLite tables for `papers`, `paragraphs`, and `chunks` with primary keys, foreign keys, split metadata, and source hashes. Add run-record tables when the answer service needs them.
+- [x] Save a chunking manifest with configuration and version. A changed chunking policy requires rebuilding embeddings and invalidating incompatible caches.
+- [x] Export paragraph statistics: counts, lengths, empty records, duplicate-text occurrences, and overlong paragraphs split. Keep malformed rows visible in a rejection log.
 
 **Commands:**
 
@@ -325,13 +330,13 @@ build_index(db_path: Path, output_dir: Path, config: AppConfig) -> IndexManifest
 retrieve(question: str, paper_id: str, method: str, top_k: int, index) -> list[RetrievedChunk]
 ```
 
-- [ ] Create a fixture with two papers containing similar terms. Assert that requesting one paper never returns the other's chunks, including through the hybrid path.
-- [ ] Implement BM25 with a documented English tokenizer. For example, case-fold and extract word/number tokens; keep the same tokenizer for queries and documents.
+- [x] Create a fixture with two papers containing similar terms. Assert that requesting one paper never returns the other's chunks, including through the hybrid path.
+- [x] Implement BM25 with a documented English tokenizer. For example, case-fold and extract word/number tokens; keep the same tokenizer for queries and documents.
 - [ ] Encode chunks with the configured sentence-transformer. Cache normalized vectors and their ordered chunk IDs. For normalized vectors, compute cosine rankings with a dot product.
-- [ ] Verify vector row count, chunk-ID order, dimension, and model revision against the index manifest. Reject incompatible artifacts.
-- [ ] Implement hybrid retrieval using `sum(1 / (60 + rank))` across the two candidate lists, where ranks start at 1. Use up to 20 candidates per method, deduplicate by chunk ID, and return the top five. Use deterministic tie-breaking by chunk ID.
-- [ ] Apply paper filtering before scoring/ranking. Return an empty list for a paper with no indexable text and a distinct unknown-paper error for an invalid ID.
-- [ ] Add CLI output showing chunk IDs, section labels, scores, and source text. Inspect at least ten training questions and explain why each result is relevant or irrelevant.
+- [x] Verify vector row count, chunk-ID order, dimension, and model revision against the index manifest. Reject incompatible artifacts.
+- [x] Implement hybrid retrieval using `sum(1 / (60 + rank))` across the two candidate lists, where ranks start at 1. Use up to 20 candidates per method, deduplicate by chunk ID, and return the top five. Use deterministic tie-breaking by chunk ID.
+- [x] Apply paper filtering before scoring/ranking. Return an empty list for a paper with no indexable text and a distinct unknown-paper error for an invalid ID.
+- [x] Add CLI output showing chunk IDs, section labels, scores, and source text. Inspect at least ten training questions and explain why each result is relevant or irrelevant.
 - [ ] Measure index-build time and retrieval latency separately. Keep model download/load time separate from warm-query timing.
 
 **Commands:**

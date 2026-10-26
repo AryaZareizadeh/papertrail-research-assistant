@@ -18,7 +18,12 @@ the presence of implementation code.
   paragraph has complete character coverage. SQLite integrity/foreign-key checks
   pass. Maximum actual input is 194 tokens against the pinned 256-token limit.
   All 13 chunk/store/pipeline/tokenizer tests pass; full suite remains 47/47.
-- [ ] Task 4 — Finish real dense/hybrid indexing and retrieval measurements.
+- [x] Task 4 — Real dense/hybrid indexing and retrieval measurements.
+  Pinned MiniLM weights built a normalized 4,440 × 384 index. All three methods
+  returned only the selected paper's chunks on ten training questions. Model load,
+  index build, artifact load, and warm-query timings were measured separately.
+  Eleven retrieval tests and 48 total tests pass. Exploratory timing only; no
+  benchmark superiority claimed.
 - [ ] Task 5 — Answer generation and citation validation.
 - [ ] Task 6 — Evaluation pipeline.
 - [ ] Task 7 — Failure analysis and a measured improvement.

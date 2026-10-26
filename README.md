@@ -26,7 +26,7 @@ uv pip install --python .venv\Scripts\python.exe --no-deps --no-build-isolation 
 ```
 
 The full lock was reproduced in a fresh environment on Windows / Python 3.13.0;
-all 80 dependency versions matched, dependency checks passed, and all 47 tests passed.
+all 80 dependency versions matched, dependency checks passed, and all 48 tests passed.
 
 Configuration paths resolve relative to the YAML file, rather than the current
 working directory. `doctor` inspects local files and package metadata without
@@ -42,9 +42,9 @@ remaining work. No answer-quality or runtime claims have been measured yet.
 
 The implemented commands cover configuration, official QASPER download and
 normalization, tokenizer preparation, source-preserving SQLite chunks, and BM25
-retrieval. Dense/hybrid ranking mechanics have synthetic tests; real embedding
-indexing needs the model dependencies and weights. Answer generation, evaluation,
-API, UI, and Docker packaging are still pending.
+retrieval. Real dense and hybrid retrieval now work with the pinned MiniLM model;
+the pilot index contains 4,440 normalized 384-dimensional vectors. Answer generation,
+evaluation, API, UI, and Docker packaging are still pending.
 
 The complete dependency installation now works. For a smaller SQLite/BM25-only
 environment, the original bootstrap lock remains available:

@@ -13,8 +13,8 @@
 **Prepared:** 26 October 2026. **Deliverable type:** A development guide and implementation plan, not a completed software project.
 
 **Implementation progress (26 October 2026):** The SQLite/BM25 foundation is now
-implemented and tested. Tasks 1, 2, and 3 are complete; Task 4's real dense/hybrid
-model checks remain pending. See
+implemented and tested. Tasks 1–4 are complete, including the full dependency lock
+and real dense/hybrid retrieval checks. Answer generation is next. See
 `reports/experiment_log.md` for evidence, setup decisions, and remaining work.
 
 ## 1. How to use this guide
@@ -332,12 +332,12 @@ retrieve(question: str, paper_id: str, method: str, top_k: int, index) -> list[R
 
 - [x] Create a fixture with two papers containing similar terms. Assert that requesting one paper never returns the other's chunks, including through the hybrid path.
 - [x] Implement BM25 with a documented English tokenizer. For example, case-fold and extract word/number tokens; keep the same tokenizer for queries and documents.
-- [ ] Encode chunks with the configured sentence-transformer. Cache normalized vectors and their ordered chunk IDs. For normalized vectors, compute cosine rankings with a dot product.
+- [x] Encode chunks with the configured sentence-transformer. Cache normalized vectors and their ordered chunk IDs. For normalized vectors, compute cosine rankings with a dot product.
 - [x] Verify vector row count, chunk-ID order, dimension, and model revision against the index manifest. Reject incompatible artifacts.
 - [x] Implement hybrid retrieval using `sum(1 / (60 + rank))` across the two candidate lists, where ranks start at 1. Use up to 20 candidates per method, deduplicate by chunk ID, and return the top five. Use deterministic tie-breaking by chunk ID.
 - [x] Apply paper filtering before scoring/ranking. Return an empty list for a paper with no indexable text and a distinct unknown-paper error for an invalid ID.
 - [x] Add CLI output showing chunk IDs, section labels, scores, and source text. Inspect at least ten training questions and explain why each result is relevant or irrelevant.
-- [ ] Measure index-build time and retrieval latency separately. Keep model download/load time separate from warm-query timing.
+- [x] Measure index-build time and retrieval latency separately. Keep model download/load time separate from warm-query timing.
 
 **Commands:**
 

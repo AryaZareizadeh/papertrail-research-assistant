@@ -33,8 +33,25 @@ claim-support auditing, and measured refusal behavior have not run.
 - Largest actual embedding-tokenizer input: 194 tokens including special tokens;
   prepared sentence-transformer input limit: 256.
 - Tokenizer/model revision: `1110a243fdf4706b3f48f1d95db1a4f5529b4d41`.
-- Model weights and actual dense/hybrid retrieval are not ready. No test answers
-  were used for configuration choices or this inspection.
+- Model weights and actual dense/hybrid retrieval were verified during the
+  subsequent Task 4 audit. No test answers were used for configuration choices
+  or these training inspections.
 
 QASPER provenance and attribution: [official dataset card](https://huggingface.co/datasets/allenai/qasper),
 Dasigi et al., 2021. Dataset terms: CC BY 4.0; separate from this project's code.
+
+## Subsequent real dense/hybrid smoke check
+
+Pinned MiniLM built 4,440 normalized 384-dimensional vectors on CPU. The same ten
+training questions were inspected with all three retrieval methods, each scoped
+to its selected paper. Dense retrieval's top result found the explicit NER error
+categories where BM25 returned a broad conclusion. Hybrid's top result for that
+question instead discussed error-evaluation metrics, illustrating a fusion miss.
+All methods still returned generation-workflow text for the story-evaluation
+question. Qualitative examples do not establish that one method is better overall.
+
+Warm retrieval timings for these ten questions (p50/p95, milliseconds): BM25
+3.69/4.81; dense 51.69/129.50; hybrid 35.05/51.18. The first index build took
+68.58 seconds including 11.68 seconds of model/library loading; build work excluding
+load took 56.90 seconds. This small exploratory sample is not a latency benchmark.
+Machine-readable details remain local in `reports/runs/task4_audit.json`.

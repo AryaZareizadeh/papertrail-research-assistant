@@ -68,7 +68,10 @@ def build_index(
     chunks = list_chunks(db_path)
     if not chunks:
         raise ValueError("No chunks to index")
-    encoder = load_encoder(config) if encoder is None else encoder
+    loaded_here = encoder is None
+    load_started = perf_counter()
+    encoder = load_encoder(config) if loaded_here else encoder
+    model_load_ms = (perf_counter() - load_started) * 1000 if loaded_here else 0.0
     actual_limit = min(
         encoder.max_seq_length, encoder.tokenizer.model_max_length, config.embedding_max_tokens
     )
@@ -76,9 +79,11 @@ def build_index(
         actual_tokens = len(encoder.tokenizer(chunk.text, truncation=False)["input_ids"])
         if actual_tokens > actual_limit:
             raise ValueError("Chunk exceeds the encoder's actual input limit; rebuild chunks")
+    encode_started = perf_counter()
     vectors = _normalize(
         encoder.encode([c.text for c in chunks], normalize_embeddings=True, show_progress_bar=False)
     )
+    embedding_encode_ms = (perf_counter() - encode_started) * 1000
     if len(vectors) != len(chunks):
         raise ValueError("Embedding row count does not match chunks")
     output_dir.mkdir(parents=True, exist_ok=True)
@@ -105,9 +110,16 @@ def build_index(
         index_version=text_hash(corpus_hash + file_hash(vector_path) + metadata["revision"]),
     )
     write_json(output_dir / "index_manifest.json", manifest)
+    elapsed_ms = (perf_counter() - started) * 1000
     write_json(
         output_dir / "index_build.json",
-        {"elapsed_ms": (perf_counter() - started) * 1000, "includes_model_load": True},
+        {
+            "elapsed_ms": elapsed_ms,
+            "includes_model_load": loaded_here,
+            "model_load_ms": model_load_ms,
+            "index_build_ms": elapsed_ms - model_load_ms,
+            "embedding_encode_ms": embedding_encode_ms,
+        },
     )
     return manifest
 

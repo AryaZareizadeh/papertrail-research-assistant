@@ -172,3 +172,10 @@ def test_failed_manifest_publication_preserves_previous_index(retrieval_setup, m
         )
     index = RetrievalIndex.load(retrieval_setup, encoder=TinyEncoder())
     assert retrieve("dataset", "selected", "dense", 1, index)[0].chunk.text == "Dataset Alpha"
+
+
+def test_preloaded_encoder_timing_excludes_model_loading(retrieval_setup):
+    timing = json.loads((retrieval_setup.artifact_dir / "index_build.json").read_text())
+    assert timing["includes_model_load"] is False
+    assert timing["model_load_ms"] == 0
+    assert timing["index_build_ms"] >= timing["embedding_encode_ms"] >= 0

@@ -38,9 +38,9 @@ downloads require network access beyond the restricted shell sandbox.
   4,043 paragraphs across 85 pilot papers. Every stored source span was checked;
   maximum actual input was 194 tokens including special tokens, below limit 256.
   Chunking manifest and rejection/statistics records saved locally.
-- Task 4: BM25 works on real pilot papers; ten training-question results inspected.
-  Dense/hybrid mechanics and index integrity have deterministic synthetic tests.
-  Actual dense/hybrid model loading, indexing, and retrieval are pending.
+- Task 4: complete — pinned MiniLM built a real normalized 4,440 × 384 index.
+  BM25/dense/hybrid retrieved only the selected paper on ten training questions;
+  source relevance and misses inspected. Separate load/build/warm timing recorded.
 - Tasks 5–10: pending; no generated answers, benchmark scores, API, UI, or Docker
   readiness claimed.
 
@@ -119,4 +119,29 @@ Every nonblank paragraph has complete character coverage. Duplicate text retains
 distinct positional IDs. Maximum actual input: 194 tokens, below the pinned limit
 of 256. Full suite: 47 passed. Details: `reports/runs/task3_audit.json`.
 
-Next audit: Task 4's real dense/hybrid index, compatible artifacts, and timing.
+Task 4 audit: all eight guide items checked. Full pinned MiniLM weights downloaded;
+index dimensions 4,440 × 384, normalized vectors, source/model/tokenizer manifests
+validated. All three methods returned only selected-paper chunks on ten training
+questions. Dense retrieval improved some inspected error-type evidence but still
+missed story-evaluation evidence; this is not a benchmark improvement claim.
+Fixed an observed timing-label bug with a RED→GREEN regression test: a preloaded
+encoder now records zero load time and excludes it from index-build timing.
+Eleven retrieval tests and 48 total tests pass, including in `.venv-repro`.
+
+CPU smoke timing (10 training queries/method, PyTorch 2.14.1+cpu, 10 threads):
+initial index build 68.58 s total, model/library load 11.68 s, build excluding load
+56.90 s, embedding encoding 55.44 s. Warm query p50/p95: BM25 3.69/4.81 ms,
+dense 51.69/129.50 ms, hybrid 35.05/51.18 ms. Sampling/warmup differences can
+explain latency ordering; these figures are not representative benchmark estimates.
+Detailed records: `reports/runs/task4_audit.json` and
+`reports/runs/training_retrieval_comparison.json`.
+
+User selected hosted generation and requested a free option. Official Groq docs
+show a Free Plan for `openai/gpt-oss-20b`, supporting strict JSON schema output.
+Published limits checked 26 October 2026: 30 RPM, 1,000 RPD, 8,000 TPM, 200,000 TPD;
+actual account limits may differ. Sources: https://console.groq.com/docs/rate-limits
+and https://console.groq.com/docs/structured-outputs. User will put `GROQ_API_KEY`
+in the ignored project `.env`; no key content is logged or committed.
+
+Next: implement Task 5 against the hosted adapter, keeping a live model/token-budget
+smoke test pending until credentials and provider behavior are verified.

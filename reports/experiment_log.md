@@ -41,8 +41,11 @@ downloads require network access beyond the restricted shell sandbox.
 - Task 4: complete — pinned MiniLM built a real normalized 4,440 × 384 index.
   BM25/dense/hybrid retrieved only the selected paper on ten training questions;
   source relevance and misses inspected. Separate load/build/warm timing recorded.
-- Tasks 5–10: pending; no generated answers, benchmark scores, API, UI, or Docker
-  readiness claimed.
+- Task 5: hosted Groq adapter, answer/citation service, pinned tokenizer, and local
+  run persistence implemented and tested offline. Live API and provider token-count
+  verification remain pending `GROQ_API_KEY` in the user's ignored `.env`.
+- Tasks 6–10: pending; no real generated answers, benchmark scores, API, UI, or
+  Docker readiness claimed.
 
 Ruling: While runtime dependencies download, implement and test the standard-library
 and lightweight ingestion path. Configuration/CLI tests already pass; no ingestion
@@ -145,3 +148,64 @@ in the ignored project `.env`; no key content is logged or committed.
 
 Next: implement Task 5 against the hosted adapter, keeping a live model/token-budget
 smoke test pending until credentials and provider behavior are verified.
+
+### Task 5 implementation and current acceptance boundary
+
+User chose hosted inference, requested a free option, and selected the project's
+ignored `.env` as the location for `GROQ_API_KEY`. Config now targets Groq Free Plan
+`openai/gpt-oss-20b`. Only its tokenizer was downloaded, at resolved revision
+`6cee5e81ee83917806bbde320786a8fb61efebee`; local Harmony template tokenization
+was exercised successfully. No hosted calls were made without credentials.
+
+Implemented the same answer service for CLI and future evaluator/API consumers:
+ranked context is trimmed by whole chunks; the provider receives document-only
+context and a strict claim/citation schema; valid claims cite only supplied chunks;
+quotes are reconstructed from checked original source spans. Provider errors,
+quota failures, invalid/truncated output, and source changes remain errors rather
+than evidence refusals. Mutable run JSON and `reports/runs/runs.sqlite` preserve
+the corpus/index database. Source/configuration/prompt hashes, generation options,
+retry attempts, safe error codes/stages, and separate estimated/actual token counts
+are recorded. Unavailable actual usage is null; known usage survives rejected output.
+
+Fresh independent review found three P2 audit gaps: discarded usage on rejected
+completions, missing safe failure reasons, and incomplete run provenance. Each was
+reproduced with failing tests and fixed in one pass. Additional tests cover altered
+source spans, citations to dropped context, original interruption preservation,
+SQLite run queries, actual output-budget violations, and missing-key CLI behavior.
+Current suite: 74 passed, one explicitly gated live test skipped. Ruff and dependency
+checks pass. The full lock now has 81 dependency pins (adding python-dotenv 1.2.4);
+all 81 matched in `.venv-repro`, where the same suite passed.
+
+Ruling: The adapter returns provider usage/fingerprint alongside content and parsing
+is a separate function, replacing the plan's draft-only adapter signature. This
+retains audit data for failed outputs. Cost if wrong: adjust internal callers; the
+public `answer_question` contract is unchanged and the guide reflects the interface.
+
+Task 5 remains incomplete: the local key is still empty and provider-added prompt
+formatting has not been calibrated against actual usage. Full-prompt counts are
+explicitly estimates; no fixed-token-budget comparisons or answer quality claims
+are made. Follow the requested sequence and finish this acceptance check before
+starting Task 6. Setup is documented in `docs/hosted_model_setup.md`.
+
+### Task 5 acceptance completed; Groq baseline retained
+
+The preceding credential block is resolved. The opt-in live training-paper test
+passed (request c3ac4f9e1cd345aca7a9ee4d73699e41, one attempt, 709 input / 199
+output tokens). Three training-paper probes consistently showed a -11-token
+prompt offset. An independent fourth prompt matched exactly at 908 tokens after
+calibration, and loading the persisted calibration reproduced that same count.
+An unsupported annual-marketing-budget probe returned insufficient evidence.
+These are functional checks, not an answer-quality benchmark.
+
+Calibration is bound to endpoint/model/tokenizer files, prompt/schema, and request
+options. A regression test verifies recovery by recalibrating without loading a
+stale calibration. Ordinary suite: 77 passed, one live test skipped; the live test
+passed separately. Ruff passes. The suite also passes in the reproduced environment
+using a workspace temporary directory (the sandbox's default temp directory was
+unwritable). Task 5 is complete for Groq; Task 6 follows.
+
+User decision: retain working Groq/GPT-OSS as the baseline, then compare Requesty's
+NVIDIA Nemotron on identical questions and saved supplied passages. Switch only if
+correctness and evidence support improve with acceptable latency. No provider
+switch or paid fallback has been configured. Requesty requires its own credential,
+format checks, and tokenizer calibration before that comparison.

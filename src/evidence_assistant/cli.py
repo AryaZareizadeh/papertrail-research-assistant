@@ -68,9 +68,12 @@ def main(argv: list[str] | None = None) -> int:
         "normalize": "Separate runtime paper text from benchmark annotations",
         "prepare-tokenizer": "Download and pin the small embedding tokenizer",
         "prepare-embedding": "Download and pin the full embedding model",
+        "prepare-generation-tokenizer": "Download and pin only the hosted model tokenizer",
+        "calibrate-generation": "Verify hosted prompt token counts using training papers",
         "chunk": "Build source-preserving chunks and SQLite storage",
         "index": "Build dense embedding artifacts",
         "retrieve": "Find evidence in one selected paper",
+        "answer": "Answer with hosted generation and stored source citations",
     }
     for name, description in descriptions.items():
         command = commands.add_parser(name, help=description)
@@ -79,7 +82,7 @@ def main(argv: list[str] | None = None) -> int:
             command.add_argument(
                 "--all-papers", action="store_true", help="Expand beyond pilot papers"
             )
-        if name == "retrieve":
+        if name in {"retrieve", "answer"}:
             command.add_argument("--paper-id", required=True)
             command.add_argument("--question", required=True)
             command.add_argument("--method", choices=["bm25", "dense", "hybrid"])
@@ -100,6 +103,30 @@ def main(argv: list[str] | None = None) -> int:
             from evidence_assistant.pipeline import build_chunks
 
             result = build_chunks(config, load_tokenizer(config), all_papers=args.all_papers)
+        elif args.command == "prepare-generation-tokenizer":
+            from evidence_assistant.generation_tokens import prepare_generation_tokenizer
+
+            result = prepare_generation_tokenizer(config)
+        elif args.command == "calibrate-generation":
+            from evidence_assistant.generation import ProviderError
+            from evidence_assistant.generation_tokens import calibrate_generation
+
+            try:
+                result = calibrate_generation(config)
+            except ProviderError as exc:
+                print(f"Model service error: {exc}", file=sys.stderr)
+                return 3
+        elif args.command == "answer":
+            from evidence_assistant.generation import ProviderError
+            from evidence_assistant.service import answer_question, build_answer_service
+
+            method = args.method or config.retrieval_method
+            try:
+                service = build_answer_service(config, method)
+                result = answer_question(args.question, args.paper_id, method, service).model_dump()
+            except ProviderError as exc:
+                print(f"Model service error: {exc}", file=sys.stderr)
+                return 3
         elif args.command == "index":
             from evidence_assistant.retrieval import build_index
 

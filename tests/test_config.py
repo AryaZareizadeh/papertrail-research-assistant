@@ -91,3 +91,35 @@ def test_cli_malformed_yaml_has_no_traceback(tmp_path):
     )
     assert result.returncode == 2
     assert "Traceback" not in result.stderr
+
+
+def test_answer_cli_reports_missing_key_without_loading_models(tmp_path, monkeypatch):
+    variable = "PAPERTRAIL_MISSING_KEY_TEST"
+    monkeypatch.delenv(variable, raising=False)
+    path = write_config(
+        tmp_path,
+        generation_model="openai/gpt-oss-20b",
+        generation_tokenizer="openai/gpt-oss-20b",
+        generation_api_key_env=variable,
+        dotenv_path=str(tmp_path / "missing.env"),
+    )
+    result = subprocess.run(
+        [
+            sys.executable,
+            "-m",
+            "evidence_assistant.cli",
+            "answer",
+            "--config",
+            str(path),
+            "--paper-id",
+            "some-paper",
+            "--question",
+            "Which dataset?",
+        ],
+        capture_output=True,
+        text=True,
+        check=False,
+    )
+    assert result.returncode == 3
+    assert variable in result.stderr
+    assert "Traceback" not in result.stderr

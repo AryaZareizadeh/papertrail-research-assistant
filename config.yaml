@@ -15,12 +15,14 @@ chunk_overlap_tokens: 32
 embedding_model: sentence-transformers/all-MiniLM-L6-v2
 # Resolved during explicit tokenizer preparation on 26 October 2026.
 embedding_revision: 1110a243fdf4706b3f48f1d95db1a4f5529b4d41
-# Choose after measuring hardware/access; no model is silently downloaded by doctor.
-generation_model: null
+# Hosted Groq Free Plan. Only the tokenizer is downloaded locally.
+generation_model: openai/gpt-oss-20b
 generation_digest: null
-generation_endpoint: http://127.0.0.1:11434
-generation_tokenizer: null
-generation_tokenizer_revision: null
+generation_endpoint: https://api.groq.com/openai/v1
+generation_api_key_env: GROQ_API_KEY
+dotenv_path: .env
+generation_tokenizer: openai/gpt-oss-20b
+generation_tokenizer_revision: 6cee5e81ee83917806bbde320786a8fb61efebee
 generator_context_tokens: 4096
 max_evidence_tokens: 1536
 max_output_tokens: 512

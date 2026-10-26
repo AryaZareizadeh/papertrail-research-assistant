@@ -6,15 +6,16 @@
 
 **Architecture:** Convert QASPER papers into a document-only corpus, retain stable paragraph identifiers, and compare keyword, embedding, and hybrid retrieval. Supply retrieved passages to a language model and construct citations from stored source text. A separate evaluator measures answers, evidence retrieval, citation support, and abstention without exposing benchmark annotations to the application.
 
-**Tech Stack:** Python, SQLite, NumPy, rank-bm25, sentence-transformers, one configurable language-model backend, FastAPI, Streamlit, pytest, and Docker. Use local Ollama as the initial generation adapter if your computer can run a suitable model; the core retrieval pipeline runs independently of generation.
+**Tech Stack:** Python, SQLite, NumPy, rank-bm25, sentence-transformers, one configurable language-model backend, FastAPI, Streamlit, pytest, and Docker. The user selected a free hosted API: start with Groq's Free Plan and `openai/gpt-oss-20b`, subject to a live account/model smoke test. The core retrieval pipeline runs independently of generation.
 
 **Spec:** The design contract in Section 2 of this document. The defaults below are proposed implementation choices, not requirements previously supplied by Arya.
 
 **Prepared:** 26 October 2026. **Deliverable type:** A development guide and implementation plan, not a completed software project.
 
 **Implementation progress (26 October 2026):** The SQLite/BM25 foundation is now
-implemented and tested. Tasks 1–4 are complete, including the full dependency lock
-and real dense/hybrid retrieval checks. Answer generation is next. See
+implemented and tested. Tasks 1–5 are complete, including the full dependency lock,
+real dense/hybrid retrieval, live Groq generation, and calibrated provider token
+accounting. Task 6 evaluation is next. See
 `reports/experiment_log.md` for evidence, setup decisions, and remaining work.
 
 ## 1. How to use this guide
@@ -359,21 +360,22 @@ Replace `PAPER_ID` with an actual debug-paper ID. Add a cross-encoder reranker o
 **Interfaces:**
 
 ```python
-generate_draft(question: str, chunks: list[RetrievedChunk], config: AppConfig) -> DraftAnswer
+GroqAdapter.generate(messages: list[dict], schema: dict) -> ProviderReply
+parse_draft(content: str) -> DraftAnswer
 validate_draft(draft: DraftAnswer, retrieved: list[RetrievedChunk]) -> None
 answer_question(question: str, paper_id: str, method: str, service) -> AnswerResult
 ```
 
-- [ ] Use a fake model response to test valid claims, a fabricated citation ID, a citation from another paper, answered output with no claims, invalid JSON, a model timeout, and evidence that exceeds the context budget. These tests must not contact a provider.
-- [ ] Implement one generation adapter. For Ollama, use `/api/chat`, request a JSON schema, and disable streaming for the first version. Configure a fixed model identifier, temperature 0, and an output limit. Record runtime settings; temperature 0 is not a guarantee of identical outputs across hardware or versions. [Ollama chat API](https://docs.ollama.com/api/chat)
-- [ ] Supply only the question, selected-paper metadata, and retrieved text chunks with allowed citation IDs. Never pass gold answers, evidence annotations, or dataset question metadata beyond the question text itself.
-- [ ] Instruct the model to make only source-supported claims and to use `insufficient_evidence` when it cannot justify an answer. Keep this as a versioned prompt file or constant.
-- [ ] Validate that every cited ID belongs to the retrieved chunks for this paper. Build each displayed quote from the stored chunk/source offsets, not model-authored quotation text.
-- [ ] For answered output, require at least one claim and at least one citation per claim. For insufficient evidence, require empty claims. Resolve duplicate citations deterministically.
-- [ ] Return a distinct model/service error when generation times out or produces invalid structured output. Do not count these failures as successful abstentions. Allow at most one bounded retry for a transient transport failure; log both attempts.
-- [ ] Enforce the generator-specific context budget using a pinned matching tokenizer and chat template. Reserve space for instructions, question, metadata, output, and the safety margin. If evidence must be reduced, drop the lowest-ranked chunks, record which chunks were actually supplied, and keep the same policy across methods. Do not silently cut quoted source text. If the chosen backend's token counting cannot be verified, document that limitation and resolve it before making fixed-token-budget comparisons.
-- [ ] Add a fixture paragraph containing an instruction to ignore the question. Verify that the prompt treats it as quoted document content and that the application exposes no execution tools.
-- [ ] Store run ID, selected paper, question, retrieved/supplied chunk IDs, source/index/model/prompt versions, status, latency, and errors. Keep actual and estimated token counts distinguishable.
+- [x] Use a fake model response to test valid claims, a fabricated citation ID, a citation from another paper, answered output with no claims, invalid JSON, a model timeout, and evidence that exceeds the context budget. These tests must not contact a provider.
+- [x] Implement one hosted generation adapter. For Groq, use `/openai/v1/chat/completions`, request strict JSON schema, and disable streaming. Configure a fixed model identifier, temperature 0, low reasoning effort, and an output limit. Record runtime settings; temperature 0 is not a guarantee of identical outputs across hardware or versions. Read `GROQ_API_KEY` from the ignored `.env` or environment. Keep the account on the Free Plan; do not add paid fallbacks. [Groq API](https://console.groq.com/docs/openai), [structured outputs](https://console.groq.com/docs/structured-outputs)
+- [x] Supply only the question, selected-paper metadata, and retrieved text chunks with allowed citation IDs. Never pass gold answers, evidence annotations, or dataset question metadata beyond the question text itself.
+- [x] Instruct the model to make only source-supported claims and to use `insufficient_evidence` when it cannot justify an answer. Keep this as a versioned prompt file or constant.
+- [x] Validate that every cited ID belongs to the retrieved chunks for this paper. Build each displayed quote from the stored chunk/source offsets, not model-authored quotation text.
+- [x] For answered output, require at least one claim and at least one citation per claim. For insufficient evidence, require empty claims. Resolve duplicate citations deterministically.
+- [x] Return a distinct model/service error when generation times out or produces invalid structured output. Do not count these failures as successful abstentions. Allow at most one bounded retry for a transient transport failure; log both attempts.
+- [x] Enforce the generator-specific context budget using a pinned matching tokenizer and chat template. Reserve space for instructions, question, metadata, output, and the safety margin. If evidence must be reduced, drop the lowest-ranked chunks, record which chunks were actually supplied, and keep the same policy across methods. Do not silently cut quoted source text. If the chosen backend's token counting cannot be verified, document that limitation and resolve it before making fixed-token-budget comparisons.
+- [x] Add a fixture paragraph containing an instruction to ignore the question. Verify that the prompt treats it as quoted document content and that the application exposes no execution tools.
+- [x] Store run ID, selected paper, question, retrieved/supplied chunk IDs, source/index/model/prompt versions, status, latency, and errors. Keep actual and estimated token counts distinguishable.
 
 **Command:**
 
@@ -513,7 +515,7 @@ The UI calls the API. A UI change must not silently change the retrieval or gene
 **Create:** `Dockerfile`, `compose.yaml`, CI workflow, README, data/model cards, and release report.
 
 - [ ] Build a CPU-capable application image from the tested lock file. Keep dataset/model acquisition as an explicit setup step, then mount the prepared corpus/index artifacts for runtime use.
-- [ ] Define API and UI services. The UI uses `http://api:8000` inside Compose. On Windows Docker Desktop, an Ollama process running on the host can be reached through `host.docker.internal`; verify that connection in your environment and document it. Bind demo ports to localhost.
+- [ ] Define API and UI services. The UI uses `http://api:8000` inside Compose. Configure the hosted provider key at runtime through an ignored environment file; do not copy it into the image. Verify outbound provider access from the API container. Bind demo ports to localhost.
 - [ ] Mount corpus/index files read-only where practical and put run logs in a separate writable location. Do not mount benchmark references into the application container.
 - [ ] Add CI for linting and deterministic unit/integration tests using synthetic fixtures and fake model responses. Keep network/model-download tests separately enabled.
 - [ ] Verify startup and the complete question-to-citation flow from a clean environment. Document model downloads and hardware requirements separately from container startup.
@@ -601,7 +603,9 @@ Do not invent improvements, describe a local demo as enterprise production, or c
 - [Official QASPER baseline repository](https://github.com/allenai/qasper-led-baseline)
 - [Official evaluation implementation](https://raw.githubusercontent.com/allenai/qasper-led-baseline/main/scripts/evaluator.py)
 - [MiniLM embedding model card](https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2)
-- [Ollama chat API](https://docs.ollama.com/api/chat)
+- [Groq OpenAI-compatible API](https://console.groq.com/docs/openai)
+- [Groq structured outputs](https://console.groq.com/docs/structured-outputs)
+- [Groq Free Plan rate limits](https://console.groq.com/docs/rate-limits)
 - [FastAPI first steps](https://fastapi.tiangolo.com/tutorial/first-steps/)
 - [Streamlit chat input](https://docs.streamlit.io/develop/api-reference/chat/st.chat_input)
 - [Docker Desktop networking](https://docs.docker.com/desktop/features/networking/)

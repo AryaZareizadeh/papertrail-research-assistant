@@ -1,10 +1,11 @@
 """SQLite persistence boundary; a later PostgreSQL adapter can preserve these records."""
 
+import json
 import sqlite3
 from contextlib import closing
 from pathlib import Path
 
-from evidence_assistant.data import text_hash
+from evidence_assistant.data import text_hash, write_json
 from evidence_assistant.schemas import Chunk, Paper, Paragraph
 
 
@@ -119,3 +120,23 @@ def get_paragraph(db_path: Path, paper_id: str, paragraph_id: str) -> Paragraph 
         Paragraph,
     )
     return records[0] if records else None
+
+
+def write_run(directory: Path, record: dict) -> None:
+    """Keep mutable run records separate from the immutable corpus/index database."""
+    write_json(directory / f"{record['request_id']}.json", record)
+    with closing(sqlite3.connect(directory / "runs.sqlite")) as connection, connection:
+        connection.execute("""CREATE TABLE IF NOT EXISTS runs (
+            request_id TEXT PRIMARY KEY, paper_id TEXT NOT NULL, status TEXT NOT NULL,
+            latency_ms REAL NOT NULL, record TEXT NOT NULL
+        )""")
+        connection.execute(
+            "INSERT INTO runs VALUES (?, ?, ?, ?, ?)",
+            (
+                record["request_id"],
+                record["paper_id"],
+                record["status"],
+                record["latency_ms"],
+                json.dumps(record, ensure_ascii=False),
+            ),
+        )

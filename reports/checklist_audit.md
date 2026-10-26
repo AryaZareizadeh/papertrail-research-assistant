@@ -24,7 +24,15 @@ the presence of implementation code.
   index build, artifact load, and warm-query timings were measured separately.
   Eleven retrieval tests and 48 total tests pass. Exploratory timing only; no
   benchmark superiority claimed.
-- [ ] Task 5 — Answer generation and citation validation.
+- [x] Task 5 — Answer generation and citation validation; live Groq verified.
+  Hosted Groq adapter, immutable source citations, bounded retries, refusals vs
+  errors, prompt-injection data boundaries, whole-chunk budget trimming, and
+  separate SQLite/JSON run records are tested. Pinned GPT-OSS tokenizer prepared.
+  Live training-paper smoke passed with exact source citations. Three calibration
+  prompts consistently required an offset of -11 tokens; an independent fourth
+  prompt matched exactly at 908 tokens. Persisted calibration reconstruction also
+  matched. Current suite: 77 passed; one opt-in live test skipped in ordinary runs.
+  The explicitly enabled live test passed separately. Quality evaluation is next.
 - [ ] Task 6 — Evaluation pipeline.
 - [ ] Task 7 — Failure analysis and a measured improvement.
 - [ ] Task 8 — FastAPI service.

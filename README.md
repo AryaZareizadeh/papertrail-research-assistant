@@ -26,7 +26,8 @@ uv pip install --python .venv\Scripts\python.exe --no-deps --no-build-isolation 
 ```
 
 The full lock was reproduced in a fresh environment on Windows / Python 3.13.0;
-all 80 dependency versions matched, dependency checks passed, and all 48 tests passed.
+the dependency versions matched and dependency checks passed. The updated full
+lock contains 81 dependency pins; 77 tests pass and one opt-in live test is skipped.
 
 Configuration paths resolve relative to the YAML file, rather than the current
 working directory. `doctor` inspects local files and package metadata without
@@ -36,15 +37,18 @@ Storage starts with SQLite. A later version will migrate to PostgreSQL while
 preserving document identifiers and citation source spans.
 
 See [the experiment log](reports/experiment_log.md) for verified progress and
-remaining work. No answer-quality or runtime claims have been measured yet.
+remaining work. Retrieval timings and hosted smoke checks are recorded; benchmark
+answer quality has not yet been measured.
 
 ## Current working milestone
 
 The implemented commands cover configuration, official QASPER download and
 normalization, tokenizer preparation, source-preserving SQLite chunks, and BM25
 retrieval. Real dense and hybrid retrieval now work with the pinned MiniLM model;
-the pilot index contains 4,440 normalized 384-dimensional vectors. Answer generation,
-evaluation, API, UI, and Docker packaging are still pending.
+the pilot index contains 4,440 normalized 384-dimensional vectors. Hosted answer
+generation and citation validation passed synthetic-provider tests and a live Groq
+smoke test. A pinned tokenizer was calibrated against four provider prompts. Evaluation, API, UI,
+and Docker packaging are still pending.
 
 The complete dependency installation now works. For a smaller SQLite/BM25-only
 environment, the original bootstrap lock remains available:
@@ -79,4 +83,21 @@ overwrite the previous working vectors.
 See [training retrieval observations](reports/training_retrieval_notes.md) for
 successes and misses. A retrieval result is evidence to inspect, not a generated
 answer or a correctness guarantee.
+
+## Hosted answer generation
+
+Use [the free hosted-model setup guide](docs/hosted_model_setup.md). The configured
+candidate is Groq Free Plan with `openai/gpt-oss-20b`; put its key in the ignored
+`.env` file as `GROQ_API_KEY`. Generation model weights are not downloaded.
+
+```powershell
+.\.venv\Scripts\python.exe -m evidence_assistant.cli prepare-generation-tokenizer
+.\.venv\Scripts\python.exe -m evidence_assistant.cli calibrate-generation
+.\.venv\Scripts\python.exe -m evidence_assistant.cli answer --paper-id 1911.07228 --question "What word embeddings were used?" --method hybrid
+```
+
+Task 5 is verified for the Groq baseline. Regular tests make no provider calls.
+Calibration makes four hosted requests and must be repeated if its bound settings
+change. Mutable run records are stored separately
+from the corpus in `reports/runs/runs.sqlite` and per-question JSON files.
 

@@ -17,6 +17,7 @@ class AppConfig(BaseModel):
     manifest_dir: Path = Path("data/manifests")
     artifact_dir: Path = Path("artifacts")
     report_dir: Path = Path("reports")
+    dotenv_path: Path = Path(".env")
     seed: int = 42
     retrieval_method: Literal["bm25", "dense", "hybrid"] = "hybrid"
     top_k: int = Field(default=5, gt=0)
@@ -30,7 +31,8 @@ class AppConfig(BaseModel):
     embedding_max_tokens: int = Field(default=256, gt=0)
     generation_model: str | None = None
     generation_digest: str | None = None
-    generation_endpoint: str = "http://127.0.0.1:11434"
+    generation_endpoint: str = "https://api.groq.com/openai/v1"
+    generation_api_key_env: str = "GROQ_API_KEY"
     generation_tokenizer: str | None = None
     generation_tokenizer_revision: str | None = None
     generator_context_tokens: int = Field(default=4096, gt=0)
@@ -88,7 +90,7 @@ def load_config(path: Path) -> AppConfig:
     if not isinstance(values, dict):
         raise ValueError("configuration must be a YAML mapping")
     for name, field in AppConfig.model_fields.items():
-        if name.endswith("_dir"):
+        if name.endswith("_dir") or name == "dotenv_path":
             value = Path(values.get(name, field.default)).expanduser()
             values[name] = (path.parent / value).resolve()
     return AppConfig.model_validate(values)

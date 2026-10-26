@@ -15,7 +15,9 @@
 **Implementation progress (26 October 2026):** The SQLite/BM25 foundation is now
 implemented and tested. Tasks 1–5 are complete, including the full dependency lock,
 real dense/hybrid retrieval, live Groq generation, and calibrated provider token
-accounting. Task 6 evaluation is next. See
+accounting. Task 6 evaluation and the 30-response agent audit are implemented and
+measured. Task 6 is complete with the user-accepted, explicitly labeled agent
+audit; human claim support remains unavailable. Task 7 comparison is next. See
 `reports/experiment_log.md` for evidence, setup decisions, and remaining work.
 
 ## 1. How to use this guide
@@ -406,9 +408,9 @@ evaluate_answers(predictions, references, policy) -> AnswerMetrics
 - [x] Freeze a text-only question policy before test evaluation: exclude a question from the strict text-only slice if any retained annotation uses figure/table evidence. Also flag unmapped evidence and absence-based answers without positive text evidence. Publish counts and reasons by split; never relabel these questions unanswerable.
 - [x] Keep predictions for all selected questions and report whole-selected-set results as well as the declared text-only slice. This prevents favorable filtering from hiding difficult cases.
 - [x] Evaluate BM25, dense, and hybrid retrieval on exactly the same questions, with the same top-k and evidence-token cap.
-- [ ] Run generation with each retrieval method using the same model and prompt. First run a small validation subset to measure runtime before starting a large batch.
-- [ ] Save per-question results with a run manifest and generate the metrics below. Review at least 30 validation answers manually across correct answers, incorrect answers, refusals, and difficult evidence cases.
-- [ ] Finish choosing configurations on validation. Freeze the dataset selection, eligibility policy, prompt, retrieval parameters, model, and scoring rules before the final pilot test run.
+- [x] Run generation with each retrieval method using the same model and prompt. First run a small validation subset to measure runtime before starting a large batch.
+- [x] Save per-question results with a run manifest and generate the metrics below. Review at least 30 validation answers manually across correct answers, incorrect answers, refusals, and difficult evidence cases. The user accepted the explicitly labeled agent audit for this milestone; do not present it as human review.
+- [x] Implement and verify freezing of dataset selection, eligibility policy, prompt, retrieval parameters, model artifacts, and scoring rules. Freeze the baseline for Task 7 comparisons. Finish final configuration choices on validation in Task 7, then freeze the final candidate before the pilot test.
 
 #### Required metrics and their denominators
 
@@ -419,7 +421,7 @@ evaluate_answers(predictions, references, policy) -> AnswerMetrics
 | Complete-evidence coverage | Fraction of eligible questions for which one annotator's complete evidence set is covered. Finding one paragraph may not be enough. |
 | Answer F1 | Use the official QASPER evaluator for benchmark-compatible scoring, with the evaluated question IDs and any filtering declared. |
 | Citation validity | Fraction of emitted citation records that resolve to an allowed source span. This is a structural check. |
-| Claim support | Human-audited fraction of answered claims actually supported by their cited passages; mark fully supported, partially supported, or unsupported. Publish the rubric and audited sample. |
+| Claim support | Fraction of answered claims supported by their cited passages; mark fully supported, partially supported, or unsupported. Publish the rubric, sample, and reviewer identity. The user accepted an agent audit for the baseline; label it accordingly and leave human-audited support unavailable until a human review occurs. |
 | Abstention precision | Of deliberate insufficient-evidence responses on consensus-labeled questions, how many are gold-unanswerable? A retrieval miss on an answerable question is not a correct refusal. |
 | Unanswerable recall | Of consensus-unanswerable questions, how many receive a deliberate insufficient-evidence response? |
 | False-refusal rate | Fraction of consensus-answerable questions refused. Report this alongside answer coverage so refusing everything cannot appear successful. |

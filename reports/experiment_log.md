@@ -245,3 +245,45 @@ refusal, and actual supplied passage is retained. No test inference has run.
 Requesty key presence was checked without displaying its value. Both provider keys
 are present in ignored .env; only Groq is active. No Requesty inference has been
 requested yet. Human claim support remains distinct from agent source inspection.
+
+### Task 6 measured baseline and review boundary
+
+All 90 requested cases completed on the same 30 validation questions. Whole-set
+official Answer F1: BM25 0.3285, dense 0.3917, hybrid 0.3417. False refusals among
+23 consensus-answerable cases: 7, 6, and 5 respectively. All methods incorrectly
+answered both consensus-unanswerable cases (unanswerable recall 0/2). Hybrid had
+one citation_not_supplied error; this receives official F1 zero and is not counted
+as a refusal. No active method/provider settings changed. All 90 prompt counts
+matched calibration. Known actual usage: 94,563 input + 9,037 output tokens.
+
+All 30 hybrid responses were inspected manually by the agent and labeled as such:
+11 correct, seven partially correct, two incorrect, nine refusals, one rejected
+output; 27 claims include 19 fully supported, seven partially supported, and one
+unsupported. Human support metrics remain unavailable. Editable self-contained
+review cards are in reports/claim_review.md; detailed metrics/limitations are in
+reports/evaluation_baseline.md. A pending user question asks whether to proceed
+with the explicitly agent-only audit or retain the human-review gate.
+
+Self-audit found freeze was hashing revision/index metadata rather than actual
+model bytes. Three new failing tests reproduced undetected weight/vector/tokenizer
+changes; snapshots now hash these actual artifacts and reject changes. Explicit
+versioned rescoring was added RED→GREEN so changed reporting code cannot silently
+overwrite historical scores. Rescored retrieval/QA reports exactly match every
+original method metric without any new generation. The original baseline code
+checkpoint is 0e420e4; original reports and predictions remain intact. Frozen Groq
+baseline SHA-256 b07979afdbbcacb5b66951ec825dcf2a103684e06d6287f244cf4f943f36aa27
+records comparison inputs but does not consume the held-out pilot.
+
+Full suite: 102 passed, one explicitly gated live test skipped, in both .venv and
+.venv-repro; Ruff passes. Source changes after baseline generation affect freeze
+integrity/report versioning, not the answer algorithm or prediction content.
+
+Ruling: preserve the unmodified upstream evaluator's one trailing space to retain
+its official SHA-256; scope the Git whitespace exception to that vendored file.
+Cost if wrong: normalize/vendor a changed copy and publish a new scoring identity.
+
+User decision: proceed with the labeled agent audit. Task 6 is now complete;
+human-audited support remains unavailable and the guide explicitly records this
+accepted review boundary. Baseline is frozen for comparison; final configuration
+selection and held-out evaluation remain Task 7. Requesty/Nemotron comparison is
+the next one-factor experiment, with identical saved questions and passages.

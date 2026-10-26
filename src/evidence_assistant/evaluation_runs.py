@@ -2,6 +2,7 @@
 
 import json
 import platform
+import shutil
 import time
 from collections import Counter
 from datetime import UTC, datetime
@@ -33,6 +34,50 @@ def _hash(value):
     return text_hash(json.dumps(value, sort_keys=True))
 
 
+def model_artifact_hashes(config):
+    """Bind actual local model/tokenizer/vector bytes, not only revision labels."""
+    embedding = json.loads((config.artifact_dir / "embedding_model.json").read_text("utf-8"))
+    model_root = Path(embedding["snapshot"])
+    if not model_root.is_absolute() or not (model_root / "model.safetensors").is_file():
+        raise ValueError("Prepare the pinned embedding weights before freezing evaluation")
+    names = [
+        "model.safetensors",
+        "config.json",
+        "tokenizer.json",
+        "tokenizer_config.json",
+        "special_tokens_map.json",
+        "vocab.txt",
+        "sentence_bert_config.json",
+        "modules.json",
+        "config_sentence_transformers.json",
+        "1_Pooling/config.json",
+    ]
+    model_files = {
+        name: file_hash(model_root / name) for name in names if (model_root / name).is_file()
+    }
+    generation = json.loads((config.artifact_dir / "generation_tokenizer.json").read_text("utf-8"))
+    tokenizer_root = Path(generation["snapshot"])
+    tokenizer_files = {}
+    for name, expected in generation["file_hashes"].items():
+        if Path(name).is_absolute() or ".." in Path(name).parts:
+            raise ValueError("Tokenizer file must be inside its prepared snapshot")
+        tokenizer_files[name] = file_hash(tokenizer_root / name)
+        if tokenizer_files[name] != expected:
+            raise ValueError("Generation tokenizer files changed")
+    index = json.loads((config.artifact_dir / "index_manifest.json").read_text("utf-8"))
+    vector_name = index["vector_file"]
+    if Path(vector_name).name != vector_name:
+        raise ValueError("Index vector file must be a local artifact filename")
+    vectors = file_hash(config.artifact_dir / vector_name)
+    if vectors != index["artifact_hashes"][vector_name]:
+        raise ValueError("Index vector bytes changed")
+    return {
+        "embedding_files": model_files,
+        "generation_tokenizer_files": tokenizer_files,
+        "vector_file": {vector_name: vectors},
+    }
+
+
 def snapshot(config: AppConfig):
     """Hash every input that changes predictions, selection, or scoring; never keys."""
     root = Path(__file__).parent
@@ -47,12 +92,14 @@ def snapshot(config: AppConfig):
         "validation_selection": config.manifest_dir / "validation_pilot.json",
         "test_selection": config.manifest_dir / "test_pilot.json",
         "dependency_lock": root.parents[1] / "requirements.lock.txt",
+        "embedding_metadata": config.artifact_dir / "embedding_model.json",
     }
     return {
         "config": config.model_dump(mode="json"),
         "input_hashes": {name: file_hash(path) for name, path in required.items()},
         "code_hashes": {p.name: file_hash(p) for p in sorted(root.glob("*.py"))},
         "policy": EvaluationPolicy().snapshot(),
+        "model_artifact_hashes": model_artifact_hashes(config),
         "official": official_source_identity(),
         "prompt": _hash(
             {"system": SYSTEM_PROMPT, "schema": ANSWER_SCHEMA, "options": GENERATION_OPTIONS}
@@ -221,11 +268,50 @@ def report_run(run_dir):
         "manifest_sha256": file_hash(run_dir / "manifest.json"),
         "expected_cases": len(questions) * len(methods),
         "completed_cases": len(rows),
+        "source_run": manifest.get("source_run"),
         "methods": methods,
     }
     write_json(run_dir / "metrics.json", result)
     write_json(run_dir / "eligibility.json", eligibility_summary(questions, paragraphs, policy))
     return result
+
+
+def rescore_run(source, output):
+    """Publish a separately identified score version without new model requests."""
+    if output.exists():
+        raise ValueError("Rescore output already exists; choose a new path")
+    old = json.loads((source / "manifest.json").read_text("utf-8"))
+    for name, expected in {
+        **old["scoring_input_hashes"],
+        "predictions.jsonl": old["prediction_sha256"],
+    }.items():
+        if file_hash(source / name) != expected:
+            raise ValueError("Saved scoring inputs changed; cannot rescore")
+    output.mkdir(parents=True)
+    for name in ("references.jsonl", "paragraphs.jsonl", "predictions.jsonl"):
+        shutil.copyfile(source / name, output / name)
+    provenance = {
+        "run_id": old["run_id"],
+        "manifest_sha256": file_hash(source / "manifest.json"),
+        "prediction_sha256": old["prediction_sha256"],
+    }
+    binding = {
+        "generation_binding": old["binding"],
+        "source_run": provenance,
+        "scoring_identity": scoring_identity(),
+    }
+    newer = {
+        **old,
+        "run_id": output.name,
+        "created_at": datetime.now(UTC).isoformat(),
+        "source_run": provenance,
+        "binding": binding,
+        "sha256": _hash(binding),
+        "scoring_identity": scoring_identity(),
+        "rescore_only": True,
+    }
+    write_json(output / "manifest.json", newer)
+    return report_run(output)
 
 
 def run_evaluation(

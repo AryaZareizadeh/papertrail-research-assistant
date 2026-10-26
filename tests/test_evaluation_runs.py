@@ -2,7 +2,7 @@ import json
 
 import pytest
 
-from evidence_assistant.data import write_json, write_jsonl
+from evidence_assistant.data import file_hash, write_json, write_jsonl
 from evidence_assistant.evaluation_runs import (
     freeze_run,
     load_cases,
@@ -36,6 +36,29 @@ def evaluation_setup(generation_setup):
         write_json(config.manifest_dir / name, {"split": "train", "paper_ids": ["selected"]})
     for name in ("generation_tokenizer.json", "generation_token_calibration.json"):
         write_json(config.artifact_dir / name, {"fixture": True})
+    model_dir = base / "synthetic-model"
+    model_dir.mkdir()
+    (model_dir / "model.safetensors").write_bytes(b"synthetic fixture weights")
+    write_json(
+        config.artifact_dir / "embedding_model.json",
+        {
+            "model": config.embedding_model,
+            "revision": "synthetic-test-revision",
+            "snapshot": str(model_dir.resolve()),
+            "weights_available": True,
+        },
+    )
+    tokenizer_dir = base / "synthetic-tokenizer"
+    tokenizer_dir.mkdir()
+    tokenizer_file = tokenizer_dir / "tokenizer.json"
+    tokenizer_file.write_text("synthetic tokenizer", encoding="utf-8")
+    write_json(
+        config.artifact_dir / "generation_tokenizer.json",
+        {
+            "snapshot": str(tokenizer_dir.resolve()),
+            "file_hashes": {tokenizer_file.name: file_hash(tokenizer_file)},
+        },
+    )
     return config, index
 
 
@@ -52,6 +75,56 @@ def test_freeze_rejects_config_selection_source_and_policy_changes(evaluation_se
         validate_frozen_run(config, frozen)
     with pytest.raises(ValueError, match="exists"):
         freeze_run(config, frozen)
+
+
+def test_freeze_binds_actual_embedding_weights_not_just_revision_metadata(
+    evaluation_setup, tmp_path
+):
+    config, _ = evaluation_setup
+    snapshot_dir = tmp_path / "synthetic-weights"
+    snapshot_dir.mkdir()
+    weights = snapshot_dir / "model.safetensors"
+    weights.write_bytes(b"synthetic weight bytes")
+    write_json(
+        config.artifact_dir / "embedding_model.json",
+        {
+            "model": config.embedding_model,
+            "revision": "synthetic-test-revision",
+            "snapshot": str(snapshot_dir.resolve()),
+            "weights_available": True,
+        },
+    )
+    frozen = tmp_path / "frozen-weights.json"
+    freeze_run(config, frozen)
+    weights.write_bytes(b"different weight bytes under the same revision")
+    with pytest.raises(ValueError, match="differ|changed"):
+        validate_frozen_run(config, frozen)
+
+
+@pytest.mark.parametrize("kind", ["vectors", "generation_tokenizer"])
+def test_freeze_rejects_actual_artifact_changes_under_unchanged_metadata(
+    evaluation_setup, tmp_path, kind
+):
+    from evidence_assistant.data import file_hash
+
+    config, _ = evaluation_setup
+    if kind == "vectors":
+        index = json.loads((config.artifact_dir / "index_manifest.json").read_text())
+        artifact = config.artifact_dir / index["vector_file"]
+    else:
+        directory = tmp_path / "synthetic-generation-tokenizer"
+        directory.mkdir()
+        artifact = directory / "tokenizer.json"
+        artifact.write_text("synthetic tokenizer", encoding="utf-8")
+        write_json(
+            config.artifact_dir / "generation_tokenizer.json",
+            {"snapshot": str(directory), "file_hashes": {artifact.name: file_hash(artifact)}},
+        )
+    frozen = tmp_path / "frozen-artifact.json"
+    freeze_run(config, frozen)
+    artifact.write_bytes(artifact.read_bytes() + b" changed")
+    with pytest.raises(ValueError, match="differ|changed"):
+        validate_frozen_run(config, frozen)
 
 
 def test_selection_rejects_wrong_split_unknown_papers_and_final_test_without_freeze(
@@ -198,6 +271,44 @@ def test_report_rejects_changed_scoring_inputs_or_identity(evaluation_setup, tmp
         path.write_text(path.read_text() + "\n", encoding="utf-8")
     with pytest.raises(ValueError, match="scoring|changed"):
         report_run(output)
+
+
+def test_rescoring_is_explicitly_versioned_and_preserves_original_report(
+    evaluation_setup, tmp_path, monkeypatch
+):
+    from evidence_assistant import evaluation_runs
+    from evidence_assistant.data import file_hash
+
+    config, index = evaluation_setup
+    original, rescored = tmp_path / "original", tmp_path / "rescored"
+    service = make_service((config, index), lambda req: model_response(completion()))
+    first = run_evaluation(
+        config,
+        "train",
+        config.manifest_dir / "validation_pilot.json",
+        ["hybrid"],
+        qa=True,
+        output=original,
+        service=service,
+        interval_seconds=0,
+    )
+    original_metrics_hash = file_hash(original / "metrics.json")
+    identity = evaluation_runs.scoring_identity()
+    monkeypatch.setattr(
+        evaluation_runs,
+        "scoring_identity",
+        lambda: {**identity, "report_code_sha256": "explicit-new-report-version"},
+    )
+    with pytest.raises(ValueError, match="scoring"):
+        report_run(original)
+    newer = evaluation_runs.rescore_run(original, rescored)
+    assert newer["methods"] == first["methods"]
+    assert file_hash(original / "metrics.json") == original_metrics_hash
+    assert file_hash(original / "predictions.jsonl") == file_hash(rescored / "predictions.jsonl")
+    manifest = json.loads((rescored / "manifest.json").read_text())
+    assert manifest["source_run"]["manifest_sha256"] == file_hash(original / "manifest.json")
+    with pytest.raises(ValueError, match="exists"):
+        evaluation_runs.rescore_run(original, rescored)
 
 
 def test_frozen_test_gate_allows_one_run_and_resume_of_synthetic_test_selection(

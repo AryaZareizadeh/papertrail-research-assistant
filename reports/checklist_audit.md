@@ -33,12 +33,18 @@ the presence of implementation code.
   prompt matched exactly at 908 tokens. Persisted calibration reconstruction also
   matched. Current suite: 77 passed; one opt-in live test skipped in ordinary runs.
   The explicitly enabled live test passed separately. Quality evaluation is next.
-- [ ] Task 6 — Evaluation pipeline.
+- [x] Task 6 — Evaluation pipeline and accepted agent audit.
   Scoring fixtures, official scorer adapter, eligibility mapping, shared-budget
   retrieval, checkpoint/resume, report integrity, and frozen test gates implemented.
   All 92 validation questions compared across retrieval methods. Three-question
-  hosted timing sample passed; 30-question/three-method answer batch and manual
-  source inspection are in progress. Human claim support remains unreviewed.
+  hosted timing sample and all 90 cases in the 30-question/three-method batch
+  completed. All actual token counts matched calibration. Thirty hybrid responses
+  source-reviewed with explicit agent labels; human claim support remains unreviewed.
+  Real artifact freeze passed; changed weight/tokenizer/vector bytes are rejected.
+  Versioned rescoring preserves original reports and exactly matches their metrics.
+  Current suite: 102 passed, one opt-in live test skipped, in both environments.
+  User accepted the clearly labeled agent audit for now. Human support stays
+  unavailable. Final candidate/test evaluation follows Task 7 decisions.
 - [ ] Task 7 — Failure analysis and a measured improvement.
 - [ ] Task 8 — FastAPI service.
 - [ ] Task 9 — Evidence viewer and usability feedback.

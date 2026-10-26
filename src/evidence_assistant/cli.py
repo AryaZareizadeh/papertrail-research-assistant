@@ -77,6 +77,7 @@ def main(argv: list[str] | None = None) -> int:
         "evaluate-retrieval": "Score budgeted retrieval on a saved question selection",
         "evaluate-qa": "Run and score hosted answers with per-question checkpoints",
         "report": "Rebuild metrics from saved evaluation predictions",
+        "rescore": "Version new scores from unchanged predictions without model calls",
         "freeze": "Freeze configuration, selection, model, prompt, and scoring hashes",
     }
     for name, description in descriptions.items():
@@ -117,18 +118,28 @@ def main(argv: list[str] | None = None) -> int:
             command.add_argument("--output", type=Path, required=True)
         if name == "report":
             command.add_argument("--run-dir", type=Path, required=True)
+        if name == "rescore":
+            command.add_argument("--source-run-dir", type=Path, required=True)
+            command.add_argument("--output", type=Path, required=True)
     args = parser.parse_args(argv)
     try:
         config = load_config(args.config)
         if args.command == "doctor":
             result = doctor(config)
-        elif args.command in {"freeze", "report", "evaluate-retrieval", "evaluate-qa"}:
-            from evidence_assistant.evaluation_runs import freeze_run, report_run, run_evaluation
+        elif args.command in {"freeze", "report", "rescore", "evaluate-retrieval", "evaluate-qa"}:
+            from evidence_assistant.evaluation_runs import (
+                freeze_run,
+                report_run,
+                rescore_run,
+                run_evaluation,
+            )
 
             if args.command == "freeze":
                 result = freeze_run(config, args.output)
             elif args.command == "report":
                 result = report_run(args.run_dir)
+            elif args.command == "rescore":
+                result = rescore_run(args.source_run_dir, args.output)
             else:
                 qa = args.command == "evaluate-qa"
                 methods = [args.method or config.retrieval_method] if qa else args.methods

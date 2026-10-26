@@ -54,8 +54,71 @@ BM25, dense, and hybrid (90 requested cases), selected by SHA-256 of seed and
 question ID before looking at answers. It retains all selected cases and flags;
 strict-slice reporting is additional. Requests are paced; per-case checkpoints
 and exact supplied passages are saved under
-`reports/runs/validation-qa-baseline-30/`. Batch metrics and the manual source audit
-will be recorded here after completion.
+`reports/runs/validation-qa-baseline-30/`. All 90 cases completed; all 90 actual
+input counts matched the calibrated counter. No context needed trimming in this
+sample (maximum evidence count 1,035 tokens); synthetic tests cover whole-chunk
+budget trimming. Generation behavior is pinned to code checkpoint `0e420e4`.
+
+| Method | Whole-set Answer F1 | Strict Answer F1 (25 cases) | Answer coverage | False refusals / 23 answerable | Errors / 30 | Warm p50 / p95 |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| BM25 | 0.3285 | 0.3505 | 19/30 | 7/23 | 0/30 | 1.27 / 4.26 s |
+| Dense | 0.3917 | 0.4273 | 20/30 | 6/23 | 0/30 | 1.51 / 2.93 s |
+| Hybrid | 0.3417 | 0.3667 | 20/30 | 5/23 | 1/30 | 1.41 / 2.40 s |
+
+Answer F1 is lexical overlap, not an accuracy percentage. Boolean references are
+especially sensitive to the verbose claim format: a semantically correct full
+sentence may not contain the literal token Yes or No. Keep the official score
+unchanged and interpret it alongside source inspection.
+
+There are 23 consensus-answerable, two consensus-unanswerable, and five mixed
+questions. All three methods answered both consensus-unanswerable questions, so
+unanswerable recall is **0/2**. Abstention precision is **0/7, 0/6, and 0/5** for
+BM25, dense, and hybrid respectively on consensus-labeled questions. The sample
+is small, but it exposes a real need to improve semantic distinctions and refusals.
+
+Displayed citations passed source validation: BM25 24/24, dense 26/26, hybrid 28/28.
+One hybrid draft was rejected with `citation_not_supplied`; it remains an error
+and receives official Answer F1 zero. It is not a successful refusal or a valid
+displayed citation. Structural validity does not establish claim support.
+
+The 90 cases used 94,563 actual input and 9,037 output tokens (103,600 total),
+with no unknown counts. Cold service loading in this run was 13.05 seconds. Peak
+Windows process working set was 772,030,464 bytes (about 736 MiB), including imports
+and local retrieval/tokenization; generation ran at Groq. These are single-process
+observations, not controlled hardware benchmarks. Hardware: 16.8 GB system RAM,
+RTX 3050 Ti Laptop 4 GB; retrieval used CPU rather than this GPU.
+
+## Source inspection of all 30 hybrid responses
+
+The explicitly agent-labeled audit records 11 correct answers, seven partially
+correct answers, two incorrect answers, nine refusals, and one rejected output.
+Among 27 answered claims, 19 were fully supported, seven partially supported,
+and one unsupported under the published rubric. These are agent judgments,
+not human claim-support measurements or a general accuracy estimate.
+
+Examples include cognitive gaze features mislabeled as stylistic features,
+incorrect expansion of RG, incomplete answers that merely restate the question,
+retrieval misses causing false refusals, and over-refusal despite usable context.
+A valid citation may support only part of a claim. A source-supported alternative
+may also differ from an annotated evidence paragraph without being fabricated.
+
+All 30 editable [human review cards](claim_review.md) include the questions,
+references, agent judgments, claims, and original cited/supplied passages.
+
+## Provenance and reporting versions
+
+The original prediction and report directories remain intact. Frozen-input
+hardening subsequently added actual local model/tokenizer/vector byte hashes.
+Separately versioned reports were then created without any new model requests:
+`validation-retrieval-scores-v2/` and `validation-qa-baseline-30-scores-v2/` under
+`reports/runs/`. Every method metric exactly matches the original report.
+Their manifests point to the original run/prediction hashes and identify the
+current scorer. `report` rejects drift; `rescore` explicitly creates a new version.
+
+The Groq baseline snapshot is `reports/runs/frozen_groq_baseline.json`, SHA-256
+`b07979afdbbcacb5b66951ec825dcf2a103684e06d6287f244cf4f943f36aa27`.
+This records the baseline for comparisons; it does not select a final candidate
+or consume the held-out test pilot. No active provider/method change has been made.
 
 ## Review boundary
 

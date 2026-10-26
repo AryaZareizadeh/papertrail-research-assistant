@@ -67,6 +67,15 @@ keep the two separate.
 
 Reporting validates scoring code/policy and saved scoring-input hashes. It rejects
 changed inputs instead of overwriting a report under the original identity.
+To apply a new scoring/reporting version, explicitly create a separate report:
+
+```powershell
+.\.venv\Scripts\python.exe -m evidence_assistant.cli rescore --source-run-dir reports/runs/validation-qa --output reports/runs/validation-qa-scores-v2
+```
+
+This copies unchanged scoring inputs and predictions, records their original
+manifest/hash provenance, and publishes a new scoring identity without provider
+calls. It refuses altered source inputs and never overwrites the original report.
 
 ## Claim-support audit
 
@@ -97,6 +106,9 @@ After validation decisions in Task 7:
 
 The frozen manifest binds configuration, dataset selections, corpus/index/model
 metadata, tokenizer calibration, prompt, dependency lock, code, and scoring rules.
+Actual local embedding weight, tokenizer, and vector file hashes are included,
+so unchanged revision labels cannot conceal changed bytes. Hosted weights cannot
+be pinned locally; the requested model ID and returned fingerprint are recorded.
 The test gate rejects changed inputs, arbitrary test selections, limits, or a
 different retrieval method. A consumed-selection marker allows resuming the
 original output directory and blocks another run of the same held-out pilot.

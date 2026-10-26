@@ -27,7 +27,7 @@ uv pip install --python .venv\Scripts\python.exe --no-deps --no-build-isolation 
 
 The full lock was reproduced in a fresh environment on Windows / Python 3.13.0;
 the dependency versions matched and dependency checks passed. The updated full
-lock contains 81 dependency pins; 77 tests pass and one opt-in live test is skipped.
+lock contains 81 dependency pins; 102 tests pass and one opt-in live test is skipped.
 
 Configuration paths resolve relative to the YAML file, rather than the current
 working directory. `doctor` inspects local files and package metadata without
@@ -47,8 +47,13 @@ normalization, tokenizer preparation, source-preserving SQLite chunks, and BM25
 retrieval. Real dense and hybrid retrieval now work with the pinned MiniLM model;
 the pilot index contains 4,440 normalized 384-dimensional vectors. Hosted answer
 generation and citation validation passed synthetic-provider tests and a live Groq
-smoke test. A pinned tokenizer was calibrated against four provider prompts. Evaluation, API, UI,
-and Docker packaging are still pending.
+smoke test. A pinned tokenizer was calibrated against four provider prompts.
+The evaluator compared retrieval on 92 validation questions and hosted answers on
+the same 30 questions across three methods. See the
+[baseline report](reports/evaluation_baseline.md) and
+[evaluation commands](docs/evaluation.md). The 30-response agent audit is complete;
+the user accepted it for Task 6. Human claim-support scores remain unavailable.
+Task 7 model comparison, API, UI, and Docker packaging are pending.
 
 The complete dependency installation now works. For a smaller SQLite/BM25-only
 environment, the original bootstrap lock remains available:

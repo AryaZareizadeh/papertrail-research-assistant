@@ -104,5 +104,12 @@ editable project and machine-specific paths. It was installed into a fresh
 47-test suite passed. Local verification required an unrestricted retry after
 Windows sandbox permissions blocked a PyTorch launcher, with no network needed.
 
-Next audit: Task 2's real archives, split isolation, runtime/evaluation boundaries,
-pilot selection, and retained-question counts.
+Task 2 audit: all nine guide items checked. Eight data tests passed. Rehashed all
+five archive/source files against the saved manifest, and compared all 83,079
+paragraph/abstract exports to original source text without inspecting test-answer
+content. All 5,049 questions and annotation counts are retained, paper splits are
+disjoint, and runtime schemas have no benchmark annotations. Independently repeated
+the pilot selection rule: train 5 papers/19 questions; validation 30/92; test 50/187.
+Detailed machine-readable checks are local in `reports/runs/task2_audit.json`.
+
+Next audit: Task 3's source offsets, token bounds, and SQLite integrity.

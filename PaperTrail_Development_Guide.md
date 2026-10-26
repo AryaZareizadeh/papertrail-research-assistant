@@ -398,14 +398,14 @@ evaluate_retrieval(predictions, references, policy) -> RetrievalMetrics
 evaluate_answers(predictions, references, policy) -> AnswerMetrics
 ```
 
-- [ ] Test perfect evidence retrieval, partial evidence, wrong evidence, no evidence, duplicate chunks from one paragraph, multiple annotators, missing predictions, and a provider error.
-- [ ] Map full evidence paragraphs to source paragraph IDs using exact matching first. Permit documented whitespace-only normalization as a fallback. Preserve all positional matches when text repeats and record the ambiguity. Do not use fuzzy guessing to manufacture a gold location.
-- [ ] Keep `highlighted_evidence` separate from paragraph-level `evidence`. Log unmatched references and evidence markers beginning `FLOAT SELECTED` as their own categories.
-- [ ] Preserve reference answer/evidence pairs per annotator. Score against individual reference sets; do not create an artificial union of all evidence.
-- [ ] Tag answerability disagreement. For product abstention metrics, use consensus-answerable and consensus-unanswerable slices and report mixed annotations separately. Do not infer answerability from whether evidence is empty.
-- [ ] Freeze a text-only question policy before test evaluation: exclude a question from the strict text-only slice if any retained annotation uses figure/table evidence. Also flag unmapped evidence and absence-based answers without positive text evidence. Publish counts and reasons by split; never relabel these questions unanswerable.
-- [ ] Keep predictions for all selected questions and report whole-selected-set results as well as the declared text-only slice. This prevents favorable filtering from hiding difficult cases.
-- [ ] Evaluate BM25, dense, and hybrid retrieval on exactly the same questions, with the same top-k and evidence-token cap.
+- [x] Test perfect evidence retrieval, partial evidence, wrong evidence, no evidence, duplicate chunks from one paragraph, multiple annotators, missing predictions, and a provider error.
+- [x] Map full evidence paragraphs to source paragraph IDs using exact matching first. Permit documented whitespace-only normalization as a fallback. Preserve all positional matches when text repeats and record the ambiguity. Do not use fuzzy guessing to manufacture a gold location.
+- [x] Keep `highlighted_evidence` separate from paragraph-level `evidence`. Log unmatched references and evidence markers beginning `FLOAT SELECTED` as their own categories.
+- [x] Preserve reference answer/evidence pairs per annotator. Score against individual reference sets; do not create an artificial union of all evidence.
+- [x] Tag answerability disagreement. For product abstention metrics, use consensus-answerable and consensus-unanswerable slices and report mixed annotations separately. Do not infer answerability from whether evidence is empty.
+- [x] Freeze a text-only question policy before test evaluation: exclude a question from the strict text-only slice if any retained annotation uses figure/table evidence. Also flag unmapped evidence and absence-based answers without positive text evidence. Publish counts and reasons by split; never relabel these questions unanswerable.
+- [x] Keep predictions for all selected questions and report whole-selected-set results as well as the declared text-only slice. This prevents favorable filtering from hiding difficult cases.
+- [x] Evaluate BM25, dense, and hybrid retrieval on exactly the same questions, with the same top-k and evidence-token cap.
 - [ ] Run generation with each retrieval method using the same model and prompt. First run a small validation subset to measure runtime before starting a large batch.
 - [ ] Save per-question results with a run manifest and generate the metrics below. Review at least 30 validation answers manually across correct answers, incorrect answers, refusals, and difficult evidence cases.
 - [ ] Finish choosing configurations on validation. Freeze the dataset selection, eligibility policy, prompt, retrieval parameters, model, and scoring rules before the final pilot test run.

@@ -209,3 +209,39 @@ NVIDIA Nemotron on identical questions and saved supplied passages. Switch only 
 correctness and evidence support improve with acceptable latency. No provider
 switch or paid fallback has been configured. Requesty requires its own credential,
 format checks, and tokenizer calibration before that comparison.
+
+### Task 6 implementation and validation in progress
+
+Implemented exact/whitespace-only evidence mapping with repeated-position
+alternatives, separate annotators and highlighted spans, declared text-only
+eligibility, consensus abstention metrics, official Answer F1 adapter, saved
+passages, per-case checkpoints, immutable scoring inputs, and frozen test gates.
+Official evaluator pinned to e996b6c7b1b5f95d9308a74e3586416c6e780df1 with Apache-2.0
+license and SHA-256; LF attributes preserve its unmodified bytes on Windows.
+
+A new fixture initially inherited relative evaluation/manifest paths and replaced
+four generated local files (questions.jsonl, data_manifest.json, validation_pilot.json,
+and test_pilot.json). The fixture now uses isolated temporary paths. Regenerated
+the exports from official archives and reran Task 2 audit: all five source hashes,
+5,049 questions/annotations, 83,079 original paragraphs, and pilot selections verified.
+Subsequent test runs leave the real selections intact.
+
+Independent review found three P2 issues: requested dense method could load a
+BM25-only service; citation validity could pair a valid supplied ID with a different
+paragraph; reports could be recomputed after scoring input/code drift. All three
+were reproduced by five failing cases, fixed in one pass, and verified with the
+full suite (97 passed, one live test skipped), including .venv-repro. An additional
+isolated final-test gate test verifies one run, explicit selection, no limits,
+and resuming without another provider call.
+
+Real retrieval completed on all 92 validation questions. Strict positive-evidence
+denominator: 66; Hit@5 BM25 29/66, dense 36/66, hybrid 37/66. Dense has higher
+complete-evidence coverage than hybrid, so no single retrieval winner is claimed.
+Three hosted timing probes completed without errors, with calibrated counts on
+all prompts. The next declared batch uses the same deterministic 30 questions
+for all three methods, paced at 14 seconds between request starts; every error,
+refusal, and actual supplied passage is retained. No test inference has run.
+
+Requesty key presence was checked without displaying its value. Both provider keys
+are present in ignored .env; only Groq is active. No Requesty inference has been
+requested yet. Human claim support remains distinct from agent source inspection.

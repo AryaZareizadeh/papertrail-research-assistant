@@ -34,6 +34,11 @@ the presence of implementation code.
   matched. Current suite: 77 passed; one opt-in live test skipped in ordinary runs.
   The explicitly enabled live test passed separately. Quality evaluation is next.
 - [ ] Task 6 — Evaluation pipeline.
+  Scoring fixtures, official scorer adapter, eligibility mapping, shared-budget
+  retrieval, checkpoint/resume, report integrity, and frozen test gates implemented.
+  All 92 validation questions compared across retrieval methods. Three-question
+  hosted timing sample passed; 30-question/three-method answer batch and manual
+  source inspection are in progress. Human claim support remains unreviewed.
 - [ ] Task 7 — Failure analysis and a measured improvement.
 - [ ] Task 8 — FastAPI service.
 - [ ] Task 9 — Evidence viewer and usability feedback.

@@ -34,6 +34,32 @@ class AnswerService:
     purpose: str = "application"
 
 
+def prepare_context(question, paper, retrieved, config, counter):
+    """Shared whole-chunk budgeting for application and offline retrieval scoring."""
+    supplied = list(retrieved)
+    input_limit = (
+        config.generator_context_tokens
+        - config.max_output_tokens
+        - config.context_safety_margin_tokens
+    )
+    while True:
+        messages = build_messages(question, paper, supplied)
+        estimated = counter.count_prompt(messages, ANSWER_SCHEMA)
+        evidence_tokens = (
+            counter.count_text(json.dumps(evidence_records(supplied), ensure_ascii=False))
+            if supplied
+            else 0
+        )
+        if estimated <= input_limit and evidence_tokens <= config.max_evidence_tokens:
+            return supplied, messages, estimated, evidence_tokens
+        if not supplied:
+            raise ProviderError(
+                "Question/instructions exceed the configured context budget",
+                code="context_overflow",
+            )
+        supplied.pop()
+
+
 def answer_question(
     question: str, paper_id: str, method: str, service: AnswerService
 ) -> AnswerResult:
@@ -85,31 +111,15 @@ def answer_question(
         record["retrieved_chunk_ids"] = [r.chunk.chunk_id for r in retrieved]
         if any(r.chunk.paper_id != paper_id for r in retrieved):
             raise InvalidModelOutput("Retrieved context contains a different paper")
-        supplied = list(retrieved)
         stage = "context_budget"
         input_limit = (
             config.generator_context_tokens
             - config.max_output_tokens
             - config.context_safety_margin_tokens
         )
-        while True:
-            messages = build_messages(question, paper, supplied)
-            estimated = service.counter.count_prompt(messages, ANSWER_SCHEMA)
-            evidence_tokens = (
-                service.counter.count_text(
-                    json.dumps(evidence_records(supplied), ensure_ascii=False)
-                )
-                if supplied
-                else 0
-            )
-            if estimated <= input_limit and evidence_tokens <= config.max_evidence_tokens:
-                break
-            if not supplied:
-                raise ProviderError(
-                    "Question/instructions exceed the configured context budget",
-                    code="context_overflow",
-                )
-            supplied.pop()
+        supplied, messages, estimated, evidence_tokens = prepare_context(
+            question, paper, retrieved, config, service.counter
+        )
         record["supplied_chunk_ids"] = [r.chunk.chunk_id for r in supplied]
         record["token_usage"].update(
             {"input_tokens_estimated": estimated, "evidence_tokens": evidence_tokens}
@@ -188,6 +198,7 @@ def answer_question(
         record.update({"status": result.status, "result": result.model_dump()})
         return result
     except Exception as exc:
+        exc.request_id = request_id
         record.update(
             {
                 "status": "error",

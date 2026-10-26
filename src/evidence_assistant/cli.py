@@ -74,6 +74,10 @@ def main(argv: list[str] | None = None) -> int:
         "index": "Build dense embedding artifacts",
         "retrieve": "Find evidence in one selected paper",
         "answer": "Answer with hosted generation and stored source citations",
+        "evaluate-retrieval": "Score budgeted retrieval on a saved question selection",
+        "evaluate-qa": "Run and score hosted answers with per-question checkpoints",
+        "report": "Rebuild metrics from saved evaluation predictions",
+        "freeze": "Freeze configuration, selection, model, prompt, and scoring hashes",
     }
     for name, description in descriptions.items():
         command = commands.add_parser(name, help=description)
@@ -86,11 +90,59 @@ def main(argv: list[str] | None = None) -> int:
             command.add_argument("--paper-id", required=True)
             command.add_argument("--question", required=True)
             command.add_argument("--method", choices=["bm25", "dense", "hybrid"])
+        if name in {"evaluate-retrieval", "evaluate-qa"}:
+            command.add_argument(
+                "--split", choices=["train", "validation", "test"], default="validation"
+            )
+            command.add_argument("--manifest", type=Path)
+            command.add_argument("--output", type=Path)
+            command.add_argument("--limit", type=int, help="Explicit validation/debug subset only")
+            command.add_argument("--frozen-run-manifest", type=Path)
+            if name == "evaluate-retrieval":
+                command.add_argument(
+                    "--methods",
+                    nargs="+",
+                    choices=["bm25", "dense", "hybrid"],
+                    default=["bm25", "dense", "hybrid"],
+                )
+            else:
+                command.add_argument("--method", choices=["bm25", "dense", "hybrid"])
+                command.add_argument(
+                    "--interval-seconds",
+                    type=float,
+                    default=12,
+                    help="Minimum interval between hosted request starts",
+                )
+        if name == "freeze":
+            command.add_argument("--output", type=Path, required=True)
+        if name == "report":
+            command.add_argument("--run-dir", type=Path, required=True)
     args = parser.parse_args(argv)
     try:
         config = load_config(args.config)
         if args.command == "doctor":
             result = doctor(config)
+        elif args.command in {"freeze", "report", "evaluate-retrieval", "evaluate-qa"}:
+            from evidence_assistant.evaluation_runs import freeze_run, report_run, run_evaluation
+
+            if args.command == "freeze":
+                result = freeze_run(config, args.output)
+            elif args.command == "report":
+                result = report_run(args.run_dir)
+            else:
+                qa = args.command == "evaluate-qa"
+                methods = [args.method or config.retrieval_method] if qa else args.methods
+                result = run_evaluation(
+                    config,
+                    args.split,
+                    args.manifest,
+                    methods,
+                    qa=qa,
+                    output=args.output,
+                    frozen_run_manifest=args.frozen_run_manifest,
+                    limit=args.limit,
+                    interval_seconds=args.interval_seconds if qa else 0,
+                )
         elif args.command in {"prepare-embedding", "prepare-tokenizer"}:
             from evidence_assistant.embedding import prepare_embedding, prepare_tokenizer
 

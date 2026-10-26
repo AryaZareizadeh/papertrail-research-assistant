@@ -1,0 +1,3 @@
+# Preserve the unmodified official evaluator's pinned byte hash on Windows.
+src/evidence_assistant/_vendor/qasper_evaluator.py text eol=lf
+src/evidence_assistant/_vendor/LICENSE.qasper text eol=lf

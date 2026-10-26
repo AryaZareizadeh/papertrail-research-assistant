@@ -112,4 +112,11 @@ disjoint, and runtime schemas have no benchmark annotations. Independently repea
 the pilot selection rule: train 5 papers/19 questions; validation 30/92; test 50/187.
 Detailed machine-readable checks are local in `reports/runs/task2_audit.json`.
 
-Next audit: Task 3's source offsets, token bounds, and SQLite integrity.
+Task 3 audit: all seven guide items checked. Thirteen chunk/store/pipeline/tokenizer
+tests passed. The real SQLite store passes integrity and foreign-key checks; all
+4,440 chunks match original source text, ownership, section, and character offsets.
+Every nonblank paragraph has complete character coverage. Duplicate text retains
+distinct positional IDs. Maximum actual input: 194 tokens, below the pinned limit
+of 256. Full suite: 47 passed. Details: `reports/runs/task3_audit.json`.
+
+Next audit: Task 4's real dense/hybrid index, compatible artifacts, and timing.

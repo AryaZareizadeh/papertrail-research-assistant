@@ -79,6 +79,9 @@ def main(argv: list[str] | None = None) -> int:
         "report": "Rebuild metrics from saved evaluation predictions",
         "rescore": "Version new scores from unchanged predictions without model calls",
         "freeze": "Freeze configuration, selection, model, prompt, and scoring hashes",
+        "prepare-candidate-tokenizer": "Prepare only the opt-in Nemotron candidate tokenizer",
+        "calibrate-candidate": "Calibrate the candidate with training-only hosted probes",
+        "compare-models": "Compare Nemotron on exactly the saved baseline passages",
     }
     for name, description in descriptions.items():
         command = commands.add_parser(name, help=description)
@@ -121,11 +124,49 @@ def main(argv: list[str] | None = None) -> int:
         if name == "rescore":
             command.add_argument("--source-run-dir", type=Path, required=True)
             command.add_argument("--output", type=Path, required=True)
+        if name in {"calibrate-candidate", "compare-models"}:
+            command.add_argument("--interval-seconds", type=float, default=15)
+        if name == "calibrate-candidate":
+            command.add_argument(
+                "--fresh", action="store_true", help="Re-probe after backend token-format drift"
+            )
+        if name == "compare-models":
+            command.add_argument("--source-run-dir", type=Path, required=True)
+            command.add_argument("--output", type=Path, required=True)
+            command.add_argument("--method", choices=["bm25", "dense", "hybrid"], default="hybrid")
     args = parser.parse_args(argv)
     try:
         config = load_config(args.config)
         if args.command == "doctor":
             result = doctor(config)
+        elif args.command in {
+            "prepare-candidate-tokenizer",
+            "calibrate-candidate",
+            "compare-models",
+        }:
+            from evidence_assistant.generation import ProviderError
+            from evidence_assistant.requesty import calibrate_candidate, prepare_candidate_tokenizer
+
+            try:
+                if args.command == "prepare-candidate-tokenizer":
+                    result = prepare_candidate_tokenizer(config)
+                elif args.command == "calibrate-candidate":
+                    result = calibrate_candidate(
+                        config, interval_seconds=args.interval_seconds, reuse_cached=not args.fresh
+                    )
+                else:
+                    from evidence_assistant.comparison import run_comparison
+
+                    result = run_comparison(
+                        config,
+                        args.source_run_dir,
+                        args.output,
+                        method=args.method,
+                        interval_seconds=args.interval_seconds,
+                    )
+            except ProviderError as exc:
+                print(f"Model service error: {exc}", file=sys.stderr)
+                return 3
         elif args.command in {"freeze", "report", "rescore", "evaluate-retrieval", "evaluate-qa"}:
             from evidence_assistant.evaluation_runs import (
                 freeze_run,

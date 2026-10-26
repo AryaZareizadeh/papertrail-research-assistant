@@ -446,3 +446,20 @@ def test_provider_output_budget_violation_is_an_error(generation_setup):
         answer_question(
             "Which dataset?", "selected", "hybrid", make_service(generation_setup, handler)
         )
+
+
+def test_fixed_context_never_retrieves_or_silently_trims(generation_setup, monkeypatch):
+    from evidence_assistant.retrieval import retrieve
+
+    service = make_service(generation_setup, lambda request: model_response(completion()))
+    fixed = retrieve("dataset", "selected", "hybrid", 1, service.index)
+    monkeypatch.setattr(
+        "evidence_assistant.service.retrieve",
+        lambda *args: pytest.fail("Fixed-context comparison must not re-retrieve"),
+    )
+    result = answer_question("Which dataset?", "selected", "hybrid", service, fixed_context=fixed)
+    assert result.retrieved_chunk_ids == [fixed[0].chunk.chunk_id]
+    service.config = service.config.model_copy(update={"max_evidence_tokens": 1})
+    with pytest.raises(ProviderError) as error:
+        answer_question("Which dataset?", "selected", "hybrid", service, fixed_context=fixed)
+    assert error.value.code == "fixed_context_budget_exceeded"

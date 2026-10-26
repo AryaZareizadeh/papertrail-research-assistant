@@ -287,3 +287,24 @@ human-audited support remains unavailable and the guide explicitly records this
 accepted review boundary. Baseline is frozen for comparison; final configuration
 selection and held-out evaluation remain Task 7. Requesty/Nemotron comparison is
 the next one-factor experiment, with identical saved questions and passages.
+
+### Task 7 integration checkpoint
+
+Preregistered a fixed-context generation-backend hypothesis and decision rule in
+reports/failure_analysis.md. Added an opt-in free NVIDIA Requesty adapter, pinned
+tokenizer, training-only resumable calibration, fixed-context comparison runner,
+and CLI commands. Groq's strict-schema payload and active configuration remain
+unchanged. Candidate schema information is prompt-embedded because live catalog
+flags both native JSON modes unsupported; this limitation is explicit.
+
+Four successful training probes matched native/provider input counts at zero
+offset, including independent count 1,314 verified from persisted calibration.
+All reported zero cost. Native thinking-disable alone failed; Requesty's documented
+reasoning_effort=none resolved it. Initial truncation and throttling are retained.
+No candidate validation inference or held-out test inference has run yet.
+
+Review found two P2 issues, each reproduced RED then fixed: unexpected cost on a
+rejected response, and a prediction/manifest publication gap. The candidate now
+checks cost on errors too and publishes an authoritative atomic checkpoint before
+derived exports. Interrupted publication resumes without regenerating the saved
+case. Full primary suite: 116 passed, one opt-in live test skipped; Ruff passes.

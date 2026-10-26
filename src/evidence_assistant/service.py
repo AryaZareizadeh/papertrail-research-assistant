@@ -21,7 +21,7 @@ from evidence_assistant.generation import (
     validate_draft,
 )
 from evidence_assistant.retrieval import RetrievalIndex, retrieve
-from evidence_assistant.schemas import AnswerResult, Citation, DraftAnswer
+from evidence_assistant.schemas import AnswerResult, Citation, DraftAnswer, RetrievedChunk
 from evidence_assistant.store import get_chunk, get_paper, get_paragraph, write_run
 
 
@@ -61,7 +61,12 @@ def prepare_context(question, paper, retrieved, config, counter):
 
 
 def answer_question(
-    question: str, paper_id: str, method: str, service: AnswerService
+    question: str,
+    paper_id: str,
+    method: str,
+    service: AnswerService,
+    *,
+    fixed_context: list[RetrievedChunk] | None = None,
 ) -> AnswerResult:
     config = service.config
     started, request_id = perf_counter(), uuid4().hex
@@ -82,10 +87,14 @@ def answer_question(
         "prompt_sha256": text_hash(SYSTEM_PROMPT + json.dumps(ANSWER_SCHEMA, sort_keys=True)),
         "configuration": configuration,
         "configuration_sha256": text_hash(json.dumps(configuration, sort_keys=True)),
-        "requested_generation_options": {
-            **GENERATION_OPTIONS,
-            "max_completion_tokens": config.max_output_tokens,
-        },
+        "requested_generation_options": getattr(
+            service.adapter,
+            "request_settings",
+            {
+                **GENERATION_OPTIONS,
+                "max_completion_tokens": config.max_output_tokens,
+            },
+        ),
         "attempts": 0,
         "attempt_log": [],
         "retrieved_chunk_ids": [],
@@ -107,7 +116,17 @@ def answer_question(
         record["source_revision"] = paper.source_revision
         record["source_hash"] = file_hash(config.database_path)
         stage = "retrieval"
-        retrieved = retrieve(question, paper_id, method, config.top_k, service.index)
+        if fixed_context is None:
+            retrieved = retrieve(question, paper_id, method, config.top_k, service.index)
+        else:
+            retrieved = list(fixed_context)
+            record["retrieval_mode"] = "fixed_comparison_context"
+            if len(retrieved) > config.top_k or len({r.chunk.chunk_id for r in retrieved}) != len(
+                retrieved
+            ):
+                raise ValueError("Fixed context must contain unique chunks within top_k")
+            if any(get_chunk(config.database_path, r.chunk.chunk_id) != r.chunk for r in retrieved):
+                raise ValueError("Fixed context differs from stored source chunks")
         record["retrieved_chunk_ids"] = [r.chunk.chunk_id for r in retrieved]
         if any(r.chunk.paper_id != paper_id for r in retrieved):
             raise InvalidModelOutput("Retrieved context contains a different paper")
@@ -120,6 +139,17 @@ def answer_question(
         supplied, messages, estimated, evidence_tokens = prepare_context(
             question, paper, retrieved, config, service.counter
         )
+        if fixed_context is not None and len(supplied) != len(retrieved):
+            raise ProviderError(
+                "Fixed comparison context exceeds the candidate budget",
+                code="fixed_context_budget_exceeded",
+            )
+        effective_messages = getattr(service.adapter, "effective_messages", lambda m, s: m)(
+            messages, ANSWER_SCHEMA
+        )
+        record["effective_messages_sha256"] = text_hash(
+            json.dumps(effective_messages, sort_keys=True)
+        )
         record["supplied_chunk_ids"] = [r.chunk.chunk_id for r in supplied]
         record["token_usage"].update(
             {"input_tokens_estimated": estimated, "evidence_tokens": evidence_tokens}
@@ -130,6 +160,8 @@ def answer_question(
             record["attempts"] = reply.attempts
             record["attempt_log"] = reply.attempt_log
             record["provider_fingerprint"] = reply.fingerprint
+            record["provider_model_id"] = reply.model_id
+            record["provider_cost_usd"] = reply.cost_usd
             record["token_usage"].update(
                 {
                     "input_tokens_actual": reply.input_tokens,

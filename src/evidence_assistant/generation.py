@@ -1,6 +1,7 @@
 """Hosted JSON generation. Provider failures remain distinct from evidence refusals."""
 
 import json
+import math
 import os
 from dataclasses import dataclass
 
@@ -77,6 +78,7 @@ class ProviderReply:
     output_tokens: int
     attempts: int
     attempt_log: list[dict]
+    cost_usd: float | None = None
 
 
 def evidence_records(chunks: list[RetrievedChunk]) -> list[dict]:
@@ -154,8 +156,22 @@ class GroqAdapter:
             )
         )
 
-    def generate(self, messages: list[dict], schema: dict) -> ProviderReply:
-        payload = {
+    @property
+    def request_settings(self):
+        return {
+            **GENERATION_OPTIONS,
+            "max_completion_tokens": self.config.max_output_tokens,
+            "format_mode": "strict_json_schema",
+        }
+
+    def effective_messages(self, messages, schema):
+        return messages
+
+    def accepted_models(self):
+        return {self.config.generation_model}
+
+    def payload(self, messages, schema):
+        return {
             "model": self.config.generation_model,
             "messages": messages,
             **GENERATION_OPTIONS,
@@ -169,6 +185,9 @@ class GroqAdapter:
                 },
             },
         }
+
+    def generate(self, messages: list[dict], schema: dict) -> ProviderReply:
+        payload = self.payload(messages, schema)
         attempt_log = []
         for attempt in (1, 2):
             try:
@@ -223,6 +242,11 @@ class GroqAdapter:
                     "input_tokens_actual": input_tokens,
                     "output_tokens_actual": output_tokens,
                 }
+                cost = usage.get("cost")
+                if cost is not None:
+                    if type(cost) not in (int, float) or not math.isfinite(cost) or cost < 0:
+                        raise ValueError("Invalid cost usage")
+                    known_usage["cost_usd_actual"] = cost
                 choice = body["choices"][0]
                 if choice["finish_reason"] != "stop":
                     raise InvalidModelOutput(
@@ -233,7 +257,7 @@ class GroqAdapter:
                         usage=known_usage,
                     )
                 content = choice["message"]["content"]
-                if not isinstance(content, str) or body["model"] != self.config.generation_model:
+                if not isinstance(content, str) or body["model"] not in self.accepted_models():
                     raise ValueError("Model/content mismatch")
                 return ProviderReply(
                     content=content,
@@ -243,6 +267,7 @@ class GroqAdapter:
                     output_tokens=output_tokens,
                     attempts=attempt,
                     attempt_log=attempt_log,
+                    cost_usd=cost,
                 )
             except (KeyError, IndexError, TypeError, ValueError) as exc:
                 raise InvalidModelOutput(

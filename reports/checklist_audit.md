@@ -49,14 +49,16 @@ the presence of implementation code.
   All 30 fixed-context model comparisons and agent inspections completed. Nemotron
   improved F1/refusals but had five rate-limit errors, so Groq remains active.
   Dense is the strongest measured Groq retrieval baseline, with recorded tradeoffs.
-  Live Groq source-citation smoke passed again. Frozen 187-question held-out test
-  is running; the consumed-selection marker and original output are retained.
-  Currently 154/187 attempted, including two retained throttles; 33 remain.
-  Conservative background backoff/pacing: see heldout_status.md. No final score yet.
+  User confirmed Groq GPT-OSS-20B as the selected generator. Dense retrieval stays
+  selected. Held-out evaluation stopped at the user's request: 154/187 attempted,
+  including two retained throttles; 33 intentionally unattempted. No more model
+  tests are requested. Remaining work is reporting/acceptance closeout with the
+  incomplete pilot clearly labeled, not more inference. See heldout_status.md.
 - [ ] Task 8 — FastAPI service.
   Draft saved separately at d004ee3 on codex/api-draft. Fresh review fixes verified
   RED→GREEN; 137 tests pass in both dependency environments, two live tests skipped.
-  Real read-only HTTP/source/docs checks pass. Integration/live question smoke
-  wait for Task 7's frozen run to finish; no checklist completion claimed yet.
+  Real read-only HTTP/source/docs checks pass. Integrate the reviewed draft into
+  the main project. The live API question smoke remains unrun under the user's
+  no-more-model-tests instruction; record that limit instead of blocking on it.
 - [ ] Task 9 — Evidence viewer and usability feedback.
 - [ ] Task 10 — Packaging, reproducibility, and release.

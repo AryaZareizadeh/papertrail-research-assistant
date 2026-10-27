@@ -1,4 +1,10 @@
-# Held-out pilot — in progress
+# Held-out pilot — stopped at the user's request
+
+The user requested no more tests on 27 October 2026. The queued evaluation process
+was stopped before further requests: 154 attempts are saved and 33 questions
+remain unattempted. Both rate-limit failures are retained. The held-out pilot is
+incomplete; do not resume it or launch more model tests unless the user asks.
+The operational notes below describe the earlier run and backoff plan.
 
 Status recorded 27 October 2026, about 01:00 UTC. This is an operational progress
 record, not a completed evaluation report or an interim quality comparison.
@@ -14,7 +20,7 @@ record, not a completed evaluation report or an interim quality comparison.
   resumed and completed two more questions. Second throttle: 00:55:35 UTC,
   `Retry-After: 402`. Both failures remain in the saved evaluation.
 
-The unchanged CLI will resume only the 33 unsaved question IDs after a conservative
+The unchanged CLI had been queued to resume only the 33 unsaved question IDs after a conservative
 15-minute initial cooldown (approximately 01:10:35 UTC). Subsequent requests are
 paced at 600 seconds. This operational backoff changes neither passages nor
 generation/scoring settings. It may take roughly another five to six hours; more
@@ -33,9 +39,12 @@ with `--interval-seconds 600`. The authoritative checkpoint and consumed-selecti
 marker must remain intact. Do not change main-checkout source/configuration/model/
 index/data bytes until the run finishes, or its resume identity will no longer match.
 
-Task 7 remains incomplete until all selected cases are attempted and the final
-report is checked. No partial quality score is being used to choose settings.
+The full held-out acceptance check was not completed; remaining inference was
+waived by the user's instruction to stop. No partial quality score is being used
+to choose settings.
+The user subsequently confirmed Groq GPT-OSS-20B as the final model choice.
+Implementation can continue with the incomplete pilot explicitly documented;
+the stopped run is not a requirement to dispatch more inference before integration.
 The reviewed Task 8 API draft is saved separately at `d004ee3` on `codex/api-draft`:
 137 deterministic tests pass in both environments, real read-only HTTP checks pass,
-and the live API question smoke remains pending. Do not integrate it before this
-frozen run completes.
+and the live API question smoke remains unrun under the user's instruction.

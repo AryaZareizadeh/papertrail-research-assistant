@@ -38,7 +38,7 @@ preserving document identifiers and citation source spans.
 
 See [the experiment log](reports/experiment_log.md) for verified progress and
 remaining work. Validation retrieval and answer-quality measurements are recorded;
-the final held-out pilot is still running.
+the final held-out pilot was stopped at the user's request and remains incomplete.
 
 ## Current working milestone
 
@@ -55,7 +55,7 @@ the same 30 questions across three methods. See the
 the user accepted it for Task 6. Human claim-support scores remain unavailable.
 The [model comparison](reports/model_comparison.md) is complete: Groq remains active,
 and dense is the selected retrieval baseline. Task 7's once-only held-out test is
-continuing with the frozen Groq+dense configuration and conservative quota backoff;
+stopped at the user's request after 154/187 attempts;
 see [held-out progress](reports/heldout_status.md). A reviewed FastAPI draft is saved
 separately on `codex/api-draft`; integration waits for that test to finish. UI and
 Docker packaging are pending.

@@ -311,6 +311,60 @@ def test_rescoring_is_explicitly_versioned_and_preserves_original_report(
         evaluation_runs.rescore_run(original, rescored)
 
 
+def test_evaluation_recovers_last_completed_case_after_manifest_failure(
+    evaluation_setup, tmp_path, monkeypatch
+):
+    from evidence_assistant import evaluation_runs
+    from evidence_assistant.data import read_jsonl
+
+    config, index = evaluation_setup
+    source = read_jsonl(config.evaluation_dir / "questions.jsonl")[0]
+    write_jsonl(
+        config.evaluation_dir / "questions.jsonl", [source, {**source, "question_id": "q2"}]
+    )
+    calls = []
+
+    def handler(req):
+        calls.append(req)
+        return model_response(completion())
+
+    service = make_service((config, index), handler)
+    output = tmp_path / "recover-final-case"
+    original_write = evaluation_runs.write_json
+
+    def fail_manifest(path, value):
+        if "manifest.json" in path.name and value.get("prediction_sha256") and len(calls) == 2:
+            raise OSError("injected second-case manifest failure")
+        return original_write(path, value)
+
+    monkeypatch.setattr(evaluation_runs, "write_json", fail_manifest)
+    with pytest.raises(OSError, match="injected"):
+        run_evaluation(
+            config,
+            "train",
+            config.manifest_dir / "validation_pilot.json",
+            ["hybrid"],
+            qa=True,
+            output=output,
+            service=service,
+            interval_seconds=0,
+        )
+    assert len(calls) == 2
+    monkeypatch.setattr(evaluation_runs, "write_json", original_write)
+    result = run_evaluation(
+        config,
+        "train",
+        config.manifest_dir / "validation_pilot.json",
+        ["hybrid"],
+        qa=True,
+        output=output,
+        service=service,
+        interval_seconds=0,
+    )
+    assert len(calls) == 2
+    assert result["completed_cases"] == 2
+
+
 def test_frozen_test_gate_allows_one_run_and_resume_of_synthetic_test_selection(
     evaluation_setup, tmp_path
 ):

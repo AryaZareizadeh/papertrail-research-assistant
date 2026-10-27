@@ -27,7 +27,7 @@ uv pip install --python .venv\Scripts\python.exe --no-deps --no-build-isolation 
 
 The full lock was reproduced in a fresh environment on Windows / Python 3.13.0;
 the dependency versions matched and dependency checks passed. The updated full
-lock contains 81 dependency pins; 102 tests pass and one opt-in live test is skipped.
+lock contains 81 dependency pins; 117 tests pass and one opt-in live test is skipped.
 
 Configuration paths resolve relative to the YAML file, rather than the current
 working directory. `doctor` inspects local files and package metadata without
@@ -53,7 +53,9 @@ the same 30 questions across three methods. See the
 [baseline report](reports/evaluation_baseline.md) and
 [evaluation commands](docs/evaluation.md). The 30-response agent audit is complete;
 the user accepted it for Task 6. Human claim-support scores remain unavailable.
-Task 7 model comparison, API, UI, and Docker packaging are pending.
+The [model comparison](reports/model_comparison.md) is complete: Groq remains active,
+and dense is the selected retrieval baseline. Task 7's once-only held-out test is
+next. API, UI, and Docker packaging are pending.
 
 The complete dependency installation now works. For a smaller SQLite/BM25-only
 environment, the original bootstrap lock remains available:

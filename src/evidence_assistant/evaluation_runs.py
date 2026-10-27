@@ -9,6 +9,7 @@ from datetime import UTC, datetime
 from pathlib import Path
 from uuid import uuid4
 
+from evidence_assistant.checkpoint import atomic_json, restore_checkpoint, save_checkpoint
 from evidence_assistant.config import AppConfig
 from evidence_assistant.data import file_hash, read_jsonl, text_hash, write_json, write_jsonl
 from evidence_assistant.evaluation import (
@@ -208,6 +209,7 @@ def scoring_identity():
 
 def report_run(run_dir):
     manifest = json.loads((run_dir / "manifest.json").read_text("utf-8"))
+    manifest, _ = restore_checkpoint(run_dir, manifest, json_writer=write_json)
     if manifest.get("scoring_identity") != scoring_identity():
         raise ValueError("Saved scoring identity differs; use the original code to report this run")
     if any(
@@ -387,7 +389,7 @@ def run_evaluation(
             "platform": platform.platform(),
             "cold_startup_ms": None,
         }
-        write_json(path, saved)
+        atomic_json(path, saved, json_writer=write_json)
         write_jsonl(output / "references.jsonl", questions)
         paper_ids = {q.paper_id for q in questions}
         write_jsonl(
@@ -398,7 +400,7 @@ def run_evaluation(
         saved["scoring_input_hashes"] = {
             name: file_hash(output / name) for name in ("references.jsonl", "paragraphs.jsonl")
         }
-        write_json(path, saved)
+        atomic_json(path, saved, json_writer=write_json)
     if split == "test":
         # A frozen candidate gets one test evaluation directory; resume it after interruption.
         marker = config.manifest_dir / "test_pilot.consumed.json"
@@ -409,8 +411,7 @@ def run_evaluation(
                 )
         else:
             write_json(marker, {"output": str(output.resolve()), "manifest_sha256": binding_hash})
-    prediction_path = output / "predictions.jsonl"
-    rows = read_jsonl(prediction_path) if prediction_path.exists() else []
+    saved, rows = restore_checkpoint(output, saved, json_writer=write_json)
     completed = {(r["question_id"], r["method"]) for r in rows}
     if len(completed) != len(rows):
         raise ValueError("Duplicate saved predictions")
@@ -436,7 +437,7 @@ def run_evaluation(
     startup = (time.perf_counter() - started) * 1000
     if saved["cold_startup_ms"] is None:
         saved["cold_startup_ms"] = startup
-        write_json(path, saved)
+        atomic_json(path, saved, json_writer=write_json)
     previous_call = None
     for q, method in remaining:
         if qa:
@@ -456,10 +457,7 @@ def run_evaluation(
             row = _context_record(q, method, service)
         # Atomic rewrite is small for a pilot and avoids partial JSONL lines on interruption.
         rows.append(row)
-        write_jsonl(prediction_path.with_suffix(".tmp"), rows)
-        prediction_path.with_suffix(".tmp").replace(prediction_path)
-        saved["prediction_sha256"] = file_hash(prediction_path)
-        write_json(path, saved)
+        saved = save_checkpoint(output, saved, rows, json_writer=write_json)
         print(
             f"{output.name}: {len(rows)}/{len(questions) * len(methods)} {method} {row['status']}",
             flush=True,

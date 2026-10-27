@@ -17,7 +17,8 @@ implemented and tested. Tasks 1–5 are complete, including the full dependency 
 real dense/hybrid retrieval, live Groq generation, and calibrated provider token
 accounting. Task 6 evaluation and the 30-response agent audit are implemented and
 measured. Task 6 is complete with the user-accepted, explicitly labeled agent
-audit; human claim support remains unavailable. Task 7 comparison is next. See
+audit; human claim support remains unavailable. Task 7's model comparison selected
+Groq plus dense retrieval; the final held-out pilot is next. See
 `reports/experiment_log.md` for evidence, setup decisions, and remaining work.
 
 ## 1. How to use this guide
@@ -447,7 +448,7 @@ Each evaluation command should also accept `--config config.yaml` and a manifest
 
 ```powershell
 python -m evidence_assistant.cli freeze --config config.yaml --output reports/runs/frozen_candidate.json
-python -m evidence_assistant.cli evaluate-qa --split test --manifest data/manifests/test_pilot.json --method hybrid --frozen-run-manifest reports/runs/frozen_candidate.json
+python -m evidence_assistant.cli evaluate-qa --split test --manifest data/manifests/test_pilot.json --method dense --frozen-run-manifest reports/runs/frozen_candidate.json
 ```
 
 **Check:** Results are reproducible and question-level errors are inspectable. No fabricated target score is necessary to call the evaluation complete.
@@ -456,10 +457,10 @@ python -m evidence_assistant.cli evaluate-qa --split test --manifest data/manife
 
 **Modify:** Retrieval/chunking/prompt settings as justified. **Create:** `reports/failure_analysis.md`.
 
-- [ ] Review the validation failures and assign a primary cause: ingestion loss, chunking, retrieval miss, partial evidence, wrong interpretation, unsupported claim, over-refusal, or service error.
-- [ ] Choose one dominant problem to address. Examples: hybrid retrieval for rare method names; a reranker for semantically similar but irrelevant passages; a changed context budget for answers needing multiple paragraphs.
-- [ ] State the hypothesis before running the change and change one major factor at a time.
-- [ ] Compare against the frozen baseline on the same validation cases and report quality, latency, and resource tradeoffs. Keep a change only when the evidence justifies it; document regressions as well as gains.
+- [x] Review the validation failures and assign a primary cause: ingestion loss, chunking, retrieval miss, partial evidence, wrong interpretation, unsupported claim, over-refusal, or service error.
+- [x] Choose one dominant problem to address. Examples: hybrid retrieval for rare method names; a reranker for semantically similar but irrelevant passages; a changed context budget for answers needing multiple paragraphs.
+- [x] State the hypothesis before running the change and change one major factor at a time.
+- [x] Compare against the frozen baseline on the same validation cases and report quality, latency, and resource tradeoffs. Keep a change only when the evidence justifies it; document regressions as well as gains.
 - [ ] Optionally run an **oracle-context diagnostic** with gold evidence on a separate offline path to estimate how much failure is caused by retrieval. Label it clearly and use the same question slice. It is never a user-facing feature or a fair score for the normal pipeline.
 - [ ] Freeze the final candidate and run the held-out pilot test once. If later changes use that test's answers, call it a development set and create a genuinely new held-out evaluation.
 

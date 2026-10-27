@@ -5,7 +5,10 @@ import shutil
 import time
 from datetime import UTC, datetime
 
-from evidence_assistant.data import file_hash, read_jsonl, text_hash, write_json, write_jsonl
+from evidence_assistant.checkpoint import atomic_json as _atomic_json
+from evidence_assistant.checkpoint import restore_checkpoint as _restore_checkpoint
+from evidence_assistant.checkpoint import save_checkpoint as _save_checkpoint
+from evidence_assistant.data import file_hash, read_jsonl, text_hash, write_json
 from evidence_assistant.evaluation import EvaluationPolicy, evaluate_answers, evaluate_retrieval
 from evidence_assistant.evaluation_runs import (
     _enrich_record,
@@ -18,55 +21,6 @@ from evidence_assistant.generation import ANSWER_SCHEMA, SYSTEM_PROMPT, Provider
 from evidence_assistant.requesty import build_candidate_service, candidate_config
 from evidence_assistant.schemas import Chunk, GoldQuestion, Paragraph, RetrievedChunk
 from evidence_assistant.service import answer_question
-
-
-def _atomic_json(path, value):
-    temporary = path.with_name(path.name + ".tmp")
-    write_json(temporary, value)
-    temporary.replace(path)
-
-
-def _save_checkpoint(output, saved, rows):
-    """Publish one authoritative transaction before its two derived exports."""
-    prediction_path = output / "predictions.jsonl"
-    temporary = prediction_path.with_suffix(".tmp")
-    write_jsonl(temporary, rows)
-    newer = {**saved, "prediction_sha256": file_hash(temporary)}
-    _atomic_json(
-        output / "checkpoint.json", {"manifest": newer, "rows": rows, "rows_sha256": _hash(rows)}
-    )
-    temporary.replace(prediction_path)
-    _atomic_json(output / "manifest.json", newer)
-    return newer
-
-
-def _restore_checkpoint(output, saved):
-    checkpoint_path, prediction_path = output / "checkpoint.json", output / "predictions.jsonl"
-    if not checkpoint_path.exists():
-        rows = read_jsonl(prediction_path) if prediction_path.exists() else []
-        if rows and file_hash(prediction_path) != saved.get("prediction_sha256"):
-            raise ValueError("Comparison predictions changed")
-        return saved, rows
-    checkpoint = json.loads(checkpoint_path.read_text("utf-8"))
-    newer, rows = checkpoint["manifest"], checkpoint["rows"]
-    if (
-        newer["binding"] != saved["binding"]
-        or newer["sha256"] != saved["sha256"]
-        or checkpoint["rows_sha256"] != _hash(rows)
-    ):
-        raise ValueError("Comparison checkpoint changed")
-    if prediction_path.exists() and file_hash(prediction_path) not in {
-        saved.get("prediction_sha256"),
-        newer["prediction_sha256"],
-    }:
-        raise ValueError("Comparison predictions changed")
-    temporary = prediction_path.with_suffix(".tmp")
-    write_jsonl(temporary, rows)
-    if file_hash(temporary) != newer["prediction_sha256"]:
-        raise ValueError("Comparison checkpoint prediction hash changed")
-    temporary.replace(prediction_path)
-    _atomic_json(output / "manifest.json", newer)
-    return newer, rows
 
 
 def run_comparison(config, source, output, *, method="hybrid", interval_seconds=15, service=None):
@@ -154,8 +108,8 @@ def run_comparison(config, source, output, *, method="hybrid", interval_seconds=
         }
         for name in ("references.jsonl", "paragraphs.jsonl"):
             shutil.copyfile(source / name, output / name)
-        _atomic_json(path, saved)
-    saved, rows = _restore_checkpoint(output, saved)
+        _atomic_json(path, saved, json_writer=write_json)
+    saved, rows = _restore_checkpoint(output, saved, json_writer=write_json)
     done = {r["question_id"] for r in rows}
     if len(done) != len(rows) or not done <= set(baseline):
         raise ValueError("Comparison contains duplicate or unselected cases")
@@ -186,7 +140,7 @@ def run_comparison(config, source, output, *, method="hybrid", interval_seconds=
         if row["status"] != "error" and not row["context_identical"]:
             raise ValueError("Candidate context differs; comparison cannot continue")
         rows.append(row)
-        saved = _save_checkpoint(output, saved, rows)
+        saved = _save_checkpoint(output, saved, rows, json_writer=write_json)
         print(f"{output.name}: {len(rows)}/{len(references)} {row['status']}", flush=True)
         if row.get("error_code") in {"rate_limited", "unexpected_provider_cost"}:
             break

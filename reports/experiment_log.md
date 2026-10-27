@@ -308,3 +308,40 @@ rejected response, and a prediction/manifest publication gap. The candidate now
 checks cost on errors too and publishes an authoritative atomic checkpoint before
 derived exports. Interrupted publication resumes without regenerating the saved
 case. Full primary suite: 116 passed, one opt-in live test skipped; Ruff passes.
+
+### Task 7 validation decision, 27 October 2026 (Tehran)
+
+All 30 candidate attempts used exactly the saved hybrid passages. Nemotron F1 was
+0.3818 versus Groq 0.3417, and consensus-unanswerable recall 2/2 versus 0/2. It had
+five HTTP 429 errors versus Groq's one rejected citation, including paced attempts
+after cooldowns. Known-cost completions (25) all reported zero; five failed calls
+have unavailable actual usage/cost. Served p95 6.37 s. No failed case was regenerated.
+
+The same accepted agent rubric inspected all 30 responses: 12 correct substantive
+answers, four partially correct, nine refusals, five errors; 24 fully supported
+claims, four partial, zero unsupported. Compared to Groq's 11 correct substantive
+answers, improvement is one rather than the required two. Operational errors also
+fail the declared gate. Keep Groq; no broader model superiority claim is made.
+
+Selected dense from the prespecified Task 6 Groq baselines: stronger measured F1
+and complete-evidence coverage, with one additional false refusal and p95 +0.53 s.
+Manual inspection distinguishes real negated-LAMA evidence gains from wording-driven
+F1 gains. Only retrieval_method changes; prompt, model, chunking and budgets stay
+fixed. Detailed results and caveats: reports/model_comparison.md. Primary failure
+attributions for all 30 original hybrid responses: reports/failure_attribution.jsonl.
+No oracle context was used. A fresh explicitly enabled live Groq citation smoke
+passed (one test, 12.25 s including local initialization).
+
+Ruling: the backend candidate failed its gate; final selection uses dense, already
+included in the prespecified baseline comparison, rather than adding another
+unmeasured intervention. Cost if wrong: small-pilot/lexical-F1 gains may not
+generalize; the held-out report will retain that outcome without retuning.
+
+Before final freezing, the comparison checkpoint transaction was shared with the
+ordinary evaluator. A two-case fault-injection test reproduced failure to resume
+after the final prediction was written but its manifest update failed. It now
+recovers the authoritative checkpoint without repeating either completed call;
+changed immutable manifest fields are rejected. Both environments pass 117 tests
+with one live test skipped; lint passes. This changes persistence, not QA/scoring
+semantics. Historical predictions remain intact; any newer score view is explicitly
+versioned through rescore.

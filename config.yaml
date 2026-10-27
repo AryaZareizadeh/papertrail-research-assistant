@@ -6,7 +6,8 @@ manifest_dir: data/manifests
 artifact_dir: artifacts
 report_dir: reports
 seed: 42
-retrieval_method: hybrid
+# Selected on validation: strongest measured Groq baseline; see reports/model_comparison.md.
+retrieval_method: dense
 top_k: 5
 candidate_k: 20
 rrf_k: 60

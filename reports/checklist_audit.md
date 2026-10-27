@@ -46,6 +46,10 @@ the presence of implementation code.
   User accepted the clearly labeled agent audit for now. Human support stays
   unavailable. Final candidate/test evaluation follows Task 7 decisions.
 - [ ] Task 7 — Failure analysis and a measured improvement.
+  All 30 fixed-context model comparisons and agent inspections completed. Nemotron
+  improved F1/refusals but had five rate-limit errors, so Groq remains active.
+  Dense is the strongest measured Groq retrieval baseline, with recorded tradeoffs.
+  Live Groq source-citation smoke passed again. Final held-out test is pending.
 - [ ] Task 8 — FastAPI service.
 - [ ] Task 9 — Evidence viewer and usability feedback.
 - [ ] Task 10 — Packaging, reproducibility, and release.

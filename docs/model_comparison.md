@@ -8,7 +8,7 @@ Save `REQUESTY_API_KEY` in the ignored `.env` file, then run:
 ```powershell
 .\.venv\Scripts\python.exe -m evidence_assistant.cli prepare-candidate-tokenizer
 .\.venv\Scripts\python.exe -m evidence_assistant.cli calibrate-candidate --interval-seconds 15
-.\.venv\Scripts\python.exe -m evidence_assistant.cli compare-models --source-run-dir reports/runs/validation-qa-baseline-30 --method hybrid --output reports/runs/nemotron-fixed-context-30 --interval-seconds 15
+.\.venv\Scripts\python.exe -m evidence_assistant.cli compare-models --config reports/runs/groq_hybrid_baseline_config.json --source-run-dir reports/runs/validation-qa-baseline-30 --method hybrid --output reports/runs/nemotron-fixed-context-30 --interval-seconds 15
 ```
 
 Calibration reuses successful compatible training probes after interruption, then
@@ -55,6 +55,11 @@ The comparison reads each baseline's saved supplied chunks in their original
 order and verifies them against SQLite. It never retrieves again or silently drops
 context. A candidate budget failure remains an error, rather than receiving easier
 passages. Per-question results and paired metrics retain every selected case.
+
+The original nonsecret hybrid configuration was saved for historical replay
+because the final application now uses dense retrieval. The completed experiment
+is in [model_comparison.md](../reports/model_comparison.md): five throttles kept
+Nemotron from meeting the switch gate. All 30 attempts and both audits are retained.
 
 See [the preregistered hypothesis and decision rule](../reports/failure_analysis.md).
 Human review is still unavailable; the user accepted explicitly labeled agent

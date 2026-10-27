@@ -48,8 +48,8 @@ below 15 seconds for an interactive question. These are declared engineering gat
 for a small pilot, not statistical significance thresholds. Compare source support
 using the same accepted agent rubric and retain all judgments for later human review.
 
-No result is available yet. No active configuration has been switched. Final
-candidate freezing and held-out evaluation follow the validation decision.
+At registration, no result was available and no configuration had been switched.
+Final candidate freezing and held-out evaluation follow the validation decision.
 
 ## Training-only integration checks
 
@@ -71,3 +71,21 @@ could prevent resume. Both were reproduced by failing tests and fixed in one pas
 A single atomic checkpoint now precedes its derived prediction/manifest exports.
 The full suite passes 116 tests with one opt-in live test skipped. Validation
 comparison remains unrun at this checkpoint; Groq is unchanged.
+
+## Validation result and retained change
+
+The completed comparison and decision are in [model_comparison.md](model_comparison.md).
+Nemotron improved Answer F1 and correctly refused both consensus-unanswerable
+questions, but five throttled requests failed the operational gate. Keep Groq.
+Select dense from the prespecified Groq retrieval baselines: it had the strongest
+measured Answer F1 and slightly better complete-evidence coverage. This is the only
+retained setting change; its extra false refusal and modest latency cost are recorded.
+No prompt, chunking, or budget tuning was added after observing the candidate.
+
+Primary attributions for all 30 hybrid responses are in failure_attribution.jsonl.
+Eighteen responses have a primary response/claim-attribution issue: six partial
+evidence, three retrieval misses, three unsupported claims, three over-refusals,
+two wrong interpretations, and one rejected output. Some are claim-level issues
+within otherwise correct answers; table/mixed-annotation cases are identified.
+No ingestion loss or source-span/chunk corruption was found in the verified pilot.
+No oracle-context diagnostic was run. Final held-out evaluation is still pending.

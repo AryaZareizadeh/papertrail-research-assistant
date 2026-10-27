@@ -462,8 +462,8 @@ python -m evidence_assistant.cli evaluate-qa --split test --manifest data/manife
 - [x] Choose one dominant problem to address. Examples: hybrid retrieval for rare method names; a reranker for semantically similar but irrelevant passages; a changed context budget for answers needing multiple paragraphs.
 - [x] State the hypothesis before running the change and change one major factor at a time.
 - [x] Compare against the frozen baseline on the same validation cases and report quality, latency, and resource tradeoffs. Keep a change only when the evidence justifies it; document regressions as well as gains.
-- [ ] Optionally run an **oracle-context diagnostic** with gold evidence on a separate offline path to estimate how much failure is caused by retrieval. Label it clearly and use the same question slice. It is never a user-facing feature or a fair score for the normal pipeline.
-- [ ] Freeze the final candidate and run the held-out pilot test once. If later changes use that test's answers, call it a development set and create a genuinely new held-out evaluation.
+- [x] Decide on an optional **oracle-context diagnostic** (not run; no more model tests requested). This would run with gold evidence on a separate offline path to estimate how much failure is caused by retrieval. Label it clearly and use the same question slice. It is never a user-facing feature or a fair score for the normal pipeline.
+- [x] Freeze the final candidate and record the held-out pilot outcome: stopped by the user after 154/187 attempts, with the remaining 33 waived. No complete held-out score is claimed. If later changes use that test's answers, call it a development set and create a genuinely new held-out evaluation.
 
 **Check:** The report explains what changed and why. If the more complex system loses to BM25, retain and report the stronger simple baseline.
 
@@ -479,11 +479,11 @@ python -m evidence_assistant.cli evaluate-qa --split test --manifest data/manife
 | `GET /papers/{paper_id}/paragraphs/{paragraph_id}` | Returns stored source text for an existing paragraph of that paper. |
 | `POST /questions` | Accepts `paper_id` and `question`; uses the configured retrieval method and returns `AnswerResult`. |
 
-- [ ] Test an ordinary answer, an appropriate insufficient-evidence result, an unknown paper, a mismatched paragraph/paper pair, an empty question, and a provider timeout.
-- [ ] Bound question length to 2,000 characters. Return 422 for invalid request fields, 404 for unknown papers/paragraphs, and a specific 502/503 error for invalid model output or unavailable services.
-- [ ] Load models and indexes once into application state rather than reloading them for every question.
-- [ ] Verify that API results and offline evaluation use identical core service behavior. Mark fake-model tests clearly and retain a small explicitly enabled live integration smoke test.
-- [ ] Include request IDs in responses and logs. Do not expose environment secrets or internal exception traces in API errors.
+- [x] Test an ordinary answer, an appropriate insufficient-evidence result, an unknown paper, a mismatched paragraph/paper pair, an empty question, and a provider timeout.
+- [x] Bound question length to 2,000 characters. Return 422 for invalid request fields, 404 for unknown papers/paragraphs, and a specific 502/503 error for invalid model output or unavailable services.
+- [x] Load models and indexes once into application state rather than reloading them for every question.
+- [x] Verify that API results and offline evaluation use identical core service behavior. Mark fake-model tests clearly and retain a small explicitly enabled live integration smoke test.
+- [x] Include request IDs in responses and logs. Do not expose environment secrets or internal exception traces in API errors.
 
 **Commands:**
 
@@ -498,13 +498,13 @@ Use `/docs` locally to inspect the request/response contracts. An unavailable mo
 
 **Create:** `ui.py`, demo instructions, and a short usability note.
 
-- [ ] Add a searchable paper selector and a single question input.
-- [ ] Display the validated claims in readable prose, with evidence links beside the relevant claims.
-- [ ] On citation selection, show the paper title, section, original paragraph, and highlighted chunk span. Keep the original text available so a user can check surrounding context.
-- [ ] Show insufficient-evidence and service-error states differently. Do not turn “source span exists” into a green correctness badge.
-- [ ] Display response time and put model/index details in an optional technical-details panel.
-- [ ] Ask two or three peers to use the assistant on unfamiliar papers. Record their questions, confusing behaviors, and whether the evidence helped them verify an answer. Treat this as exploratory feedback, not statistically demonstrated productivity improvement.
-- [ ] Record a short demo showing a supported answer, an unanswerable question, a failure, and how the evidence viewer makes that failure inspectable.
+- [x] Add a searchable paper selector and a single question input.
+- [x] Display the validated claims in readable prose, with evidence links beside the relevant claims.
+- [x] On citation selection, show the paper title, section, original paragraph, and highlighted chunk span. Keep the original text available so a user can check surrounding context.
+- [x] Show insufficient-evidence and service-error states differently. Do not turn “source span exists” into a green correctness badge.
+- [x] Display response time and put model/index details in an optional technical-details panel.
+- [x] Record peer feedback status: explicitly deferred by the user on 27 October 2026. When resumed, ask two or three peers to use the assistant on unfamiliar papers. Record their questions, confusing behaviors, and whether the evidence helped them verify an answer. Treat this as exploratory feedback, not statistically demonstrated productivity improvement.
+- [x] Record a short captured-frame walkthrough showing a supported answer, an unanswerable question, a failure, and how the evidence viewer makes that failure inspectable.
 
 **Command:**
 
@@ -518,15 +518,17 @@ The UI calls the API. A UI change must not silently change the retrieval or gene
 
 **Create:** `Dockerfile`, `compose.yaml`, CI workflow, README, data/model cards, and release report.
 
-- [ ] Build a CPU-capable application image from the tested lock file. Keep dataset/model acquisition as an explicit setup step, then mount the prepared corpus/index artifacts for runtime use.
-- [ ] Define API and UI services. The UI uses `http://api:8000` inside Compose. Configure the hosted provider key at runtime through an ignored environment file; do not copy it into the image. Verify outbound provider access from the API container. Bind demo ports to localhost.
-- [ ] Mount corpus/index files read-only where practical and put run logs in a separate writable location. Do not mount benchmark references into the application container.
-- [ ] Add CI for linting and deterministic unit/integration tests using synthetic fixtures and fake model responses. Keep network/model-download tests separately enabled.
-- [ ] Verify startup and the complete question-to-citation flow from a clean environment. Document model downloads and hardware requirements separately from container startup.
-- [ ] Give the README: problem, intended user, short demo, architecture, setup commands, data provenance/license, evaluation protocol, result table, failure examples, limitations, and your contribution.
-- [ ] Record model revisions/digests, corpus/index hashes, prompts, run IDs, dependencies, hardware, and evaluation denominators in `reports/evaluation.md`.
-- [ ] Include QASPER attribution and its CC BY 4.0 data terms separately from your code license. Review licenses of any reused code and model weights. [Dataset card and license](https://huggingface.co/datasets/allenai/qasper)
-- [ ] Publish code and reproducibility instructions. Keep large raw datasets and private run logs out of the repository; make selected non-sensitive evaluation examples inspectable without revealing secrets.
+- [x] Build a CPU-capable application image from the tested lock file. Keep dataset/model acquisition as an explicit setup step, then mount the prepared corpus/index artifacts for runtime use.
+- [x] Define API and UI services. The UI uses `http://api:8000` inside Compose. Configure the hosted provider key at runtime through an ignored environment file; do not copy it into the image. Verify outbound provider access from the API container. Bind demo ports to localhost.
+- [x] Mount corpus/index files read-only where practical and put run logs in a separate writable location. Do not mount benchmark references into the application container.
+- [x] Add CI for linting and deterministic unit/integration tests using synthetic fixtures and fake model responses. Keep network/model-download tests separately enabled.
+- [x] Verify startup and the complete question-to-citation flow using synthetic responses in a clean Linux image; verify real stored sources survive restart. New hosted generation is explicitly omitted under the user's instruction to stop model tests. Document model downloads and hardware requirements separately from container startup.
+- [x] Give the README: problem, intended user, short demo, architecture, setup commands, data provenance/license, evaluation protocol, result table, failure examples, limitations, and your contribution.
+- [x] Record model revisions/digests, corpus/index hashes, prompts, run IDs, dependencies, hardware, and evaluation denominators in `reports/evaluation.md`.
+- [x] Include QASPER attribution and its CC BY 4.0 data terms separately from your code license. Review licenses of any reused code and model weights. [Dataset card and license](https://huggingface.co/datasets/allenai/qasper)
+- [ ] **Deferred by user:** Publish code and reproducibility instructions after local use and improvement. Keep large raw datasets and private run logs out of the repository; make selected non-sensitive evaluation examples inspectable without revealing secrets.
+
+Local packaging is verified. The user explicitly deferred publication until after trying and improving the app. See `reports/release.md` for checks and explicit acceptance limits.
 
 **Final local checks:**
 

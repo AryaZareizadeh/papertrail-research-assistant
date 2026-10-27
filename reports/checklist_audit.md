@@ -67,4 +67,12 @@ the presence of implementation code.
   fixed; 146 deterministic checks passed, two hosted tests skipped. Real narrow-
   browser walkthrough and four captured states are saved in reports/demo/.
   The user explicitly deferred peer feedback; no human usability result is claimed.
-- [ ] Task 10 — Packaging, reproducibility, and release.
+- [x] Task 10 — Local packaging complete; publication explicitly deferred by user.
+  CPU Docker image and separate API/UI services are running. Runtime assets are
+  mounted read-only, logs use a writable Docker volume, and no benchmark labels or
+  keys enter the image. Final review's two important bugs were reproduced and fixed.
+  Windows and offline Linux suites each pass 150 checks; two hosted tests skip.
+  Restart/source/log persistence checks pass. CI, README, licenses, data/model cards,
+  and release notes are prepared. Live generation stays unrun by user instruction.
+  No Git remote is configured and nothing has been published. The user wants to
+  try and improve the app before asking for publication. See release.md.

@@ -387,3 +387,45 @@ resume the same frozen output at600seconds per unsaved case. This is timing only
 not a QA/configuration change. See reports/heldout_status.md. The background CLI
 may take several hours and stops again if throttled; no paid fallback/key rotation.
 Do not markTask7/8 complete or mergeAPI while the frozen run needs to resume.
+
+### 27 October 2026 — User stop decision and local application release
+
+The user stopped further model tests, selected Groq GPT-OSS-20B, and explicitly
+deferred peer feedback. The old resume instruction above is superseded: the
+background driver was stopped, the held-out run remains incomplete at 154/187
+attempts (two retained throttles, 33 unattempted), and no complete test score is
+claimed. Dense retrieval remains selected from the prespecified validation runs.
+The agent claim audit remains labeled; no human support/usability score is claimed.
+
+API integration is committed at 2e75db6 and the reviewed Streamlit viewer/demo at
+d813dec. The viewer links claims to escaped, hash-checked original paragraphs,
+handles Unicode spans and separate refusal/service-error states, and clears stale
+answers on paper changes. Browser captures replay a saved training answer plus
+simulated refusal/error states. The GIF is a captured-frame sequence, not a new
+model measurement. The live API generation smoke stays unrun by user instruction.
+
+Task 10 adds a CPU image, Compose, pinned CI actions, runtime asset export, README,
+data/model cards, MIT application license and separate third-party notices.
+Prepared models/data and keys stay outside the image; the exported 26-file bundle
+is hash-verified and mounted read-only. SQLite remains initial storage; PostgreSQL
+is future work. CI is configured, not claimed to have run remotely.
+
+Fresh packaging review found two Important issues. Two bounded regression cases
+first failed because export copied before rejecting destinations inside either
+model snapshot; overlap rejection now happens before directory creation. A fresh
+Linux volume first failed with PermissionError under UID 10001; an owned image
+directory and Docker-managed log volume fix it. Both fixes passed in one pass.
+
+Final Ruff passes. Windows and network-disabled clean Linux each pass 150 software
+checks, with two opt-in hosted checks skipped. Both container services are healthy
+after restart; 85 papers and three original source hashes match, and a writable log
+marker persists. The UI receives no provider keys. Authenticated GET /models from
+the earlier container returned 200 without generation. No new inference ran.
+
+Release evidence and limits are in reports/release.md. No Git remote is configured;
+publication is pending a destination, and no push/deployment has been performed.
+
+User follow-up: explicitly defer publication, try and improve the app locally,
+then request publishing later. Task 10's local packaging is complete with that
+exception; the publishing checkbox stays visibly deferred. No new model benchmark
+authorization is inferred from this decision. Live app: localhost:18501; API:18000.

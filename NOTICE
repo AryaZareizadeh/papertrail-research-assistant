@@ -1,0 +1,23 @@
+PaperTrail's original application code is provided under the MIT License.
+That license does not relicense datasets, source papers, model assets, hosted
+services, dependencies, or the vendored QASPER evaluator.
+
+QASPER v0.3 dataset: Allen Institute for AI (Ai2), CC BY 4.0 as listed in the
+official dataset card: https://huggingface.co/datasets/allenai/qasper
+Paper: A Dataset of Information-Seeking Questions and Answers Anchored in
+Research Papers, https://arxiv.org/abs/2105.03011
+Public demo passages come from Error Analysis for Vietnamese Named Entity
+Recognition on Deep Neural Network Models, https://arxiv.org/abs/1911.07228
+
+Official QASPER evaluator: allenai/qasper-led-baseline, Apache License 2.0.
+The retained license and pinned-source metadata are in
+src/evidence_assistant/_vendor/.
+
+all-MiniLM-L6-v2: sentence-transformers, Apache License 2.0 as listed in its
+official model card: https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2
+
+GPT-OSS-20B is accessed through Groq. Its weights are not distributed here.
+Tokenizer/model terms: https://huggingface.co/openai/gpt-oss-20b
+Hosted-service terms remain separate from model and application licenses.
+
+Installed third-party Python packages retain their respective upstream licenses.

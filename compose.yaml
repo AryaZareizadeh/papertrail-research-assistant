@@ -1,0 +1,44 @@
+name: papertrail
+services:
+  api:
+    build: .
+    image: papertrail:local
+    environment:
+      PAPERTRAIL_CONFIG: /app/config.docker.yaml
+    env_file:
+      - .env
+    ports:
+      - "127.0.0.1:${PAPERTRAIL_API_PORT:-8000}:8000"
+    volumes:
+      - ./runtime/artifacts:/artifacts:ro
+      - runlogs:/runlogs
+    read_only: true
+    tmpfs:
+      - /tmp
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/ready', timeout=5)"]
+      interval: 15s
+      timeout: 6s
+      start_period: 90s
+      retries: 3
+  ui:
+    image: papertrail:local
+    depends_on:
+      api:
+        condition: service_started
+    command: ["python", "-m", "streamlit", "run", "src/evidence_assistant/ui.py", "--server.address", "0.0.0.0", "--server.port", "8501", "--server.headless", "true"]
+    environment:
+      PAPERTRAIL_API_URL: http://api:8000
+    ports:
+      - "127.0.0.1:${PAPERTRAIL_UI_PORT:-8501}:8501"
+    read_only: true
+    tmpfs:
+      - /tmp
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8501/_stcore/health', timeout=5)"]
+      interval: 15s
+      timeout: 6s
+      retries: 3
+
+volumes:
+  runlogs:

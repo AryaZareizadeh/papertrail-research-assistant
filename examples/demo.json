@@ -1,0 +1,122 @@
+{
+  "provenance": "Recorded Groq training-paper answer; historical hybrid retrieval, not a new dense run. Refusal/error in demo are simulated. Paper text: QASPER v0.3, CC BY 4.0.",
+  "paper": {
+    "paper_id": "1911.07228",
+    "title": "Error Analysis for Vietnamese Named Entity Recognition on Deep Neural Network Models",
+    "sections": [
+      {
+        "section_index": 6,
+        "section_name": "Experiment and Results",
+        "paragraph_count": 1
+      },
+      {
+        "section_index": 4,
+        "section_name": "Data and model ::: Pre-trained word Embeddings",
+        "paragraph_count": 1
+      },
+      {
+        "section_index": 4,
+        "section_name": "Data and model ::: Pre-trained word Embeddings",
+        "paragraph_count": 1
+      }
+    ]
+  },
+  "question": "What word embeddings were used?",
+  "answer": {
+    "request_id": "290ae9cbacbc419f98c5c2d1e078db6b",
+    "paper_id": "1911.07228",
+    "status": "answered",
+    "claims": [
+      {
+        "text": "The models used two pre‑trained Vietnamese word embeddings: one from Kyubyong Park and one from Edouard Grave.",
+        "citation_chunk_ids": [
+          "1911.07228:s0006:p0000:c0000"
+        ]
+      },
+      {
+        "text": "Kyubyong Park’s embeddings were generated with fastText and word2vec from Wikipedia dumps, are 100‑dimensional and cover about 10,000 words.",
+        "citation_chunk_ids": [
+          "1911.07228:s0004:p0001:c0000"
+        ]
+      },
+      {
+        "text": "Edouard Grave’s embeddings were generated with fastText from Wikipedia, are 300‑dimensional and cover about 200,000 words.",
+        "citation_chunk_ids": [
+          "1911.07228:s0004:p0002:c0000"
+        ]
+      }
+    ],
+    "citations": [
+      {
+        "chunk_id": "1911.07228:s0006:p0000:c0000",
+        "paper_id": "1911.07228",
+        "paragraph_id": "1911.07228:s0006:p0000",
+        "section_name": "Experiment and Results",
+        "start_char": 0,
+        "end_char": 214,
+        "quote": "Table 2 shows our experiments on two models with and without different pre-trained word embedding – KP means the Kyubyong Park’s pre-trained word embeddings and EG means Edouard Grave’s pre-trained word embeddings."
+      },
+      {
+        "chunk_id": "1911.07228:s0004:p0001:c0000",
+        "paper_id": "1911.07228",
+        "paragraph_id": "1911.07228:s0004:p0001",
+        "section_name": "Data and model ::: Pre-trained word Embeddings",
+        "start_char": 0,
+        "end_char": 226,
+        "quote": "Kyubyong Park: In his project, he uses two methods including fastText and word2vec to generate word embeddings from wikipedia database backup dumps. His word embedding is the vector of 100 dimension and it has about 10k words."
+      },
+      {
+        "chunk_id": "1911.07228:s0004:p0002:c0000",
+        "paper_id": "1911.07228",
+        "paragraph_id": "1911.07228:s0004:p0002",
+        "section_name": "Data and model ::: Pre-trained word Embeddings",
+        "start_char": 0,
+        "end_char": 217,
+        "quote": "Edouard Grave et al BIBREF11: They use fastText tool to generate word embeddings from Wikipedia. The format is the same at Kyubyong's, but their embedding is the vector of 300 dimension, and they have about 200k words"
+      }
+    ],
+    "retrieved_chunk_ids": [
+      "1911.07228:s0006:p0000:c0000",
+      "1911.07228:s0004:p0000:c0000",
+      "1911.07228:s0004:p0001:c0000",
+      "1911.07228:s0010:p0004:c0000",
+      "1911.07228:s0004:p0002:c0000"
+    ],
+    "method": "hybrid",
+    "model_id": "openai/gpt-oss-20b",
+    "prompt_version": "evidence-v1",
+    "index_version": "93c1e11839efe177a42de753a0a961bf7528ec84f0627630167757d0fd6d04ca",
+    "latency_ms": 1431.0256000608206
+  },
+  "paragraphs": [
+    {
+      "paragraph_id": "1911.07228:s0006:p0000",
+      "paper_id": "1911.07228",
+      "section_index": 6,
+      "section_name": "Experiment and Results",
+      "paragraph_index": 0,
+      "text": "Table 2 shows our experiments on two models with and without different pre-trained word embedding – KP means the Kyubyong Park’s pre-trained word embeddings and EG means Edouard Grave’s pre-trained word embeddings.",
+      "text_sha256": "909bb0e125200feeec250ed94a761b6810221dd4d3d036fe9b785a732d56d42d"
+    },
+    {
+      "paragraph_id": "1911.07228:s0004:p0001",
+      "paper_id": "1911.07228",
+      "section_index": 4,
+      "section_name": "Data and model ::: Pre-trained word Embeddings",
+      "paragraph_index": 1,
+      "text": "Kyubyong Park: In his project, he uses two methods including fastText and word2vec to generate word embeddings from wikipedia database backup dumps. His word embedding is the vector of 100 dimension and it has about 10k words.",
+      "text_sha256": "a4a8ce6784e8b42be0ee95f222a7df8b08b628556009034be780327aa5624732"
+    },
+    {
+      "paragraph_id": "1911.07228:s0004:p0002",
+      "paper_id": "1911.07228",
+      "section_index": 4,
+      "section_name": "Data and model ::: Pre-trained word Embeddings",
+      "paragraph_index": 2,
+      "text": "Edouard Grave et al BIBREF11: They use fastText tool to generate word embeddings from Wikipedia. The format is the same at Kyubyong's, but their embedding is the vector of 300 dimension, and they have about 200k words",
+      "text_sha256": "037cf8dcd0830393d53a1357ea113e20cc170055d9bd8d4c4a58480bb8280c72"
+    }
+  ],
+  "recorded_request_id": "290ae9cbacbc419f98c5c2d1e078db6b",
+  "recorded_at": "2026-10-26T23:46:57.084826+00:00"
+}

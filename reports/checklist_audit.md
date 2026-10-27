@@ -45,20 +45,26 @@ the presence of implementation code.
   Current suite: 102 passed, one opt-in live test skipped, in both environments.
   User accepted the clearly labeled agent audit for now. Human support stays
   unavailable. Final candidate/test evaluation follows Task 7 decisions.
-- [ ] Task 7 — Failure analysis and a measured improvement.
+- [x] Task 7 — Failure analysis and selection; held-out completion waived by user.
   All 30 fixed-context model comparisons and agent inspections completed. Nemotron
   improved F1/refusals but had five rate-limit errors, so Groq remains active.
   Dense is the strongest measured Groq retrieval baseline, with recorded tradeoffs.
   User confirmed Groq GPT-OSS-20B as the selected generator. Dense retrieval stays
   selected. Held-out evaluation stopped at the user's request: 154/187 attempted,
   including two retained throttles; 33 intentionally unattempted. No more model
-  tests are requested. Remaining work is reporting/acceptance closeout with the
-  incomplete pilot clearly labeled, not more inference. See heldout_status.md.
-- [ ] Task 8 — FastAPI service.
+  tests are requested. Reporting/acceptance closeout is recorded in evaluation.md,
+  with the incomplete pilot clearly labeled. See heldout_status.md.
+- [x] Task 8 — Integrated FastAPI service; live API generation remains unrun.
   Draft saved separately at d004ee3 on codex/api-draft. Fresh review fixes verified
   RED→GREEN; 137 tests pass in both dependency environments, two live tests skipped.
-  Real read-only HTTP/source/docs checks pass. Integrate the reviewed draft into
-  the main project. The live API question smoke remains unrun under the user's
-  no-more-model-tests instruction; record that limit instead of blocking on it.
-- [ ] Task 9 — Evidence viewer and usability feedback.
+  Integrated at2e75db6. Real read-only HTTP/source/docs checks pass. The live API
+  question smoke remains unrun under the user's no-more-model-tests instruction.
+- [x] Task 9 — Evidence viewer and recorded walkthrough; peer feedback deferred.
+  Searchable paper selection, claims/source buttons, escaped Unicode-span highlights,
+  original text, separate error/refusal states, latency, and technical details work.
+  AppTest verifies source selection does not regenerate and paper changes clear
+  prior answers. Fresh review's malformed-error-code crash was reproduced then
+  fixed; 146 deterministic checks passed, two hosted tests skipped. Real narrow-
+  browser walkthrough and four captured states are saved in reports/demo/.
+  The user explicitly deferred peer feedback; no human usability result is claimed.
 - [ ] Task 10 — Packaging, reproducibility, and release.

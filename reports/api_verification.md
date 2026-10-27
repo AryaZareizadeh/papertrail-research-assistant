@@ -1,7 +1,9 @@
-# API draft verification — 27 October 2026
+# API verification — 27 October 2026
 
-Task 8 is prepared on `codex/api-draft`, based on `7788140`. It is not yet
-integrated or checked complete: Task 7's frozen held-out run is still in progress.
+Task 8 was prepared on `codex/api-draft`, based on `7788140`, reviewed and saved at
+`d004ee3`, then integrated into the main project at `2e75db6`. The user stopped
+further model testing and selected Groq GPT-OSS-20B; the incomplete held-out pilot
+is documented rather than blocking application development.
 
 The shared `answer_question` function supplies every API answer. Synthetic tests
 compare its offline result to the API result, excluding only latency/request ID.
@@ -40,5 +42,6 @@ documented sanitized 422 envelope.
 
 The opt-in live API smoke uses one training-paper question and checks that every
 citation resolves to the exact original paragraph span through HTTP. It has not
-run yet, to avoid competing with the held-out evaluation for free-tier quota.
-Run it after that evaluation before Task 8 completion; see [API usage](../docs/api.md).
+run, following the user's no-more-model-tests instruction. Existing live core
+generation checks remain historical evidence; API/provider generation is not newly
+claimed. The API is accepted with that explicit limit. See [API usage](../docs/api.md).

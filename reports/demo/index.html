@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>PaperTrail offline walkthrough</title>
+<style>
+body{background:#edf2f6;color:#182934;font:17px/1.6 system-ui;margin:2rem auto;max-width:960px;padding:0 1rem}
+img{max-width:100%;height:auto;border:1px solid #c8d4df}figure{margin:2rem 0}a{color:#176c73}
+</style>
+<h1>PaperTrail: inspect an answer's evidence</h1>
+<p>This captured-frame walkthrough replays a saved Groq answer from a QASPER
+training paper, then shows simulated insufficient-evidence and service-error
+states. It makes no model calls and is not a new performance measurement.</p>
+<p>The historical answer used hybrid retrieval. The selected application uses
+Groq GPT-OSS-20B with dense retrieval. No human usability claim is made.</p>
+<figure><img src="walkthrough.gif" alt="Four recorded interface states, cycling over 18 seconds"><figcaption>18-second captured-frame sequence; not a continuous screen recording.</figcaption></figure>
+<h2>Read each state at your own pace</h2>
+<figure><img src="answer.png" alt="Recorded answer with source buttons beside its claims"><figcaption>A saved answer exposes sources beside each claim.</figcaption></figure>
+<figure><img src="source.png" alt="Original paragraph with the cited text highlighted"><figcaption>Selecting another source opens its exact original paragraph. A highlight locates text; it does not prove the interpretation.</figcaption></figure>
+<figure><img src="refusal.png" alt="Simulated insufficient-evidence response"><figcaption>The refusal state is explicitly simulated and contains no claims.</figcaption></figure>
+<figure><img src="error.png" alt="Simulated rate-limit error with a request ID"><figcaption>A service error is distinct from insufficient evidence and retains a request ID.</figcaption></figure>
+<p>Paper text: QASPER v0.3, <a href="https://huggingface.co/datasets/allenai/qasper">CC BY 4.0</a>. Source: <em>Error Analysis for Vietnamese Named Entity Recognition on Deep Neural Network Models</em>, arXiv:1911.07228.</p>
+</html>

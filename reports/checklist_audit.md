@@ -51,6 +51,8 @@ the presence of implementation code.
   Dense is the strongest measured Groq retrieval baseline, with recorded tradeoffs.
   Live Groq source-citation smoke passed again. Frozen 187-question held-out test
   is running; the consumed-selection marker and original output are retained.
+  Currently 154/187 attempted, including two retained throttles; 33 remain.
+  Conservative background backoff/pacing: see heldout_status.md. No final score yet.
 - [ ] Task 8 — FastAPI service.
   Draft saved separately at d004ee3 on codex/api-draft. Fresh review fixes verified
   RED→GREEN; 137 tests pass in both dependency environments, two live tests skipped.

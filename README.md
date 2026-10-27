@@ -55,7 +55,8 @@ the same 30 questions across three methods. See the
 the user accepted it for Task 6. Human claim-support scores remain unavailable.
 The [model comparison](reports/model_comparison.md) is complete: Groq remains active,
 and dense is the selected retrieval baseline. Task 7's once-only held-out test is
-running with the frozen Groq+dense configuration. A reviewed FastAPI draft is saved
+continuing with the frozen Groq+dense configuration and conservative quota backoff;
+see [held-out progress](reports/heldout_status.md). A reviewed FastAPI draft is saved
 separately on `codex/api-draft`; integration waits for that test to finish. UI and
 Docker packaging are pending.
 

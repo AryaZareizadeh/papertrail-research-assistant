@@ -377,3 +377,13 @@ metrics across all 90 validation answer cases and 276 retrieval cases. Original
 reports/predictions remain intact. The legacy retrieval manifest predates scoring
 hashes and cannot be directly rescored; its already verified v2 report is the v3
 source, with provenance retained. No provider calls were made for these reports.
+
+At 154/187 held-out attempts, Groq has returned two throttles (Retry-After12 and
+402 seconds). The first cooldown/resume completed two more questions before the
+second throttle. Both errors remain; 33 question IDs are still missing. Known
+usage is149067input+15712output=164779tokens; failed-request usage is unavailable.
+Conservative operational backoff: wait15minutes from the second throttle, then
+resume the same frozen output at600seconds per unsaved case. This is timing only,
+not a QA/configuration change. See reports/heldout_status.md. The background CLI
+may take several hours and stops again if throttled; no paid fallback/key rotation.
+Do not markTask7/8 complete or mergeAPI while the frozen run needs to resume.

@@ -18,7 +18,8 @@ real dense/hybrid retrieval, live Groq generation, and calibrated provider token
 accounting. Task 6 evaluation and the 30-response agent audit are implemented and
 measured. Task 6 is complete with the user-accepted, explicitly labeled agent
 audit; human claim support remains unavailable. Task 7's model comparison selected
-Groq plus dense retrieval; the final held-out pilot is next. See
+  Groq plus dense retrieval; the final held-out pilot is in progress with quota
+  backoff. The reviewed API draft is saved separately and awaits integration. See
 `reports/experiment_log.md` for evidence, setup decisions, and remaining work.
 
 ## 1. How to use this guide

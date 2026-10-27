@@ -37,8 +37,8 @@ Storage starts with SQLite. A later version will migrate to PostgreSQL while
 preserving document identifiers and citation source spans.
 
 See [the experiment log](reports/experiment_log.md) for verified progress and
-remaining work. Retrieval timings and hosted smoke checks are recorded; benchmark
-answer quality has not yet been measured.
+remaining work. Validation retrieval and answer-quality measurements are recorded;
+the final held-out pilot is still running.
 
 ## Current working milestone
 
@@ -55,7 +55,9 @@ the same 30 questions across three methods. See the
 the user accepted it for Task 6. Human claim-support scores remain unavailable.
 The [model comparison](reports/model_comparison.md) is complete: Groq remains active,
 and dense is the selected retrieval baseline. Task 7's once-only held-out test is
-next. API, UI, and Docker packaging are pending.
+running with the frozen Groq+dense configuration. A reviewed FastAPI draft is saved
+separately on `codex/api-draft`; integration waits for that test to finish. UI and
+Docker packaging are pending.
 
 The complete dependency installation now works. For a smaller SQLite/BM25-only
 environment, the original bootstrap lock remains available:

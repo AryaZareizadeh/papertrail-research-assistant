@@ -345,3 +345,35 @@ changed immutable manifest fields are rejected. Both environments pass 117 tests
 with one live test skipped; lint passes. This changes persistence, not QA/scoring
 semantics. Historical predictions remain intact; any newer score view is explicitly
 versioned through rescore.
+
+### Frozen held-out run and isolated API draft, 27 October 2026
+
+The final Groq+dense candidate was frozen at code commit `7788140`. Frozen-manifest
+SHA-256: `878815f1e6e4d922661b3e2932f795db4d4a7f23512d5dc27bc462b01c47eeba`.
+The once-only 187-question test pilot is running in `reports/runs/final-test`,
+paced at 20 seconds between requests. Its consumed-selection marker is retained.
+No held-out answer has been used to change configuration or implementation.
+
+Ruling: prepare Task 8 in a separate managed worktree on `codex/api-draft` while
+the paced test runs. Keep the original checkout's source, configuration, model,
+index, and data bytes unchanged; do not integrate or check off Task 8 until Task 7
+finishes. This avoids invalidating the frozen run or its resume identity. Cost if
+wrong: merging early would make the final test impossible to resume consistently.
+
+The isolated draft passes 137 deterministic tests in both dependency environments;
+the two live tests are deliberately disabled while the final test consumes quota.
+Real Uvicorn startup and read-only HTTP checks pass: readiness, all 85 paper
+listings, original paragraph retrieval, mismatched paragraph rejection, and `/docs`.
+Fresh review reproduced three important issues in six failing regression cases:
+core error-ID propagation, malformed-path configuration startup, and unnecessary
+dense artifacts for BM25 readiness. All six now pass, alongside the full suite.
+The API draft is saved at `d004ee3`; it is not integrated or Task 8 complete.
+One deferred minor: invalid UTF-8 JSON bodies return HTTP 400 with a generic
+internal-error code rather than a more useful invalid-request code. Real provider
+availability remains outside the synthetic review; the live smoke is still pending.
+
+Explicit v3 rescoring under the frozen reporting code preserves every method's
+metrics across all 90 validation answer cases and 276 retrieval cases. Original
+reports/predictions remain intact. The legacy retrieval manifest predates scoring
+hashes and cannot be directly rescored; its already verified v2 report is the v3
+source, with provenance retained. No provider calls were made for these reports.

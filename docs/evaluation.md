@@ -101,7 +101,7 @@ After validation decisions in Task 7:
 
 ```powershell
 .\.venv\Scripts\python.exe -m evidence_assistant.cli freeze --output reports/runs/frozen_candidate.json
-.\.venv\Scripts\python.exe -m evidence_assistant.cli evaluate-qa --split test --manifest data/manifests/test_pilot.json --method hybrid --frozen-run-manifest reports/runs/frozen_candidate.json --output reports/runs/final-test
+.\.venv\Scripts\python.exe -m evidence_assistant.cli evaluate-qa --split test --manifest data/manifests/test_pilot.json --method dense --frozen-run-manifest reports/runs/frozen_candidate.json --output reports/runs/final-test --interval-seconds 20
 ```
 
 The frozen manifest binds configuration, dataset selections, corpus/index/model

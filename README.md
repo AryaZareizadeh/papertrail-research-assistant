@@ -35,7 +35,23 @@ The API and offline evaluator reuse one answer pipeline. The UI calls the API;
 it cannot silently choose another model, prompt, or retrieval configuration.
 Storage starts with SQLite. PostgreSQL is planned for a later version.
 
+## Add your own papers
+
+Open **Add a paper** in the interface to upload a selectable-text PDF or import an
+arXiv link. Preview the extracted text, edit its title, and click **Add to collection**.
+The saved paper is selected immediately and remains available after a restart.
+Limits: 20 MiB, 100 pages; scanned PDFs require OCR elsewhere. Page citations refer
+to extracted text, whose reading order can differ from the PDF. Your collection is
+stored separately from the benchmark assets. [Import guide](docs/paper_import.md).
+
 ## Local setup
+
+Clone the repository, then run the setup commands below:
+
+```powershell
+git clone https://github.com/AryaZareizadeh/papertrail-research-assistant.git
+cd papertrail-research-assistant
+```
 
 Use Python 3.13. The lock was reproduced on Windows/Python 3.13.0 and in a Linux
 CPU container. From the repository root in PowerShell:
@@ -123,10 +139,13 @@ unsupported acronym expansion, confusing cognitive and stylistic features,
 partial attribution, retrieval misses, and over-refusal despite usable evidence.
 Clickable citations make these failures inspectable; they do not eliminate them.
 
-The held-out pilot was frozen before inference and stopped at the user's request
-after **154/187 attempts**, including two retained rate-limit failures. The other
-33 questions were not attempted. No completed held-out score is claimed and no
-more model benchmarks are planned. Peer feedback was explicitly deferred.
+The frozen held-out pilot is complete: **187/187 questions from 50 papers**
+attempted, with 185 completed responses and 2 retained historical rate-limit failures.
+The user authorized the final 33 unattempted cases; all original attempts were
+preserved. Whole-pilot Answer F1 is **0.2600**, Evidence F1 **0.4374**;
+strict text-only Answer F1 is 0.2938 on 149 questions.
+Failures receive zero and remain in the denominator. This is a pilot, not the
+full benchmark or an accuracy percentage. Peer feedback remains deferred.
 
 [Final configuration and protocol](reports/evaluation.md) ·
 [Baseline details](reports/evaluation_baseline.md) ·
@@ -145,7 +164,8 @@ Regular checks use synthetic fixtures/fake responses. Hosted smoke tests are
 separately enabled and disabled by default. CI uses no provider keys or model
 downloads. The offline demo replays saved data with simulated refusal/error states.
 
-Version one supports selected English NLP papers and text evidence. PDF/OCR,
+Version one supports English paper text, including uploaded PDFs and arXiv imports.
+OCR,
 figure/table reasoning, Persian support, cross-paper synthesis, authentication,
 and public multi-user hosting are future work. Hosted models can change or throttle;
 the small pilot and public-benchmark contamination limit conclusions.

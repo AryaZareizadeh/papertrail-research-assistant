@@ -2,8 +2,9 @@
 
 Task 8 was prepared on `codex/api-draft`, based on `7788140`, reviewed and saved at
 `d004ee3`, then integrated into the main project at `2e75db6`. The user stopped
-further model testing and selected Groq GPT-OSS-20B; the incomplete held-out pilot
-is documented rather than blocking application development.
+further model testing and selected Groq GPT-OSS-20B. The user later explicitly
+authorized finishing the original held-out pilot, now complete at 187/187 attempts;
+see [the evaluation report](evaluation.md). The separate live API smoke remains unrun.
 
 The shared `answer_question` function supplies every API answer. Synthetic tests
 compare its offline result to the API result, excluding only latency/request ID.

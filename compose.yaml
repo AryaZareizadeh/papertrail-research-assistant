@@ -12,6 +12,7 @@ services:
     volumes:
       - ./runtime/artifacts:/artifacts:ro
       - runlogs:/runlogs
+      - library:/library
     read_only: true
     tmpfs:
       - /tmp
@@ -42,3 +43,4 @@ services:
 
 volumes:
   runlogs:
+  library:

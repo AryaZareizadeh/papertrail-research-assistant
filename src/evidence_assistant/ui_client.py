@@ -8,6 +8,8 @@ from urllib.parse import quote
 import httpx
 from pydantic import TypeAdapter, ValidationError
 
+from evidence_assistant.library import ImportPreview, ImportSaved
+from evidence_assistant.paper_import import IMPORT_MESSAGES
 from evidence_assistant.schemas import AnswerResult, Citation, Paragraph, Record
 
 
@@ -33,6 +35,7 @@ MESSAGES = {
     "transport_error": "The API could not reach the model service. Try again later.",
     "missing_api_key": "The API needs its model credentials configured before it can answer.",
 }
+MESSAGES.update(IMPORT_MESSAGES)
 
 
 def _invalid_response():
@@ -44,16 +47,19 @@ class ApiClient:
         self.base_url = base_url.rstrip("/")
         self.transport = transport
 
-    def _request(self, method, path, *, payload=None, timeout=15):
+    def _request(self, method, path, *, payload=None, content=None, headers=None, timeout=15):
+        options = {"json": payload, "timeout": timeout}
+        if content is not None:
+            options = {"content": content, "headers": headers, "timeout": timeout}
         try:
             if self.transport is None:
                 with httpx.Client() as client:
                     response = client.request(
-                        method, self.base_url + path, json=payload, timeout=timeout
+                        method, self.base_url + path, **options
                     )
             else:
                 response = self.transport.request(
-                    method, self.base_url + path, json=payload, timeout=timeout
+                    method, self.base_url + path, **options
                 )
         except httpx.TimeoutException:
             raise UIError(
@@ -85,6 +91,33 @@ class ApiClient:
                 message, code=code if code in MESSAGES else "api_error", request_id=request_id
             )
         return data
+
+    def preview_pdf(self, data, filename):
+        response = self._request(
+            "POST", f"/imports/pdf?filename={quote(filename, safe='')}",
+            content=data, headers={"Content-Type": "application/pdf"}, timeout=60,
+        )
+        try:
+            return ImportPreview.model_validate(response)
+        except ValidationError:
+            raise _invalid_response() from None
+
+    def preview_arxiv(self, url):
+        response = self._request("POST", "/imports/arxiv", payload={"url": url}, timeout=180)
+        try:
+            return ImportPreview.model_validate(response)
+        except ValidationError:
+            raise _invalid_response() from None
+
+    def confirm_import(self, preview_id, title):
+        response = self._request(
+            "POST", f"/imports/{quote(preview_id, safe='')}/confirm",
+            payload={"title": title}, timeout=180,
+        )
+        try:
+            return ImportSaved.model_validate(response)
+        except ValidationError:
+            raise _invalid_response() from None
 
     def papers(self):
         try:

@@ -1,5 +1,6 @@
 # Full runtime and development dependencies, verified on Windows / Python 3.13.0.
 # Install this lock, then install the local package editable with --no-deps.
+pypdf==6.18.0
 
 altair==6.3.0
 annotated-doc==0.0.5

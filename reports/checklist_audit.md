@@ -1,7 +1,11 @@
 # Sequential checklist audit
 
-Date: 26 October 2026. Checkboxes reflect completed acceptance checks, not only
-the presence of implementation code.
+Updated: 27 October 2026. Task entries record acceptance closeout, including
+explicitly stated user waivers and deferrals; they do not imply every original
+acceptance check ran. The guide has 79 checked items and one open publication
+item. Fresh verification is recorded in [readiness_audit.md](readiness_audit.md).
+The per-task test counts below are historical milestone results; the current
+deterministic suite passes 150 tests with two hosted checks skipped.
 
 - [x] Task 1 — Project, configuration, full dependencies, and reproducible lock.
   Verified all eight guide items; 16 configuration tests and 47 total tests pass.
@@ -45,15 +49,12 @@ the presence of implementation code.
   Current suite: 102 passed, one opt-in live test skipped, in both environments.
   User accepted the clearly labeled agent audit for now. Human support stays
   unavailable. Final candidate/test evaluation follows Task 7 decisions.
-- [x] Task 7 — Failure analysis and selection; held-out completion waived by user.
-  All 30 fixed-context model comparisons and agent inspections completed. Nemotron
-  improved F1/refusals but had five rate-limit errors, so Groq remains active.
-  Dense is the strongest measured Groq retrieval baseline, with recorded tradeoffs.
-  User confirmed Groq GPT-OSS-20B as the selected generator. Dense retrieval stays
-  selected. Held-out evaluation stopped at the user's request: 154/187 attempted,
-  including two retained throttles; 33 intentionally unattempted. No more model
-  tests are requested. Reporting/acceptance closeout is recorded in evaluation.md,
-  with the incomplete pilot clearly labeled. See heldout_status.md.
+- [x] Task 7 — Failure analysis, selection, and completed held-out pilot.
+  Controlled validation comparisons selected Groq GPT-OSS-20B plus dense retrieval.
+  On the user's explicit completion request, the remaining 33 held-out cases
+  completed with 0 new errors: 187/187 attempted, 2 original throttles retained,
+  zero unattempted. All original 154 records, frozen inputs, and consumed marker
+  are unchanged. Whole-pilot Answer F1: 0.2600. See evaluation.md and heldout_status.md.
 - [x] Task 8 — Integrated FastAPI service; live API generation remains unrun.
   Draft saved separately at d004ee3 on codex/api-draft. Fresh review fixes verified
   RED→GREEN; 137 tests pass in both dependency environments, two live tests skipped.

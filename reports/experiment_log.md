@@ -429,3 +429,26 @@ User follow-up: explicitly defer publication, try and improve the app locally,
 then request publishing later. Task 10's local packaging is complete with that
 exception; the publishing checkbox stays visibly deferred. No new model benchmark
 authorization is inferred from this decision. Live app: localhost:18501; API:18000.
+
+### 27 October 2026 — Authorized held-out completion
+
+The user explicitly requested finishing the 33 unattempted held-out questions.
+This supersedes the earlier stop only for completing the original selected pilot.
+All 154 existing attempts, including the two rate-limit failures, are preserved.
+The frozen candidate, inputs, dependency lock, and original 18 Python modules
+still match. Later API/UI/export modules are excluded by loading a byte-verified
+copy of the original evaluator; no freeze or consumed-selection marker is rewritten.
+A complete pre-resume backup is saved locally. The unchanged evaluator resumes
+the same output directory at 20-second intervals with per-case checkpoints.
+No tuning, alternative generator, repeated failed case, or new comparison is added.
+
+Completion verified: 187/187 attempts, 185 non-error responses, 2 retained
+historical throttles, zero unattempted; 0 new errors. All original 154
+prediction records remain byte-for-byte intact. All 178 emitted citations
+were rechecked against original sources; all 185 non-error prompt counts
+match calibration. Whole-pilot Answer F1 0.2600, Evidence F1 0.4374;
+strict text-only Answer F1 0.2938 on 149 questions. Errors remain
+in all denominators and receive official zero. Scoring was regenerated
+with the unchanged original scoring identity, without new model calls.
+See heldout_summary.json for aggregate metrics/hashes and heldout_status.md
+for provenance. No other deferred work is claimed complete.

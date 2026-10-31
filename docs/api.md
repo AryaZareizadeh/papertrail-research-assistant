@@ -83,3 +83,9 @@ $env:PAPERTRAIL_LIVE_API = '1'
 python -m pytest tests/test_live_api.py -q
 Remove-Item Env:PAPERTRAIL_LIVE_API
 ```
+
+## Paper imports
+
+PDF uploads and arXiv links use preview and explicit confirmation before adding a
+paper. Imported paper IDs work with the existing question and paragraph routes.
+See [the import API and limits](paper_import.md#http-endpoints).

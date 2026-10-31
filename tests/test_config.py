@@ -52,6 +52,16 @@ def test_config_rejects_non_mapping_yaml(tmp_path):
         load_config(path)
 
 
+@pytest.mark.parametrize("values", [
+    {"artifact_dir": "data/library"},
+    {"artifact_dir": "custom/artifacts", "corpus_dir": "custom/library"},
+    {"artifact_dir": "custom/artifacts", "report_dir": "custom/library/reports"},
+])
+def test_inferred_library_must_not_overlap_protected_paths(tmp_path, values):
+    with pytest.raises(ValueError, match="overlap"):
+        load_config(write_config(tmp_path, **values))
+
+
 def test_doctor_reports_missing_artifacts_without_creating_them(tmp_path):
     path = write_config(tmp_path)
     result = subprocess.run(

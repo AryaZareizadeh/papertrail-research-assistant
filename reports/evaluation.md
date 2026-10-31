@@ -37,23 +37,56 @@ See [validation baseline](evaluation_baseline.md), [failure analysis](failure_an
 for eligibility exclusions, reference handling, annotation disagreements, usage,
 hardware, audit rubric, and all measured tradeoffs.
 
-## Incomplete held-out pilot
+## Completed held-out pilot
 
 The final configuration was frozen before held-out inference at code `7788140`.
 Frozen-manifest SHA-256:
 `878815f1e6e4d922661b3e2932f795db4d4a7f23512d5dc27bc462b01c47eeba`.
-The pilot selected 50 test papers and all 187 questions. The user stopped further
-model tests after 154 attempts: 152 model responses, two retained HTTP 429 errors,
-and 33 unattempted questions. No completed 187-question test score is claimed.
-Known usage was 149,067 input and 15,712 output tokens; failed-call usage is unknown.
-Partial run metrics are preserved locally but are not presented as a completed
-held-out result or used to choose settings.
+All **187/187 questions from the deterministic 50-paper test pilot** have now been
+attempted. After the original stop at 154 attempts, the user explicitly requested
+completion on 27 October 2026. Only the 33 unattempted questions were added.
+All original 154 prediction records remain byte-for-byte intact, including the
+two HTTP 429 failures. There are 185 completed model responses and 2
+retained failed cases, with zero unattempted questions. No failed case was retried.
 
-The remaining inference requirement was explicitly waived by the user. Preserve
-the checkpoint and consumed-selection marker; do not resume unless asked. The
-frozen manifest describes its original code, not later API/UI/packaging additions.
-This closes Task 7 with a declared deviation rather than claiming its full
-held-out acceptance check passed. See [held-out status](heldout_status.md).
+| Metric | All 187 selected questions | Strict text-only: 149 questions |
+| --- | ---: | ---: |
+| Official Answer F1 | 0.2600 | 0.2938 |
+| Official Evidence F1 | 0.4374 | 0.4928 |
+| Answer coverage | 116/187 (62.03%) | 100/149 (67.11%) |
+| Structurally valid citations | 178/178 (100.00%) | 154/154 (100.00%) |
+| False refusals on consensus-answerable questions | 54/162 (33.33%) | 34/126 (26.98%) |
+| Abstention precision on consensus-labeled refusals | 3/57 (5.26%) | 3/37 (8.11%) |
+| Unanswerable recall | 3/4 (75.00%) | 3/4 (75.00%) |
+| System errors | 2/187 (1.07%) | 2/149 (1.34%) |
+| Unattempted questions | 0/187 (0.00%) | 0/149 (0.00%) |
+| Warm end-to-end p50 / p95 | 1.31 / 2.65 s | 1.29 / 2.65 s |
+
+
+Answer F1 is lexical overlap, not accuracy. Official scoring omits the provider
+errors from its prediction adapter and assigns them zero; its "Missing predictions"
+count therefore includes retained service failures, while product missing-case
+counts above are zero. All 187 selected questions stay in whole-set denominators.
+The strict slice contains 126 consensus-answerable, four consensus-unanswerable,
+and 19 mixed-annotation questions; the whole set contains 162, four, and 21.
+Structural citation validity does not establish semantic claim support, which
+remains unavailable without human review.
+
+Known usage is 181,986 input plus 18,915 output tokens
+(200,901 total); usage for the two historical throttles
+remains unknown. All 185 non-error responses match the
+frozen token calibration. Initialization and 20-second pacing are excluded from
+warm request latency. The run resumed later on the same day; hosted weights are
+not locally pinnable, so model IDs and returned fingerprints remain recorded.
+
+The original frozen evaluator was loaded from a byte-verified copy to exclude
+later API/UI/export modules. Configuration, selection, data, model artifacts,
+prompt, scoring identity, original checkpoint binding, and consumed-selection
+marker are unchanged. No held-out outcome was used to tune settings.
+
+See [held-out completion and provenance](heldout_status.md) and the
+[sanitized machine-readable summary](heldout_summary.json). The private original
+predictions/checkpoint remain in `reports/runs/final-test/`.
 
 ## Reproducibility and limits
 
@@ -71,11 +104,11 @@ are recorded. The freeze binds actual local model, tokenizer, vector, corpus,
 prompt, selection, code, scoring policy, and dependency-lock hashes.
 
 Local run IDs: `validation-qa-baseline-30`, `validation-retrieval-baseline`,
-`nemotron-fixed-context-30`, and incomplete `final-test`. Explicit v3 rescoring
+`nemotron-fixed-context-30`, and completed `final-test`. Explicit v3 rescoring
 preserved every method metric without new generation. Original reports remain
 intact. Windows / Python 3.13.0; 16.8 GB RAM; retrieval on CPU. Baseline process
 peak working set was about 736 MiB. Warm latency includes retrieval, provider,
 and validation; initialization and deliberate pacing are separate.
 
 Public-benchmark contamination, incomplete annotations, agent-review bias, hosted
-model variation, the small pilot, and the incomplete held-out run limit conclusions.
+model variation, the small pilot, and retained provider failures limit conclusions.

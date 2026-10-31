@@ -9,6 +9,7 @@
 data
 artifacts
 runtime
+library
 reports
 **/__pycache__
 **/*.egg-info

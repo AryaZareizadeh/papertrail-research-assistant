@@ -12,10 +12,13 @@ from fastapi import FastAPI, HTTPException, Request
 from fastapi.exceptions import RequestValidationError
 from fastapi.responses import JSONResponse
 from pydantic import Field, field_validator
+from starlette.concurrency import run_in_threadpool
 from starlette.exceptions import HTTPException as StarletteHTTPException
 
 from evidence_assistant.config import AppConfig, load_config
 from evidence_assistant.generation import InvalidModelOutput, ProviderError
+from evidence_assistant.library import ImportPreview, ImportSaved, PaperLibrary
+from evidence_assistant.paper_import import IMPORT_MESSAGES, MAX_PDF_BYTES, ImportProblem
 from evidence_assistant.schemas import AnswerResult, Paragraph, Record
 from evidence_assistant.service import answer_question, build_answer_service
 from evidence_assistant.store import get_paragraph, list_papers, list_paragraphs
@@ -54,6 +57,15 @@ MESSAGES = {
     "internal_error": "The request could not be completed.",
     "not_found": "Resource not found.",
 }
+MESSAGES.update(IMPORT_MESSAGES)
+
+
+class ArxivImportRequest(Record):
+    url: str = Field(min_length=1, max_length=500)
+
+
+class ConfirmImportRequest(Record):
+    title: str = Field(min_length=1, max_length=300)
 
 
 class QuestionRequest(Record):
@@ -170,6 +182,7 @@ def create_app(
                 application.state.readiness_code = "configuration_unavailable"
         application.state.config = settings
         if settings is not None:
+            application.state.library = PaperLibrary(settings)
             try:
                 application.state.catalog = _catalog(settings)
             except (OSError, ValueError, sqlite3.Error):
@@ -209,6 +222,7 @@ def create_app(
     application.state.config = config
     application.state.service = None
     application.state.catalog = None
+    application.state.library = None
     application.state.readiness_code = "not_started"
 
     @application.middleware("http")
@@ -254,10 +268,25 @@ def create_app(
             status_code=exc.status_code, content={"detail": detail}, headers=exc.headers
         )
 
+    @application.exception_handler(ImportProblem)
+    async def import_error(request: Request, exc):
+        return JSONResponse(status_code=exc.status, content={"detail": _detail(request, exc.code)})
+
     def require_catalog(request):
         if application.state.catalog is None:
             raise _failure(request, 503, application.state.readiness_code or "corpus_unavailable")
-        return application.state.catalog
+        catalog = list(application.state.catalog)
+        library = application.state.library
+        try:
+            if library:
+                for paper in library.papers():
+                    config = application.state.config.model_copy(
+                        update={"artifact_dir": library.database(paper.paper_id).parent}
+                    )
+                    catalog.extend(_catalog(config))
+        except (OSError, sqlite3.Error, ValueError):
+            raise _failure(request, 503, "storage_unavailable") from None
+        return catalog
 
     def require_service(request):
         if application.state.service is None:
@@ -282,6 +311,33 @@ def create_app(
     def papers(request: Request):
         return require_catalog(request)
 
+    @application.post("/imports/pdf", response_model=ImportPreview,
+                      responses=_error_responses(413, 422, 503))
+    async def preview_pdf(request: Request, filename: str = "paper.pdf"):
+        require_service(request)
+        size, blocks = 0, []
+        async for block in request.stream():
+            size += len(block)
+            if size > MAX_PDF_BYTES:
+                raise ImportProblem("pdf_too_large", 413)
+            blocks.append(block)
+        return await run_in_threadpool(
+            application.state.library.preview, b"".join(blocks), filename=filename[:300]
+        )
+
+    @application.post("/imports/arxiv", response_model=ImportPreview,
+                      responses=_error_responses(413, 422, 502, 503))
+    def preview_arxiv(payload: ArxivImportRequest, request: Request):
+        require_service(request)
+        return application.state.library.preview_arxiv(payload.url)
+
+    @application.post("/imports/{preview_id}/confirm", response_model=ImportSaved,
+                      responses=_error_responses(404, 422, 503))
+    def confirm_import(preview_id: str, payload: ConfirmImportRequest, request: Request):
+        return application.state.library.confirm(
+            preview_id, payload.title, require_service(request)
+        )
+
     @application.get(
         "/papers/{paper_id}/paragraphs/{paragraph_id}",
         response_model=Paragraph,
@@ -292,7 +348,9 @@ def create_app(
         if paper_id not in {p.paper_id for p in catalog}:
             raise _failure(request, 404, "paper_not_found")
         try:
-            source = get_paragraph(application.state.config.database_path, paper_id, paragraph_id)
+            database = (application.state.library.database(paper_id)
+                        or application.state.config.database_path)
+            source = get_paragraph(database, paper_id, paragraph_id)
         except (OSError, sqlite3.Error):
             raise _failure(request, 503, "storage_unavailable") from None
         if source is None:
@@ -310,6 +368,7 @@ def create_app(
             raise _failure(request, 404, "paper_not_found")
         service = require_service(request)
         try:
+            service = application.state.library.service(payload.paper_id, service)
             result = answer_question(
                 payload.question, payload.paper_id, service.config.retrieval_method, service
             )

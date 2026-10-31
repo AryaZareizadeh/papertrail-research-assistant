@@ -88,4 +88,7 @@ evidence, three retrieval misses, three unsupported claims, three over-refusals,
 two wrong interpretations, and one rejected output. Some are claim-level issues
 within otherwise correct answers; table/mixed-annotation cases are identified.
 No ingestion loss or source-span/chunk corruption was found in the verified pilot.
-No oracle-context diagnostic was run. Final held-out evaluation is still pending.
+No oracle-context diagnostic was run. After initially stopping at 154/187, the
+user explicitly requested completing the remaining 33 held-out cases. All 187 are
+now attempted with the original two throttles retained and no unattempted cases.
+See [the final held-out results](evaluation.md); no settings were tuned on them.

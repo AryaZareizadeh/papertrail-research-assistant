@@ -33,15 +33,21 @@ benchmark labels, raw release archives, provider keys, and private run logs.
 ## Supported use and limitations
 
 One explicitly selected English NLP paper per question; text paragraphs only.
-PDF extraction, OCR, image/table reasoning, cross-paper answers, and Persian input
-support are outside version one. Paragraph citations are not PDF page coordinates.
+The 31 October extension supports selectable-text PDF uploads and arXiv imports
+in a separate user collection. Their text and PDF hashes are retained with actual
+page labels; offsets refer to extracted page text, not PDF glyph coordinates.
+OCR, image/table reasoning, cross-paper answers and Persian input support remain
+outside the implemented scope. See [paper imports](paper_import.md). QASPER scores
+do not measure extraction or answer quality on newly imported documents.
 Some questions need figures/tables or lack fully mapped text evidence. Multiple
 annotators can disagree; complete text-only evidence is not available for every
 question. Original annotations may omit other valid support.
 
 All 30 hybrid validation responses have a clearly labeled agent audit accepted by
-the user. Human support auditing remains unavailable. The held-out pilot stopped
-after 154/187 attempts at the user's request; it is not a complete benchmark result.
+the user. Human support auditing remains unavailable. The user subsequently
+authorized finishing the held-out pilot: all 187/187 selected questions are now
+attempted, with two original rate-limit failures retained and zero unattempted.
+This is a completed pilot, not the full official benchmark.
 No peer usability result is claimed; the user deferred that review.
 
 Only a few attributed training-paper paragraphs are included in the offline demo.

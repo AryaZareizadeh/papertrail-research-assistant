@@ -20,7 +20,7 @@ COPY config.docker.yaml ./config.docker.yaml
 COPY docs/data_card.md docs/model_card.md ./docs/
 RUN python -m pip install --no-deps --no-build-isolation . && python -m pip check \
     && useradd --create-home --uid 10001 papertrail \
-    && mkdir /runlogs && chown papertrail:papertrail /runlogs
+    && mkdir /runlogs /library && chown papertrail:papertrail /runlogs /library
 USER papertrail
 EXPOSE 8000 8501
 CMD ["python", "-m", "uvicorn", "evidence_assistant.api:app", "--host", "0.0.0.0", "--port", "8000"]

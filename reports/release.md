@@ -9,8 +9,10 @@ The user accepted the labeled agent claim audit, stopped further model testing,
 and explicitly deferred peer feedback. Those limits are retained in the
 [evaluation report](evaluation.md) and [usability notes](usability.md).
 
-Task 7 closes with an incomplete held-out pilot: 154/187 attempted, two retained
-HTTP 429 errors, 33 unattempted; no complete held-out score is claimed. The reviewed
+Task 7's held-out pilot is now complete after the user's explicit follow-up:
+187/187 attempted, with the original two HTTP 429 errors retained and zero
+unattempted cases. All original 154 records are unchanged; complete scores are in
+[evaluation.md](evaluation.md). The reviewed
 API was integrated at `2e75db6`; the reviewed UI/demo at `d813dec`. The original
 frozen run, checkpoint, consumed marker, and source identities remain preserved.
 

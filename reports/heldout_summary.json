@@ -1,0 +1,264 @@
+{
+  "schema": "papertrail-heldout-summary-v1",
+  "verified_at": "2026-10-27T15:05:31.599685+00:00",
+  "status": "all_selected_cases_attempted",
+  "configuration_selected_on": "validation",
+  "papers": 50,
+  "questions": 187,
+  "original_attempts_preserved": 154,
+  "new_attempts": 33,
+  "original_rows_sha256": "5fa01838a672850e4a365794c37692b56cfe5279b1187fd744c8552ea20eb5ce",
+  "statuses": {
+    "answered": 116,
+    "insufficient_evidence": 69,
+    "error": 2
+  },
+  "resumed_statuses": {
+    "answered": 19,
+    "insufficient_evidence": 14
+  },
+  "frozen_candidate_sha256": "878815f1e6e4d922661b3e2932f795db4d4a7f23512d5dc27bc462b01c47eeba",
+  "run_binding_sha256": "ae4cb314e67f14e4b9695b6d8a701d9446bc2914a6dd699848160850622bcad8",
+  "prediction_sha256": "b45ec181bf6f910734d7a07fdaf6cb06b0a3c01d06cce36db632069be3600d60",
+  "metrics_sha256": "7febdd2f9b53a197ec6dce5bdeb9bc4c7d05542d78dc9c063dc9c4365d2d8282",
+  "checkpoint_sha256": "997dbc7c9f1a4a56e842522fbbbaf712946ecd9be7d4b72c704d90a3430efe33",
+  "source_citations_rechecked": 178,
+  "verified_token_counts": 185,
+  "original_error_records_preserved": 2,
+  "new_error_records": 0,
+  "first_attempt_at": "2026-10-27T00:02:53.782465+00:00",
+  "resume_first_attempt_at": "2026-10-27T14:54:34.135145+00:00",
+  "last_attempt_at": "2026-10-27T15:05:14.148366+00:00",
+  "cold_startup_ms": 9238.391200080514,
+  "limitations": [
+    "pilot subset, not full QASPER test split",
+    "hosted weights are not locally pinnable",
+    "agent validation audit is not human review",
+    "no tuning against held-out outcomes",
+    "provider errors remain failed cases with official F1 zero"
+  ],
+  "metrics": {
+    "run_id": "final-test",
+    "split": "test",
+    "policy_hash": "e5a6984932da7ae36ad74e96c82d92f38816f462e3a4f888b62af644693bb73a",
+    "manifest_sha256": "a014d4be3302567d4f13ebbf9cf6959cc7b8a419861f53c76b9a9ff2b9061a95",
+    "expected_cases": 187,
+    "completed_cases": 187,
+    "source_run": null,
+    "methods": {
+      "dense": {
+        "retrieval": {
+          "whole_selected": {
+            "selected_questions": 187,
+            "evidence_hit_at_5": {
+              "value": 0.6190476190476191,
+              "numerator": 104,
+              "denominator": 168,
+              "excluded_counts": {
+                "no_complete_mapped_positive_reference": 19
+              }
+            },
+            "evidence_recall_at_5": {
+              "value": 0.5595238095238095,
+              "numerator": 94.0,
+              "denominator": 168,
+              "excluded_counts": {
+                "no_complete_mapped_positive_reference": 19
+              }
+            },
+            "complete_evidence_coverage": {
+              "value": 0.5119047619047619,
+              "numerator": 86,
+              "denominator": 168,
+              "excluded_counts": {
+                "no_complete_mapped_positive_reference": 19
+              }
+            }
+          },
+          "strict_text_only": {
+            "selected_questions": 149,
+            "evidence_hit_at_5": {
+              "value": 0.6551724137931034,
+              "numerator": 95,
+              "denominator": 145,
+              "excluded_counts": {
+                "no_complete_mapped_positive_reference": 4
+              }
+            },
+            "evidence_recall_at_5": {
+              "value": 0.6,
+              "numerator": 87.0,
+              "denominator": 145,
+              "excluded_counts": {
+                "no_complete_mapped_positive_reference": 4
+              }
+            },
+            "complete_evidence_coverage": {
+              "value": 0.5586206896551724,
+              "numerator": 81,
+              "denominator": 145,
+              "excluded_counts": {
+                "no_complete_mapped_positive_reference": 4
+              }
+            }
+          }
+        },
+        "answers": {
+          "whole_selected": {
+            "selected_questions": 187,
+            "answerability_counts": {
+              "consensus_answerable": 162,
+              "mixed": 21,
+              "consensus_unanswerable": 4
+            },
+            "official": {
+              "Answer F1": 0.2600169629024497,
+              "Answer F1 by type": {
+                "extractive": 0.25244921109258756,
+                "abstractive": 0.16548848600084656,
+                "boolean": 0.0,
+                "none": 0.8823529411764706
+              },
+              "Evidence F1": 0.4373881390529559,
+              "Missing predictions": 2
+            },
+            "citation_validity": {
+              "value": 1.0,
+              "numerator": 178,
+              "denominator": 178,
+              "excluded_counts": {}
+            },
+            "answer_coverage": {
+              "value": 0.6203208556149733,
+              "numerator": 116,
+              "denominator": 187,
+              "excluded_counts": {}
+            },
+            "abstention_precision": {
+              "value": 0.05263157894736842,
+              "numerator": 3,
+              "denominator": 57,
+              "excluded_counts": {}
+            },
+            "unanswerable_recall": {
+              "value": 0.75,
+              "numerator": 3,
+              "denominator": 4,
+              "excluded_counts": {}
+            },
+            "false_refusal_rate": {
+              "value": 0.3333333333333333,
+              "numerator": 54,
+              "denominator": 162,
+              "excluded_counts": {}
+            },
+            "system_error_rate": {
+              "value": 0.0106951871657754,
+              "numerator": 2,
+              "denominator": 187,
+              "excluded_counts": {}
+            },
+            "missing_prediction_rate": {
+              "value": 0.0,
+              "numerator": 0,
+              "denominator": 187,
+              "excluded_counts": {}
+            },
+            "warm_latency_ms": {
+              "p50": 1309.0222999453545,
+              "p95": 2646.987629984505,
+              "denominator": 187
+            },
+            "claim_support": {
+              "value": null,
+              "note": "Requires a separate human audit"
+            }
+          },
+          "strict_text_only": {
+            "selected_questions": 149,
+            "answerability_counts": {
+              "consensus_answerable": 126,
+              "mixed": 19,
+              "consensus_unanswerable": 4
+            },
+            "official": {
+              "Answer F1": 0.29375710046055464,
+              "Answer F1 by type": {
+                "extractive": 0.26870685341488026,
+                "abstractive": 0.22045454990495572,
+                "boolean": 0.0,
+                "none": 0.8666666666666667
+              },
+              "Evidence F1": 0.492841163310962,
+              "Missing predictions": 2
+            },
+            "citation_validity": {
+              "value": 1.0,
+              "numerator": 154,
+              "denominator": 154,
+              "excluded_counts": {}
+            },
+            "answer_coverage": {
+              "value": 0.6711409395973155,
+              "numerator": 100,
+              "denominator": 149,
+              "excluded_counts": {}
+            },
+            "abstention_precision": {
+              "value": 0.08108108108108109,
+              "numerator": 3,
+              "denominator": 37,
+              "excluded_counts": {}
+            },
+            "unanswerable_recall": {
+              "value": 0.75,
+              "numerator": 3,
+              "denominator": 4,
+              "excluded_counts": {}
+            },
+            "false_refusal_rate": {
+              "value": 0.2698412698412698,
+              "numerator": 34,
+              "denominator": 126,
+              "excluded_counts": {}
+            },
+            "system_error_rate": {
+              "value": 0.013422818791946308,
+              "numerator": 2,
+              "denominator": 149,
+              "excluded_counts": {}
+            },
+            "missing_prediction_rate": {
+              "value": 0.0,
+              "numerator": 0,
+              "denominator": 149,
+              "excluded_counts": {}
+            },
+            "warm_latency_ms": {
+              "p50": 1292.9517000447959,
+              "p95": 2646.614519879222,
+              "denominator": 149
+            },
+            "claim_support": {
+              "value": null,
+              "note": "Requires a separate human audit"
+            }
+          }
+        },
+        "usage": {
+          "input_tokens_actual": {
+            "sum_known": 181986,
+            "unknown_records": 2
+          },
+          "output_tokens_actual": {
+            "sum_known": 18915,
+            "unknown_records": 2
+          }
+        },
+        "error_codes": {
+          "rate_limited": 2
+        }
+      }
+    }
+  }
+}

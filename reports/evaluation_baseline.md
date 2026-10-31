@@ -4,7 +4,8 @@ Date: 26 October 2026. Candidate: Groq `openai/gpt-oss-20b`, evidence-v1 prompt,
 temperature 0 (provider behavior may vary), low reasoning effort, 512 output tokens,
 1,536 evidence tokens, 4,096 context tokens, and a 256-token safety reserve.
 Retrieval uses the pinned MiniLM encoder on CPU and the 4,440-chunk SQLite pilot.
-No held-out test inference has been run.
+At this historical validation checkpoint, no held-out test inference had run.
+The subsequent completed pilot is reported in [evaluation.md](evaluation.md).
 
 ## Selection and evidence eligibility
 

@@ -36,17 +36,28 @@ model revisions/fingerprints and token counts are recorded where returned.
 
 Selected dense baseline: Answer F1 0.3917 on 30 validation questions; zero model
 errors; warm p95 2.93 seconds. This is lexical F1, not accuracy or a full-benchmark
-claim. See [the report](../reports/evaluation.md) for denominators, tradeoffs,
-agent-audit labels, and the incomplete held-out pilot. Human support and peer
-usability measurements remain unavailable. New hosted model tests were stopped
-at the user's request; deterministic software checks use fake responses.
+claim. The completed 187-question/50-paper held-out pilot has Answer F1 0.2600,
+Evidence F1 0.4374, and warm p95 2.65 seconds. The two original throttles remain
+failed cases; zero questions are unattempted. See [the report](../reports/evaluation.md)
+for denominators, tradeoffs, and agent-audit labels. Human support and peer usability
+measurements remain unavailable. The user authorized only completing the remaining
+33 held-out cases; the separate live API smoke remains unrun. Deterministic software
+checks use fake responses.
 
 ## Known limits
 
 Retrieval can omit necessary text, a chunk may cover only part of a paragraph,
 and an answer can misinterpret a valid source. The validation audit observed
 partial support, unsupported claims, wrong interpretations, and false refusals.
-Free hosted routes can throttle; the interrupted held-out run retained two 429
+Free hosted routes can throttle; the completed held-out pilot retains two 429
 errors. Public benchmark contamination and hosted backend variation are unknown.
 This system is not configured for public multi-user hosting or professional
 decision-making. Its interface exposes the source so failures remain inspectable.
+# Imported documents
+
+Since 31 October 2026 the application also accepts selectable-text PDF uploads
+and arXiv imports. These use the same selected model, retrieval method and source
+validation in a separate persistent collection. Existing QASPER pilot results do
+not measure quality on these new documents. Extraction can lose PDF reading order,
+equations and table structure; review the text before saving. No new hosted model
+evaluation was run for this feature. See [paper imports](paper_import.md).

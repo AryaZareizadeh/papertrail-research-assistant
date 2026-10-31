@@ -1,0 +1,2692 @@
+{
+  "schema": "papertrail-human-review-v1",
+  "created_at": "2026-10-30T23:30:01.408251+00:00",
+  "status": "awaiting_human_judgments",
+  "reviewer": "Arya",
+  "reviewer_type": "human",
+  "recorded_by": "codex-agent",
+  "source_run": "reports/runs/validation-qa-baseline-30",
+  "split": "validation",
+  "method": "dense",
+  "model_id": "openai/gpt-oss-20b",
+  "prediction_file_sha256": "d876a2ab1f2f7ad25d88011ee650b814f86d2227db7e001a4b004599420fc73d",
+  "manifest_file_sha256": "0abba884eb991e14d11b80c8f452fc9395886dcfce74ccab496985e37649f862",
+  "run_binding_sha256": "a284ba34cc4410733ad6e809c2bfb5f178bd445d97b13e7e993d99c185e99405",
+  "selection": "All 30 saved dense responses in original prediction order; no outcome-based selection.",
+  "limitations": [
+    "Single reviewer; not an independent multi-reviewer study.",
+    "Configuration already selected on validation; audit is descriptive.",
+    "No human judgments yet."
+  ],
+  "cases": [
+    {
+      "number": 1,
+      "question_id": "e6583c60b13b87fc37af75ffc975e7e316d4f4e0",
+      "request_id": "dd730e979e294c0a8c520d34d5b499d1",
+      "paper_id": "1904.04358",
+      "question": "What data was presented to the subjects to elicit event-related responses?",
+      "status": "answered",
+      "human_reviewed": false,
+      "reviewed_at": null,
+      "correctness": null,
+      "refusal_appropriate_to_supplied_context": null,
+      "notes": null,
+      "human_response_verbatim": null,
+      "claims": [
+        {
+          "text": "The subjects were presented with phonemic/syllabic prompts (/iy/, /piy/, /tiy/, /diy/, /uw/, /m/, /n/) and four word prompts (pat, pot, knew, gnaw) to elicit event‑related responses.",
+          "citation_chunk_ids": [
+            "1904.04358:s0007:p0000:c0000"
+          ],
+          "support": null,
+          "note": null
+        }
+      ],
+      "citations": [
+        {
+          "chunk_id": "1904.04358:s0007:p0000:c0000",
+          "paper_id": "1904.04358",
+          "paragraph_id": "1904.04358:s0007:p0000",
+          "section_name": "Dataset",
+          "start_char": 0,
+          "end_char": 788,
+          "quote": "We evaluate our model on a publicly available dataset, KARA ONE BIBREF17 , composed of multimodal data for stimulus-based, imagined and articulated speech state corresponding to 7 phonemic/syllabic ( /iy/, /piy/, /tiy/, /diy/, /uw/, /m/, /n/ ) as well as 4 words(pat, pot, knew and gnaw). The dataset consists of 14 participants, with each prompt presented 11 times to each individual. Since our intention is to classify the phonological categories from human thoughts, we discard the facial and audio information and only consider the EEG data corresponding to imagined speech. It is noteworthy that given the mixed nature of EEG signals, it is reportedly challenging to attain a pairwise EEG-phoneme mapping BIBREF18 . In order to explore the problem space, we thus specifically target "
+        }
+      ],
+      "supplied_passages": [
+        {
+          "chunk_id": "1904.04358:s0000:p0000:c0001",
+          "paragraph_id": "1904.04358:s0000:p0000",
+          "paper_id": "1904.04358",
+          "section_name": "Introduction",
+          "start_char": 761,
+          "end_char": 1021,
+          "text": "applications in entertainment, preventive treatments, personal communication, games, etc. Furthermore, BCI technologies can be utilized in silent communication, as in noisy environments, or situations where any sort of audio-visual communication is infeasible.",
+          "token_count": 48,
+          "chunking_version": "paragraph-windows-v1"
+        },
+        {
+          "chunk_id": "1904.04358:s0009:p0003:c0000",
+          "paragraph_id": "1904.04358:s0009:p0003",
+          "paper_id": "1904.04358",
+          "section_name": "Performance analysis and discussion",
+          "start_char": 0,
+          "end_char": 688,
+          "text": "Next, we provide performance comparison of the proposed approach with the baseline methods for PHASE-TWO of our study (cross-validation experiment) in Table TABREF15 . Since the model encounters the unseen data of a new subject for testing, and given the high inter-subject variability of the EEG data, a reduction in the accuracy was expected. However, our network still managed to achieve an improvement of 18.91, 9.95, 67.15, 2.83 and 13.70 % over BIBREF17 . Besides, our best model shows more reliability compared to previous works: The standard deviation of our model's classification accuracy across all the tasks is reduced from 22.59% BIBREF17 and 17.52% BIBREF18 to a mere 5.41%.",
+          "token_count": 162,
+          "chunking_version": "paragraph-windows-v1"
+        },
+        {
+          "chunk_id": "1904.04358:s0007:p0000:c0000",
+          "paragraph_id": "1904.04358:s0007:p0000",
+          "paper_id": "1904.04358",
+          "section_name": "Dataset",
+          "start_char": 0,
+          "end_char": 788,
+          "text": "We evaluate our model on a publicly available dataset, KARA ONE BIBREF17 , composed of multimodal data for stimulus-based, imagined and articulated speech state corresponding to 7 phonemic/syllabic ( /iy/, /piy/, /tiy/, /diy/, /uw/, /m/, /n/ ) as well as 4 words(pat, pot, knew and gnaw). The dataset consists of 14 participants, with each prompt presented 11 times to each individual. Since our intention is to classify the phonological categories from human thoughts, we discard the facial and audio information and only consider the EEG data corresponding to imagined speech. It is noteworthy that given the mixed nature of EEG signals, it is reportedly challenging to attain a pairwise EEG-phoneme mapping BIBREF18 . In order to explore the problem space, we thus specifically target ",
+          "token_count": 192,
+          "chunking_version": "paragraph-windows-v1"
+        },
+        {
+          "chunk_id": "1904.04358:s0003:p0000:c0002",
+          "paragraph_id": "1904.04358:s0003:p0000",
+          "paper_id": "1904.04358",
+          "section_name": "Joint variability of electrodes",
+          "start_char": 1593,
+          "end_char": 1876,
+          "text": "hidden information than mere raw signals. This is essentially different than our previous work BIBREF16 where we extract per-channel 1-D covariance information and feed it to the networks. We present our sample 2-D EEG cross-covariance matrices (of two individuals) in Fig. FIGREF2 .",
+          "token_count": 67,
+          "chunking_version": "paragraph-windows-v1"
+        },
+        {
+          "chunk_id": "1904.04358:s0000:p0001:c0000",
+          "paragraph_id": "1904.04358:s0000:p0001",
+          "paper_id": "1904.04358",
+          "section_name": "Introduction",
+          "start_char": 0,
+          "end_char": 942,
+          "text": "Among the various brain activity-monitoring modalities in BCI, electroencephalography (EEG) BIBREF5 , BIBREF6 has demonstrated promising potential to differentiate between various brain activities through measurement of related electric fields. EEG is non-invasive, portable, low cost, and provides satisfactory temporal resolution. This makes EEG suitable to realize BCI systems. EEG data, however, is challenging: these data are high dimensional, have poor SNR, and suffer from low spatial resolution and a multitude of artifacts. For these reasons, it is not particularly obvious how to decode the desired information from raw EEG signals. Although the area of BCI based speech intent recognition has received increasing attention among the research community in the past few years, most research has focused on classification of individual speech categories in terms of discrete vowels, phonemes and words BIBREF7 , BIBREF8 , BIBREF9 , BI",
+          "token_count": 192,
+          "chunking_version": "paragraph-windows-v1"
+        }
+      ]
+    },
+    {
+      "number": 2,
+      "question_id": "a0543b4afda15ea47c1e623c7f00d4aaca045be0",
+      "request_id": "ddad5c2b2d994858a2cd71a143235dcd",
+      "paper_id": "1802.07862",
+      "question": "Can named entities in SnapCaptions be discontigious?",
+      "status": "insufficient_evidence",
+      "human_reviewed": false,
+      "reviewed_at": null,
+      "correctness": null,
+      "refusal_appropriate_to_supplied_context": null,
+      "notes": null,
+      "human_response_verbatim": null,
+      "claims": [],
+      "citations": [],
+      "supplied_passages": [
+        {
+          "chunk_id": "1802.07862:s0006:p0000:c0001",
+          "paragraph_id": "1802.07862:s0006:p0000",
+          "paper_id": "1802.07862",
+          "section_name": "SnapCaptions Dataset",
+          "start_char": 756,
+          "end_char": 1344,
+          "text": "available). We split the dataset into train (70%), validation (15%), and test sets (15%). The captions data have average length of 30.7 characters (5.81 words) with vocabulary size 15,733, where 6,612 are considered unknown tokens from Stanford GloVE embeddings BIBREF22 . Named entities annotated in the SnapCaptions dataset include many of new and emerging entities, and they are found in various surface forms (various nicknames, typos, etc.) To the best of our knowledge, SnapCaptions is the only dataset that contains natural image-caption pairs with expert-annotated named entities.",
+          "token_count": 149,
+          "chunking_version": "paragraph-windows-v1"
+        },
+        {
+          "chunk_id": "1802.07862:s0008:p0000:c0000",
+          "paragraph_id": "1802.07862:s0008:p0000",
+          "paper_id": "1802.07862",
+          "section_name": "Results: SnapCaptions Dataset",
+          "start_char": 0,
+          "end_char": 192,
+          "text": "Table TABREF6 shows the NER performance on the Snap Captions dataset. We report both entity types recognition (PER, LOC, ORG, MISC) and named entity segmentation (named entity or not) results.",
+          "token_count": 48,
+          "chunking_version": "paragraph-windows-v1"
+        },
+        {
+          "chunk_id": "1802.07862:s0006:p0000:c0000",
+          "paragraph_id": "1802.07862:s0006:p0000",
+          "paper_id": "1802.07862",
+          "section_name": "SnapCaptions Dataset",
+          "start_char": 0,
+          "end_char": 859,
+          "text": "The SnapCaptions dataset is composed of 10K user-generated image (snap) and textual caption pairs where named entities in captions are manually labeled by expert human annotators (entity types: PER, LOC, ORG, MISC). These captions are collected exclusively from snaps submitted to public and crowd-sourced stories (aka Snapchat Live Stories or Our Stories). Examples of such public crowd-sourced stories are “New York Story” or “Thanksgiving Story”, which comprise snaps that are aggregated for various public events, venues, etc. All snaps were posted between year 2016 and 2017, and do not contain raw images or other associated information (only textual captions and obfuscated visual descriptor features extracted from the pre-trained InceptionNet are available). We split the dataset into train (70%), validation (15%), and test sets (15%). The captions ",
+          "token_count": 192,
+          "chunking_version": "paragraph-windows-v1"
+        },
+        {
+          "chunk_id": "1802.07862:abstract:p0000:c0000",
+          "paragraph_id": "1802.07862:abstract:p0000",
+          "paper_id": "1802.07862",
+          "section_name": "Abstract",
+          "start_char": 0,
+          "end_char": 910,
+          "text": "We introduce a new task called Multimodal Named Entity Recognition (MNER) for noisy user-generated data such as tweets or Snapchat captions, which comprise short text with accompanying images. These social media posts often come in inconsistent or incomplete syntax and lexical notations with very limited surrounding textual contexts, bringing significant challenges for NER. To this end, we create a new dataset for MNER called SnapCaptions (Snapchat image-caption pairs submitted to public and crowd-sourced stories with fully annotated named entities). We then build upon the state-of-the-art Bi-LSTM word/character based NER models with 1) a deep image network which incorporates relevant visual context to augment textual information, and 2) a generic modality-attention module which learns to attenuate irrelevant modalities while amplifying the most informative ones to extract contexts from, adaptive ",
+          "token_count": 192,
+          "chunking_version": "paragraph-windows-v1"
+        },
+        {
+          "chunk_id": "1802.07862:s0000:p0001:c0000",
+          "paragraph_id": "1802.07862:s0000:p0001",
+          "paper_id": "1802.07862",
+          "section_name": "Introduction",
+          "start_char": 0,
+          "end_char": 816,
+          "text": "While many previous approaches BIBREF0 , BIBREF1 , BIBREF2 , BIBREF3 on NER have shown success for well-formed text in recognizing named entities via word context resolution (e.g. LSTM with word embeddings) combined with character-level features (e.g. CharLSTM/CNN), several additional challenges remain for recognizing named entities from extremely short and coarse text found in social media posts. For instance, short social media posts often do not provide enough textual contexts to resolve polysemous entities (e.g. “monopoly is da best \", where `monopoly' may refer to a board game (named entity) or a term in economics). In addition, noisy text includes a huge number of unknown tokens due to inconsistent lexical notations and frequent mentions of various newly trending entities (e.g. “xoxo Marshmelloooo \"",
+          "token_count": 192,
+          "chunking_version": "paragraph-windows-v1"
+        }
+      ]
+    },
+    {
+      "number": 3,
+      "question_id": "22732cb9476e521452bf0538f3fdb94cf3867651",
+      "request_id": "9a9ce2d11de94d409a8189bac6c05eca",
+      "paper_id": "1701.05574",
+      "question": "What kind of stylistic features are obtained?",
+      "status": "answered",
+      "human_reviewed": false,
+      "reviewed_at": null,
+      "correctness": null,
+      "refusal_appropriate_to_supplied_context": null,
+      "notes": null,
+      "human_response_verbatim": null,
+      "claims": [
+        {
+          "text": "The paper obtains stylistic patterns as part of the features used for sarcasm detection.",
+          "citation_chunk_ids": [
+            "1701.05574:s0001:p0001:c0000"
+          ],
+          "support": null,
+          "note": null
+        }
+      ],
+      "citations": [
+        {
+          "chunk_id": "1701.05574:s0001:p0001:c0000",
+          "paper_id": "1701.05574",
+          "paragraph_id": "1701.05574:s0001:p0001",
+          "section_name": "Related Work",
+          "start_char": 0,
+          "end_char": 336,
+          "quote": "Computational linguists have previously addressed this problem using rule based and statistical techniques, that make use of : (a) Unigrams and Pragmatic features BIBREF0 , BIBREF1 , BIBREF2 , BIBREF3 (b) Stylistic patterns BIBREF4 and patterns related to situational disparity BIBREF5 and (c) Hastag interpretations BIBREF6 , BIBREF7 ."
+        }
+      ],
+      "supplied_passages": [
+        {
+          "chunk_id": "1701.05574:s0001:p0001:c0000",
+          "paragraph_id": "1701.05574:s0001:p0001",
+          "paper_id": "1701.05574",
+          "section_name": "Related Work",
+          "start_char": 0,
+          "end_char": 336,
+          "text": "Computational linguists have previously addressed this problem using rule based and statistical techniques, that make use of : (a) Unigrams and Pragmatic features BIBREF0 , BIBREF1 , BIBREF2 , BIBREF3 (b) Stylistic patterns BIBREF4 and patterns related to situational disparity BIBREF5 and (c) Hastag interpretations BIBREF6 , BIBREF7 .",
+          "token_count": 90,
+          "chunking_version": "paragraph-windows-v1"
+        },
+        {
+          "chunk_id": "1701.05574:s0012:p0004:c0000",
+          "paragraph_id": "1701.05574:s0012:p0004",
+          "paper_id": "1701.05574",
+          "section_name": "Results",
+          "start_char": 0,
+          "end_char": 44,
+          "text": "Gaze+Sarcasm (the complete set of features).",
+          "token_count": 11,
+          "chunking_version": "paragraph-windows-v1"
+        },
+        {
+          "chunk_id": "1701.05574:s0010:p0000:c0000",
+          "paragraph_id": "1701.05574:s0010:p0000",
+          "paper_id": "1701.05574",
+          "section_name": "Complex Gaze Based Features",
+          "start_char": 0,
+          "end_char": 141,
+          "text": "For these features, we rely on a graph structure, namely “saliency graphs\", derived from eye-gaze information and word sequences in the text.",
+          "token_count": 32,
+          "chunking_version": "paragraph-windows-v1"
+        },
+        {
+          "chunk_id": "1701.05574:s0012:p0003:c0000",
+          "paragraph_id": "1701.05574:s0012:p0003",
+          "paper_id": "1701.05574",
+          "section_name": "Results",
+          "start_char": 0,
+          "end_char": 114,
+          "text": "Gaze (the simple and complex cognitive features we introduce, along with readability and word count features), and",
+          "token_count": 22,
+          "chunking_version": "paragraph-windows-v1"
+        },
+        {
+          "chunk_id": "1701.05574:s0010:p0001:c0000",
+          "paragraph_id": "1701.05574:s0010:p0001",
+          "paper_id": "1701.05574",
+          "section_name": "Complex Gaze Based Features",
+          "start_char": 0,
+          "end_char": 558,
+          "text": "For each reader and each sentence, we construct a “saliency graph”, representing the reader's attention characteristics. A saliency graph for a sentence INLINEFORM0 for a reader INLINEFORM1 , represented as INLINEFORM2 , is a graph with vertices ( INLINEFORM3 ) and edges ( INLINEFORM4 ) where each vertex INLINEFORM5 corresponds to a word in INLINEFORM6 (may not be unique) and there exists an edge INLINEFORM7 between vertices INLINEFORM8 and INLINEFORM9 if R performs at least one saccade between the words corresponding to INLINEFORM10 and INLINEFORM11 .",
+          "token_count": 124,
+          "chunking_version": "paragraph-windows-v1"
+        }
+      ]
+    },
+    {
+      "number": 4,
+      "question_id": "adbf33c6144b2f5c40d0c6a328a92687a476f371",
+      "request_id": "845bf2d49aff468db485258529f010f9",
+      "paper_id": "1802.07862",
+      "question": "Does their NER model learn NER from both text and images?",
+      "status": "answered",
+      "human_reviewed": false,
+      "reviewed_at": null,
+      "correctness": null,
+      "refusal_appropriate_to_supplied_context": null,
+      "notes": null,
+      "human_response_verbatim": null,
+      "claims": [
+        {
+          "text": "The multimodal NER model learns named entity recognition by jointly using textual information (word and character embeddings) and visual information from the accompanying image.",
+          "citation_chunk_ids": [
+            "1802.07862:s0002:p0000:c0000",
+            "1802.07862:s0003:p0004:c0000"
+          ],
+          "support": null,
+          "note": null
+        }
+      ],
+      "citations": [
+        {
+          "chunk_id": "1802.07862:s0002:p0000:c0000",
+          "paper_id": "1802.07862",
+          "paragraph_id": "1802.07862:s0002:p0000",
+          "section_name": "Proposed Methods",
+          "start_char": 0,
+          "end_char": 586,
+          "quote": "Figure FIGREF2 illustrates the proposed multimodal NER (MNER) model. First, we obtain word embeddings, character embeddings, and visual features (Section SECREF3 ). A Bi-LSTM-CRF model then takes as input a sequence of tokens, each of which comprises a word token, a character sequence, and an image, in their respective representation (Section SECREF4 ). At each decoding step, representations from each modality are combined via the modality attention module to produce an entity label for each token ( SECREF5 ). We formulate each component of the model in the following subsections."
+        },
+        {
+          "chunk_id": "1802.07862:s0003:p0004:c0000",
+          "paper_id": "1802.07862",
+          "paragraph_id": "1802.07862:s0003:p0004",
+          "section_name": "Features",
+          "start_char": 0,
+          "end_char": 504,
+          "quote": "Incorporating this visual information onto the traditional NER system is an open challenge, and multiple approaches can be considered. For instance, one may provide visual contexts only as an initial input to decoder as in some encoder-decoder image captioning systems BIBREF26 . However, we empirically observe that an NER decoder which takes as input the visual embeddings at every decoding step (Section SECREF4 ), combined with the modality attention module (Section SECREF5 ), yields better results."
+        }
+      ],
+      "supplied_passages": [
+        {
+          "chunk_id": "1802.07862:s0002:p0000:c0000",
+          "paragraph_id": "1802.07862:s0002:p0000",
+          "paper_id": "1802.07862",
+          "section_name": "Proposed Methods",
+          "start_char": 0,
+          "end_char": 586,
+          "text": "Figure FIGREF2 illustrates the proposed multimodal NER (MNER) model. First, we obtain word embeddings, character embeddings, and visual features (Section SECREF3 ). A Bi-LSTM-CRF model then takes as input a sequence of tokens, each of which comprises a word token, a character sequence, and an image, in their respective representation (Section SECREF4 ). At each decoding step, representations from each modality are combined via the modality attention module to produce an entity label for each token ( SECREF5 ). We formulate each component of the model in the following subsections.",
+          "token_count": 143,
+          "chunking_version": "paragraph-windows-v1"
+        },
+        {
+          "chunk_id": "1802.07862:s0007:p0000:c0000",
+          "paragraph_id": "1802.07862:s0007:p0000",
+          "paper_id": "1802.07862",
+          "section_name": "Baselines",
+          "start_char": 0,
+          "end_char": 378,
+          "text": "Task: given a caption and a paired image (if used), the goal is to label every token in a caption in BIO scheme (B: beginning, I: inside, O: outside) BIBREF27 . We report the performance of the following state-of-the-art NER models as baselines, as well as several configurations of our proposed approach to examine contributions of each component (W: word, C: char, V: visual).",
+          "token_count": 97,
+          "chunking_version": "paragraph-windows-v1"
+        },
+        {
+          "chunk_id": "1802.07862:s0003:p0004:c0000",
+          "paragraph_id": "1802.07862:s0003:p0004",
+          "paper_id": "1802.07862",
+          "section_name": "Features",
+          "start_char": 0,
+          "end_char": 504,
+          "text": "Incorporating this visual information onto the traditional NER system is an open challenge, and multiple approaches can be considered. For instance, one may provide visual contexts only as an initial input to decoder as in some encoder-decoder image captioning systems BIBREF26 . However, we empirically observe that an NER decoder which takes as input the visual embeddings at every decoding step (Section SECREF4 ), combined with the modality attention module (Section SECREF5 ), yields better results.",
+          "token_count": 111,
+          "chunking_version": "paragraph-windows-v1"
+        },
+        {
+          "chunk_id": "1802.07862:s0000:p0004:c0000",
+          "paragraph_id": "1802.07862:s0000:p0004",
+          "paper_id": "1802.07862",
+          "section_name": "Introduction",
+          "start_char": 0,
+          "end_char": 851,
+          "text": "Our contributions are three-fold: we propose (1) an LSTM-CNN hybrid multimodal NER network that takes as input both image and text for recognition of a named entity in text input. To the best of our knowledge, our approach is the first work to incorporate visual contexts for named entity recognition tasks. (2) We propose a general modality attention module that selectively chooses modalities to extract primary context from, maximizing information gain and suppressing irrelevant contexts from each modality (we treat words, characters, and images as separate modalities). (3) We show that the proposed approaches outperform the state-of-the-art NER models (both with and without using additional visual contexts) on our new MNER dataset SnapCaptions, a large collection of informal and extremely short social media posts paired with unique images.",
+          "token_count": 179,
+          "chunking_version": "paragraph-windows-v1"
+        },
+        {
+          "chunk_id": "1802.07862:s0009:p0000:c0000",
+          "paragraph_id": "1802.07862:s0009:p0000",
+          "paper_id": "1802.07862",
+          "section_name": "Conclusions",
+          "start_char": 0,
+          "end_char": 954,
+          "text": "We proposed a new multimodal NER (MNER: image + text) task on short social media posts. We demonstrated for the first time an effective MNER system, where visual information is combined with textual information to outperform traditional text-based NER baselines. Our work can be applied to myriads of social media posts or other articles across multiple platforms which often include both text and accompanying images. In addition, we proposed the modality attention module, a new neural mechanism which learns optimal integration of different modes of correlated information. In essence, the modality attention learns to attenuate irrelevant or uninformative modal information while amplifying the primary modality to extract better overall representations. We showed that the modality attention based model outperforms other state-of-the-art baselines when text was the only modality available, by better combining word and character level information.",
+          "token_count": 185,
+          "chunking_version": "paragraph-windows-v1"
+        }
+      ]
+    },
+    {
+      "number": 5,
+      "question_id": "d915b401bb96c9f104a0353bef9254672e6f5a47",
+      "request_id": "098c67a2117244daaab64cd5e78297d4",
+      "paper_id": "1912.10011",
+      "question": "What future possible improvements are listed?",
+      "status": "insufficient_evidence",
+      "human_reviewed": false,
+      "reviewed_at": null,
+      "correctness": null,
+      "refusal_appropriate_to_supplied_context": null,
+      "notes": null,
+      "human_response_verbatim": null,
+      "claims": [],
+      "citations": [],
+      "supplied_passages": [
+        {
+          "chunk_id": "1912.10011:s0016:p0001:c0000",
+          "paragraph_id": "1912.10011:s0016:p0001",
+          "paper_id": "1912.10011",
+          "section_name": "Results ::: Comparison w.r.t. baselines.",
+          "start_char": 0,
+          "end_char": 79,
+          "text": "Specifically, regarding all baselines, we can outline the following statements.",
+          "token_count": 14,
+          "chunking_version": "paragraph-windows-v1"
+        },
+        {
+          "chunk_id": "1912.10011:s0016:p0006:c0000",
+          "paragraph_id": "1912.10011:s0016:p0006",
+          "paper_id": "1912.10011",
+          "section_name": "Results ::: Comparison w.r.t. baselines.",
+          "start_char": 0,
+          "end_char": 436,
+          "text": "We would also like to draw attention to the number of parameters used by those architectures. We note that our scenarios relies on a lower number of parameters (14 millions) compared to all baselines (ranging from 23 to 45 millions). This outlines the effectiveness in the design of our model relying on a structure encoding, in contrast to other approach that try to learn the structure of data/descriptions from a linearized encoding.",
+          "token_count": 85,
+          "chunking_version": "paragraph-windows-v1"
+        },
+        {
+          "chunk_id": "1912.10011:s0018:p0000:c0000",
+          "paragraph_id": "1912.10011:s0018:p0000",
+          "paper_id": "1912.10011",
+          "section_name": "Acknowledgements",
+          "start_char": 0,
+          "end_char": 117,
+          "text": "We would like to thank the H2020 project AI4EU (825619) which partially supports Laure Soulier and Patrick Gallinari.",
+          "token_count": 31,
+          "chunking_version": "paragraph-windows-v1"
+        },
+        {
+          "chunk_id": "1912.10011:s0016:p0000:c0000",
+          "paragraph_id": "1912.10011:s0016:p0000",
+          "paper_id": "1912.10011",
+          "section_name": "Results ::: Comparison w.r.t. baselines.",
+          "start_char": 0,
+          "end_char": 833,
+          "text": "From a general point of view, we can see from Table TABREF25 that our scenarios obtain significantly higher results in terms of BLEU over all models; our best model Hierarchical-k reaching $17.5$ vs. $16.5$ against the best baseline. This means that our models learns to generate fluent sequences of words, close to the gold descriptions, adequately picking up on domain lingo. Qualitative metrics are either better or on par with baselines. We show in Figure FIGREF29 a text generated by our best model, which can be directly compared to the gold description in Figure FIGREF1. Generation is fluent and contains domain-specific expressions. As reflected in Table TABREF25, the number of correct mentions (in green) outweights the number of incorrect mentions (in red). Please note that, as in previous work BIBREF28, BIBREF12, BIBRE",
+          "token_count": 192,
+          "chunking_version": "paragraph-windows-v1"
+        },
+        {
+          "chunk_id": "1912.10011:s0010:p0004:c0000",
+          "paragraph_id": "1912.10011:s0010:p0004",
+          "paper_id": "1912.10011",
+          "section_name": "Experimental setup ::: Evaluation metrics ::: Information extraction-oriented metrics.",
+          "start_char": 0,
+          "end_char": 453,
+          "text": "CS primarily targets the “what to say\" aspect of evaluation, CO targets the “how to say it\" aspect, and RG targets both. Note that for CS, CO, RG-% and BLEU metrics, higher is better; which is not true for RG-#. The IE system used in the experiments is able to extract an average of 17 factual records from gold descriptions. In order to mimic a human expert, a generative system should approach this number and not overload generation with brute facts.",
+          "token_count": 108,
+          "chunking_version": "paragraph-windows-v1"
+        }
+      ]
+    },
+    {
+      "number": 6,
+      "question_id": "c7b6e6cb997de1660fd24d31759fe6bb21c7863f",
+      "request_id": "b8b5e530c6ce4809b2854a3d621ccfba",
+      "paper_id": "1904.04358",
+      "question": "How many electrodes were used on the subject in EEG sessions?",
+      "status": "insufficient_evidence",
+      "human_reviewed": false,
+      "reviewed_at": null,
+      "correctness": null,
+      "refusal_appropriate_to_supplied_context": null,
+      "notes": null,
+      "human_response_verbatim": null,
+      "claims": [],
+      "citations": [],
+      "supplied_passages": [
+        {
+          "chunk_id": "1904.04358:s0009:p0003:c0000",
+          "paragraph_id": "1904.04358:s0009:p0003",
+          "paper_id": "1904.04358",
+          "section_name": "Performance analysis and discussion",
+          "start_char": 0,
+          "end_char": 688,
+          "text": "Next, we provide performance comparison of the proposed approach with the baseline methods for PHASE-TWO of our study (cross-validation experiment) in Table TABREF15 . Since the model encounters the unseen data of a new subject for testing, and given the high inter-subject variability of the EEG data, a reduction in the accuracy was expected. However, our network still managed to achieve an improvement of 18.91, 9.95, 67.15, 2.83 and 13.70 % over BIBREF17 . Besides, our best model shows more reliability compared to previous works: The standard deviation of our model's classification accuracy across all the tasks is reduced from 22.59% BIBREF17 and 17.52% BIBREF18 to a mere 5.41%.",
+          "token_count": 162,
+          "chunking_version": "paragraph-windows-v1"
+        },
+        {
+          "chunk_id": "1904.04358:s0008:p0000:c0000",
+          "paragraph_id": "1904.04358:s0008:p0000",
+          "paper_id": "1904.04358",
+          "section_name": "Training and hyperparameter selection",
+          "start_char": 0,
+          "end_char": 571,
+          "text": "We performed two sets of experiments with the single-trial EEG data. In PHASE-ONE, our goals was to identify the best architectures and hyperparameters for our networks with a reasonable number of runs. For PHASE-ONE, we randomly shuffled and divided the data (1913 signals from 14 individuals) into train (80%), development (10%) and test sets (10%). In PHASE-TWO, in order to perform a fair comparison with the previous methods reported on the same dataset, we perform a leave-one-subject out cross-validation experiment using the best settings we learn from PHASE-ONE.",
+          "token_count": 130,
+          "chunking_version": "paragraph-windows-v1"
+        },
+        {
+          "chunk_id": "1904.04358:s0003:p0000:c0000",
+          "paragraph_id": "1904.04358:s0003:p0000",
+          "paper_id": "1904.04358",
+          "section_name": "Joint variability of electrodes",
+          "start_char": 0,
+          "end_char": 959,
+          "text": "Multichannel EEG data is high dimensional multivariate time series data whose dimensionality depends on the number of electrodes. It is a major hurdle to optimally encode information from these EEG data into lower dimensional space. In fact, our investigation based on a development set (as we explain later) showed that well-known deep neural networks (e.g., fully connected networks such as convolutional neural networks, recurrent neural networks and autoencoders) fail to individually learn such complex feature representations from single-trial EEG data. Besides, we found that instead of using the raw multi-channel high-dimensional EEG requiring large training times and resource requirements, it is advantageous to first reduce its dimensionality by capturing the information transfer among the electrodes. Instead of the conventional approach of selecting a handful of channels as BIBREF17 , BIBREF18 , we address this by computing the channel cross-",
+          "token_count": 192,
+          "chunking_version": "paragraph-windows-v1"
+        },
+        {
+          "chunk_id": "1904.04358:s0000:p0001:c0000",
+          "paragraph_id": "1904.04358:s0000:p0001",
+          "paper_id": "1904.04358",
+          "section_name": "Introduction",
+          "start_char": 0,
+          "end_char": 942,
+          "text": "Among the various brain activity-monitoring modalities in BCI, electroencephalography (EEG) BIBREF5 , BIBREF6 has demonstrated promising potential to differentiate between various brain activities through measurement of related electric fields. EEG is non-invasive, portable, low cost, and provides satisfactory temporal resolution. This makes EEG suitable to realize BCI systems. EEG data, however, is challenging: these data are high dimensional, have poor SNR, and suffer from low spatial resolution and a multitude of artifacts. For these reasons, it is not particularly obvious how to decode the desired information from raw EEG signals. Although the area of BCI based speech intent recognition has received increasing attention among the research community in the past few years, most research has focused on classification of individual speech categories in terms of discrete vowels, phonemes and words BIBREF7 , BIBREF8 , BIBREF9 , BI",
+          "token_count": 192,
+          "chunking_version": "paragraph-windows-v1"
+        },
+        {
+          "chunk_id": "1904.04358:s0003:p0000:c0002",
+          "paragraph_id": "1904.04358:s0003:p0000",
+          "paper_id": "1904.04358",
+          "section_name": "Joint variability of electrodes",
+          "start_char": 1593,
+          "end_char": 1876,
+          "text": "hidden information than mere raw signals. This is essentially different than our previous work BIBREF16 where we extract per-channel 1-D covariance information and feed it to the networks. We present our sample 2-D EEG cross-covariance matrices (of two individuals) in Fig. FIGREF2 .",
+          "token_count": 67,
+          "chunking_version": "paragraph-windows-v1"
+        }
+      ]
+    },
+    {
+      "number": 7,
+      "question_id": "49764eee7fb523a6a28375cc699f5e0220b81766",
+      "request_id": "3cabd3e0456a4c5999afda1890734eaf",
+      "paper_id": "1908.05441",
+      "question": "Did they use a crowdsourcing platform?",
+      "status": "insufficient_evidence",
+      "human_reviewed": false,
+      "reviewed_at": null,
+      "correctness": null,
+      "refusal_appropriate_to_supplied_context": null,
+      "notes": null,
+      "human_response_verbatim": null,
+      "claims": [],
+      "citations": [],
+      "supplied_passages": [
+        {
+          "chunk_id": "1908.05441:s0011:p0005:c0000",
+          "paragraph_id": "1908.05441:s0011:p0005",
+          "paper_id": "1908.05441",
+          "section_name": "Annotation",
+          "start_char": 0,
+          "end_char": 527,
+          "text": "Interannotator Agreement: To increase quality and consistency, each annotator annotated the entire dataset of 7,787 questions. Two annotators were used, with the lead annotator possessing previous professional domain expertise. Annotation proceeded in a two-stage process, where in stage 1 annotators completed their annotation independently, and in stage 2 each of the questions where the annotators did not have complete agreement were manually resolved by the annotators, resulting in high-quality classification annotation.",
+          "token_count": 111,
+          "chunking_version": "paragraph-windows-v1"
+        },
+        {
+          "chunk_id": "1908.05441:s0011:p0008:c0000",
+          "paragraph_id": "1908.05441:s0011:p0008",
+          "paper_id": "1908.05441",
+          "section_name": "Annotation",
+          "start_char": 0,
+          "end_char": 691,
+          "text": "Annotators disagreed on 3441 (44.2%) of questions. Primary sources of disagreement before resolution included each annotator choosing a single category for questions requiring multiple labels (e.g. annotator 1 assigning a label of X, and annotator 2 assigning a label of Y, when the gold label was multilabel X, Y), which was observed in 18% of disagreements. Similarly, we observed annotators choosing similar labels but at different levels of specificity in the taxonomy (e.g. annotator 1 assigning a label of Matter INLINEFORM0 Changes of State INLINEFORM1 Boiling, where annotator 2 assigned Matter INLINEFORM2 Changes of State), which occurred in 12% of disagreements before resolution.",
+          "token_count": 157,
+          "chunking_version": "paragraph-windows-v1"
+        },
+        {
+          "chunk_id": "1908.05441:s0006:p0009:c0000",
+          "paragraph_id": "1908.05441:s0006:p0009",
+          "paper_id": "1908.05441",
+          "section_name": "Question Answering with QC Labels",
+          "start_char": 0,
+          "end_char": 729,
+          "text": "Though initial raw interannotator agreement was measured at INLINEFORM0 , to maximize the quality of the annotation the annotators performed a second pass where all disagreements were manually resolved. Table TABREF30 shows question classification performance of the BERT-QC model at 57.8% P@1, meaning 42.2% of the predicted labels were different than the gold labels. The question classification error analysis in Table TABREF20 found that of these 42.2% of errorful predictions, 10% of errors (4.2% of total labels) were caused by the gold labels being incorrect. This allows us to estimate that the overall quality of the annotation (the proportion of questions that have a correct human authored label) is approximately 96%.",
+          "token_count": 157,
+          "chunking_version": "paragraph-windows-v1"
+        },
+        {
+          "chunk_id": "1908.05441:s0007:p0002:c0000",
+          "paragraph_id": "1908.05441:s0007:p0002",
+          "paper_id": "1908.05441",
+          "section_name": "Automating Error Analyses with QC",
+          "start_char": 0,
+          "end_char": 578,
+          "text": "While this analysis is shown at an intermediate (L2) level of specificity for space, more detailed analyses are possible. For example, overall QA performance on Scientific Inference questions is near average (47%), but increasing granularity to L3 we observe that questions addressing Experiment Design or Making Inferences – challenging questions even for humans – perform poorly (33% and 20%) when answered by the QA system. This allows a system designer to intelligently target problem-specific knowledge resources and inference methods to address deficits in specific areas.",
+          "token_count": 112,
+          "chunking_version": "paragraph-windows-v1"
+        },
+        {
+          "chunk_id": "1908.05441:s0010:p0000:c0000",
+          "paragraph_id": "1908.05441:s0010:p0000",
+          "paper_id": "1908.05441",
+          "section_name": "Acknowledgements",
+          "start_char": 0,
+          "end_char": 275,
+          "text": "The authors wish to thank Elizabeth Wainwright and Stephen Marmorstein for piloting an earlier version of the question classification annotation. We thank the Allen Insitute for Artificial Intelligence and National Science Founation (NSF 1815948 to PJ) for funding this work.",
+          "token_count": 58,
+          "chunking_version": "paragraph-windows-v1"
+        }
+      ]
+    },
+    {
+      "number": 8,
+      "question_id": "df5a4505edccc0ee11349ed6e7958cf6b84c9ed4",
+      "request_id": "d3d43b2695a145abbbace9a005115851",
+      "paper_id": "1910.09982",
+      "question": "What dataset was used?",
+      "status": "answered",
+      "human_reviewed": false,
+      "reviewed_at": null,
+      "correctness": null,
+      "refusal_appropriate_to_supplied_context": null,
+      "notes": null,
+      "human_response_verbatim": null,
+      "claims": [
+        {
+          "text": "The shared task used a corpus that was annotated by A Data Pro, a company that performs high-quality manual annotations.",
+          "citation_chunk_ids": [
+            "1910.09982:s0035:p0001:c0000"
+          ],
+          "support": null,
+          "note": null
+        }
+      ],
+      "citations": [
+        {
+          "chunk_id": "1910.09982:s0035:p0001:c0000",
+          "paper_id": "1910.09982",
+          "paragraph_id": "1910.09982:s0035:p0001",
+          "section_name": "Acknowledgments",
+          "start_char": 0,
+          "end_char": 109,
+          "quote": "The corpus for the task was annotated by A Data Pro, a company that performs high-quality manual annotations."
+        }
+      ],
+      "supplied_passages": [
+        {
+          "chunk_id": "1910.09982:s0035:p0001:c0000",
+          "paragraph_id": "1910.09982:s0035:p0001",
+          "paper_id": "1910.09982",
+          "section_name": "Acknowledgments",
+          "start_char": 0,
+          "end_char": 109,
+          "text": "The corpus for the task was annotated by A Data Pro, a company that performs high-quality manual annotations.",
+          "token_count": 26,
+          "chunking_version": "paragraph-windows-v1"
+        },
+        {
+          "chunk_id": "1910.09982:s0025:p0002:c0000",
+          "paragraph_id": "1910.09982:s0025:p0002",
+          "paper_id": "1910.09982",
+          "section_name": "Setup",
+          "start_char": 0,
+          "end_char": 86,
+          "text": "The test set was released and the participants had few days to make final predictions.",
+          "token_count": 16,
+          "chunking_version": "paragraph-windows-v1"
+        },
+        {
+          "chunk_id": "1910.09982:s0025:p0000:c0000",
+          "paragraph_id": "1910.09982:s0025:p0000",
+          "paper_id": "1910.09982",
+          "section_name": "Setup",
+          "start_char": 0,
+          "end_char": 189,
+          "text": "The shared task had two phases: In the development phase, the participants were provided labeled training and development datasets; in the testing phase, testing input was further provided.",
+          "token_count": 35,
+          "chunking_version": "paragraph-windows-v1"
+        },
+        {
+          "chunk_id": "1910.09982:s0024:p0002:c0000",
+          "paragraph_id": "1910.09982:s0024:p0002",
+          "paper_id": "1910.09982",
+          "section_name": "Data",
+          "start_char": 0,
+          "end_char": 181,
+          "text": "Table TABREF23 reports the total number of instances per technique and the percentage with respect to the total number of annotations, for the training and for the development sets.",
+          "token_count": 36,
+          "chunking_version": "paragraph-windows-v1"
+        },
+        {
+          "chunk_id": "1910.09982:s0032:p0002:c0000",
+          "paragraph_id": "1910.09982:s0032:p0002",
+          "paper_id": "1910.09982",
+          "section_name": "Participants and Approaches ::: Teams Participating in Both Tasks",
+          "start_char": 0,
+          "end_char": 647,
+          "text": "Team ProperGander BIBREF46 also used BERT, but they paid special attention to the imbalance of the data, as well as to the differences between training and testing. They showed that augmenting the training data by oversampling yielded improvements when testing on data that is temporally far from the training (by increasing recall). In order to deal with the imbalance, they performed cost-sensitive classification, i.e., the errors on the smaller positive class were more costly. For the fragment-level classification, inspired by named entity recognition, they used a model based on BERT using Continuous Random Field stacked on top of an LSTM.",
+          "token_count": 134,
+          "chunking_version": "paragraph-windows-v1"
+        }
+      ]
+    },
+    {
+      "number": 9,
+      "question_id": "3941401a182a3d6234894a5c8a75d48c6116c45c",
+      "request_id": "50e7f6a306004199aeeded02a26ddc4b",
+      "paper_id": "1912.00667",
+      "question": "Which real-world datasets are used?",
+      "status": "answered",
+      "human_reviewed": false,
+      "reviewed_at": null,
+      "correctness": null,
+      "refusal_appropriate_to_supplied_context": null,
+      "notes": null,
+      "human_response_verbatim": null,
+      "claims": [
+        {
+          "text": "The study uses two real‑world datasets: one for the CyberAttack event category and one for the PoliticianDeath event category.",
+          "citation_chunk_ids": [
+            "1912.00667:s0007:p0000:c0000",
+            "1912.00667:s0007:p0000:c0001"
+          ],
+          "support": null,
+          "note": null
+        }
+      ],
+      "citations": [
+        {
+          "chunk_id": "1912.00667:s0007:p0000:c0000",
+          "paper_id": "1912.00667",
+          "paragraph_id": "1912.00667:s0007:p0000",
+          "section_name": "Experiments and Results ::: Experimental Setup",
+          "start_char": 0,
+          "end_char": 907,
+          "quote": "Datasets. We perform our experiments with two predetermined event categories: cyber security (CyberAttack) and death of politicians (PoliticianDeath). These event categories are chosen as they are representative of important event types that are of interest to many governments and companies. The need to create our own dataset was motivated by the lack of public datasets for event detection on microposts. The few available datasets do not suit our requirements. For example, the publicly available Events-2012 Twitter dataset BIBREF20 contains generic event descriptions such as Politics, Sports, Culture etc. Our work targets more specific event categories BIBREF21. Following previous studies BIBREF1, we collect event-related microposts from Twitter using 11 and 8 seed events (see Section SECREF2) for CyberAttack and PoliticianDeath, respectively. Unlabeled microposts are collected by using the key"
+        },
+        {
+          "chunk_id": "1912.00667:s0007:p0000:c0001",
+          "paper_id": "1912.00667",
+          "paragraph_id": "1912.00667:s0007:p0000",
+          "section_name": "Experiments and Results ::: Experimental Setup",
+          "start_char": 783,
+          "end_char": 1232,
+          "quote": "(see Section SECREF2) for CyberAttack and PoliticianDeath, respectively. Unlabeled microposts are collected by using the keyword `hack' for CyberAttack, while for PoliticianDeath, we use a set of keywords related to `politician' and `death' (such as `bureaucrat', `dead' etc.) For each dataset, we randomly select 500 tweets from the unlabeled subset and manually label them for evaluation. Table TABREF25 shows key statistics from our two datasets."
+        }
+      ],
+      "supplied_passages": [
+        {
+          "chunk_id": "1912.00667:s0000:p0007:c0000",
+          "paragraph_id": "1912.00667:s0000:p0007",
+          "paper_id": "1912.00667",
+          "section_name": "Introduction",
+          "start_char": 0,
+          "end_char": 185,
+          "text": "An extensive empirical evaluation of our approach on multiple real-world datasets demonstrating that our approach significantly improves the state of the art by an average of 24.3% AUC.",
+          "token_count": 37,
+          "chunking_version": "paragraph-windows-v1"
+        },
+        {
+          "chunk_id": "1912.00667:abstract:p0000:c0001",
+          "paragraph_id": "1912.00667:abstract:p0000",
+          "paper_id": "1912.00667",
+          "section_name": "Abstract",
+          "start_char": 883,
+          "end_char": 1312,
+          "text": "the model in order to discover new keywords that are most beneficial for model training. These keywords and their expectation not only improve the resulting performance but also make the model training process more transparent. We empirically demonstrate the merits of our approach, both in terms of accuracy and interpretability, on multiple real-world datasets and show that our approach improves the state of the art by 24.3%.",
+          "token_count": 83,
+          "chunking_version": "paragraph-windows-v1"
+        },
+        {
+          "chunk_id": "1912.00667:s0007:p0000:c0000",
+          "paragraph_id": "1912.00667:s0007:p0000",
+          "paper_id": "1912.00667",
+          "section_name": "Experiments and Results ::: Experimental Setup",
+          "start_char": 0,
+          "end_char": 907,
+          "text": "Datasets. We perform our experiments with two predetermined event categories: cyber security (CyberAttack) and death of politicians (PoliticianDeath). These event categories are chosen as they are representative of important event types that are of interest to many governments and companies. The need to create our own dataset was motivated by the lack of public datasets for event detection on microposts. The few available datasets do not suit our requirements. For example, the publicly available Events-2012 Twitter dataset BIBREF20 contains generic event descriptions such as Politics, Sports, Culture etc. Our work targets more specific event categories BIBREF21. Following previous studies BIBREF1, we collect event-related microposts from Twitter using 11 and 8 seed events (see Section SECREF2) for CyberAttack and PoliticianDeath, respectively. Unlabeled microposts are collected by using the key",
+          "token_count": 192,
+          "chunking_version": "paragraph-windows-v1"
+        },
+        {
+          "chunk_id": "1912.00667:s0007:p0000:c0001",
+          "paragraph_id": "1912.00667:s0007:p0000",
+          "paper_id": "1912.00667",
+          "section_name": "Experiments and Results ::: Experimental Setup",
+          "start_char": 783,
+          "end_char": 1232,
+          "text": "(see Section SECREF2) for CyberAttack and PoliticianDeath, respectively. Unlabeled microposts are collected by using the keyword `hack' for CyberAttack, while for PoliticianDeath, we use a set of keywords related to `politician' and `death' (such as `bureaucrat', `dead' etc.) For each dataset, we randomly select 500 tweets from the unlabeled subset and manually label them for evaluation. Table TABREF25 shows key statistics from our two datasets.",
+          "token_count": 118,
+          "chunking_version": "paragraph-windows-v1"
+        },
+        {
+          "chunk_id": "1912.00667:s0007:p0003:c0000",
+          "paragraph_id": "1912.00667:s0007:p0003",
+          "paper_id": "1912.00667",
+          "section_name": "Experiments and Results ::: Experimental Setup",
+          "start_char": 0,
+          "end_char": 430,
+          "text": "Evaluation. Following BIBREF1 (BIBREF1) and BIBREF3 (BIBREF3), we use accuracy and area under the precision-recall curve (AUC) metrics to measure the performance of our proposed approach. We note that due to the imbalance in our datasets (20% positive microposts in CyberAttack and 27% in PoliticianDeath), accuracy is dominated by negative examples; AUC, in comparison, better characterizes the discriminative power of the model.",
+          "token_count": 110,
+          "chunking_version": "paragraph-windows-v1"
+        }
+      ]
+    },
+    {
+      "number": 10,
+      "question_id": "79a44a68bb57b375d8a57a0a7f522d33476d9f33",
+      "request_id": "e1d70f2a681a42ea8577a7705177f5c6",
+      "paper_id": "1912.10011",
+      "question": "Which qualitative metric are used for evaluation?",
+      "status": "answered",
+      "human_reviewed": false,
+      "reviewed_at": null,
+      "correctness": null,
+      "refusal_appropriate_to_supplied_context": null,
+      "notes": null,
+      "human_response_verbatim": null,
+      "claims": [
+        {
+          "text": "The qualitative evaluation metrics used are CS (Content Selection), CO (Content Ordering), and RG (Reference Generation).",
+          "citation_chunk_ids": [
+            "1912.10011:s0010:p0000:c0000",
+            "1912.10011:s0010:p0004:c0000"
+          ],
+          "support": null,
+          "note": null
+        }
+      ],
+      "citations": [
+        {
+          "chunk_id": "1912.10011:s0010:p0000:c0000",
+          "paper_id": "1912.10011",
+          "paragraph_id": "1912.10011:s0010:p0000",
+          "section_name": "Experimental setup ::: Evaluation metrics ::: Information extraction-oriented metrics.",
+          "start_char": 0,
+          "end_char": 712,
+          "quote": "These metrics estimate the ability of our model to integrate elements from the table in its descriptions. Particularly, they compare the gold and generated descriptions and measure to what extent the extracted relations are aligned or differ. To do so, we follow the protocol presented in BIBREF10. First, we apply an information extraction (IE) system trained on labeled relations from the gold descriptions of the RotoWire train dataset. Entity-value pairs are extracted from the descriptions. For example, in the sentence Isaiah Thomas led the team in scoring, totaling 23 points [...]., an IE tool will extract the pair (Isaiah Thomas, 23, PTS). Second, we compute three metrics on the extracted information:"
+        },
+        {
+          "chunk_id": "1912.10011:s0010:p0004:c0000",
+          "paper_id": "1912.10011",
+          "paragraph_id": "1912.10011:s0010:p0004",
+          "section_name": "Experimental setup ::: Evaluation metrics ::: Information extraction-oriented metrics.",
+          "start_char": 0,
+          "end_char": 453,
+          "quote": "CS primarily targets the “what to say\" aspect of evaluation, CO targets the “how to say it\" aspect, and RG targets both. Note that for CS, CO, RG-% and BLEU metrics, higher is better; which is not true for RG-#. The IE system used in the experiments is able to extract an average of 17 factual records from gold descriptions. In order to mimic a human expert, a generative system should approach this number and not overload generation with brute facts."
+        }
+      ],
+      "supplied_passages": [
+        {
+          "chunk_id": "1912.10011:s0008:p0000:c0000",
+          "paragraph_id": "1912.10011:s0008:p0000",
+          "paper_id": "1912.10011",
+          "section_name": "Experimental setup ::: Evaluation metrics",
+          "start_char": 0,
+          "end_char": 239,
+          "text": "We evaluate our model through two types of metrics. The BLEU score BIBREF34 aims at measuring to what extent the generated descriptions are literally closed to the ground truth. The second category designed by BIBREF10 is more qualitative.",
+          "token_count": 52,
+          "chunking_version": "paragraph-windows-v1"
+        },
+        {
+          "chunk_id": "1912.10011:s0010:p0004:c0000",
+          "paragraph_id": "1912.10011:s0010:p0004",
+          "paper_id": "1912.10011",
+          "section_name": "Experimental setup ::: Evaluation metrics ::: Information extraction-oriented metrics.",
+          "start_char": 0,
+          "end_char": 453,
+          "text": "CS primarily targets the “what to say\" aspect of evaluation, CO targets the “how to say it\" aspect, and RG targets both. Note that for CS, CO, RG-% and BLEU metrics, higher is better; which is not true for RG-#. The IE system used in the experiments is able to extract an average of 17 factual records from gold descriptions. In order to mimic a human expert, a generative system should approach this number and not overload generation with brute facts.",
+          "token_count": 108,
+          "chunking_version": "paragraph-windows-v1"
+        },
+        {
+          "chunk_id": "1912.10011:s0010:p0000:c0000",
+          "paragraph_id": "1912.10011:s0010:p0000",
+          "paper_id": "1912.10011",
+          "section_name": "Experimental setup ::: Evaluation metrics ::: Information extraction-oriented metrics.",
+          "start_char": 0,
+          "end_char": 712,
+          "text": "These metrics estimate the ability of our model to integrate elements from the table in its descriptions. Particularly, they compare the gold and generated descriptions and measure to what extent the extracted relations are aligned or differ. To do so, we follow the protocol presented in BIBREF10. First, we apply an information extraction (IE) system trained on labeled relations from the gold descriptions of the RotoWire train dataset. Entity-value pairs are extracted from the descriptions. For example, in the sentence Isaiah Thomas led the team in scoring, totaling 23 points [...]., an IE tool will extract the pair (Isaiah Thomas, 23, PTS). Second, we compute three metrics on the extracted information:",
+          "token_count": 146,
+          "chunking_version": "paragraph-windows-v1"
+        },
+        {
+          "chunk_id": "1912.10011:s0014:p0001:c0000",
+          "paragraph_id": "1912.10011:s0014:p0001",
+          "paper_id": "1912.10011",
+          "section_name": "Results",
+          "start_char": 0,
+          "end_char": 644,
+          "text": "Our results on the RotoWire testset are summarized in Table TABREF25. For each proposed variant of our architecture, we report the mean score over ten runs, as well as the standard deviation in subscript. Results are compared to baselines BIBREF12, BIBREF13, BIBREF10 and variants of our models. We also report the result of the oracle (metrics on the gold descriptions). Please note that gold descriptions trivially obtain 100% on all metrics expect RG, as they are all based on comparison with themselves. RG scores are different, as the IE system is imperfect and fails to extract accurate entities 4% of the time. RG-# is an absolute count.",
+          "token_count": 149,
+          "chunking_version": "paragraph-windows-v1"
+        },
+        {
+          "chunk_id": "1912.10011:s0016:p0002:c0000",
+          "paragraph_id": "1912.10011:s0016:p0002",
+          "paper_id": "1912.10011",
+          "section_name": "Results ::: Comparison w.r.t. baselines.",
+          "start_char": 0,
+          "end_char": 702,
+          "text": "$\\bullet $ Our hierarchical models achieve significantly better scores on all metrics when compared to the flat architecture Wiseman, reinforcing the crucial role of structure in data semantics and saliency. The analysis of RG metrics shows that Wiseman seems to be the more naturalistic in terms of number of factual mentions (RG#) since it is the closest scenario to the gold value (16.83 vs. 17.31 for resp. Wiseman and Hierarchical-k). However, Wiseman achieves only $75.62$% of precision, effectively mentioning on average a total of $22.25$ records (wrong or accurate), where our model Hierarchical-k scores a precision of $89.46$%, leading to $23.66$ total mentions, just slightly above Wiseman.",
+          "token_count": 169,
+          "chunking_version": "paragraph-windows-v1"
+        }
+      ]
+    },
+    {
+      "number": 11,
+      "question_id": "6aaf12505add25dd133c7b0dafe8f4fe966d1f1d",
+      "request_id": "2756ef114ab34b9cbda6aa3cdbe507ad",
+      "paper_id": "1808.09029",
+      "question": "what previous RNN models do they compare with?",
+      "status": "answered",
+      "human_reviewed": false,
+      "reviewed_at": null,
+      "correctness": null,
+      "refusal_appropriate_to_supplied_context": null,
+      "notes": null,
+      "human_response_verbatim": null,
+      "claims": [
+        {
+          "text": "The paper compares its Pyramidal Recurrent Unit (PRU) against the Long Short-Term Memory (LSTM) model.",
+          "citation_chunk_ids": [
+            "1808.09029:s0010:p0003:c0000"
+          ],
+          "support": null,
+          "note": null
+        }
+      ],
+      "citations": [
+        {
+          "chunk_id": "1808.09029:s0010:p0003:c0000",
+          "paper_id": "1808.09029",
+          "paragraph_id": "1808.09029:s0010:p0003",
+          "section_name": "Ablation studies",
+          "start_char": 0,
+          "end_char": 617,
+          "quote": "Fixed INLINEFORM0 and variable INLINEFORM1 : When we vary the value of INLINEFORM2 at fixed number of pyramidal levels INLINEFORM3 , the total number of recurrent unit parameters decreases significantly with a minimal impact on the perplexity. For example, PRUs with INLINEFORM4 and INLINEFORM5 learns 77% fewer recurrent unit parameters while its perplexity (lower is better) increases by about 12% in comparison to LSTMs. Moreover, the decrease in number of parameters at higher value of INLINEFORM6 enables PRUs to learn the representations in high dimensional space with better generalizability (Table TABREF23 )."
+        }
+      ],
+      "supplied_passages": [
+        {
+          "chunk_id": "1808.09029:abstract:p0000:c0001",
+          "paragraph_id": "1808.09029:abstract:p0000",
+          "paper_id": "1808.09029",
+          "section_name": "Abstract",
+          "start_char": 833,
+          "end_char": 1129,
+          "text": "number of model parameters, PRU outperforms all previous RNN models that exploit different gating mechanisms and transformations. We provide a detailed examination of the PRU and its behavior on the language modeling tasks. Our code is open-source and available at https://sacmehta.github.io/PRU/",
+          "token_count": 68,
+          "chunking_version": "paragraph-windows-v1"
+        },
+        {
+          "chunk_id": "1808.09029:s0001:p0000:c0000",
+          "paragraph_id": "1808.09029:s0001:p0000",
+          "paper_id": "1808.09029",
+          "section_name": "Related work",
+          "start_char": 0,
+          "end_char": 263,
+          "text": "Multiple methods, including a variety of gating structures and transformations, have been proposed to improve the performance of recurrent neural networks (RNNs). We first describe these approaches and then provide an overview of recent work in language modeling.",
+          "token_count": 47,
+          "chunking_version": "paragraph-windows-v1"
+        },
+        {
+          "chunk_id": "1808.09029:s0004:p0000:c0000",
+          "paragraph_id": "1808.09029:s0004:p0000",
+          "paper_id": "1808.09029",
+          "section_name": "Grouped linear transformation for context",
+          "start_char": 0,
+          "end_char": 525,
+          "text": "Many RNN architectures apply linear transformations to both the input and context vector. However, this may not be ideal due to the differing semantics of each vector. In many NLP applications including language modeling, the input vector is a dense word embedding which is shared across all contexts for a given word in a dataset. In contrast, the context vector is highly contextualized by the current sequence. The differences between the input and context vector motivate their separate treatment in the PRU architecture.",
+          "token_count": 102,
+          "chunking_version": "paragraph-windows-v1"
+        },
+        {
+          "chunk_id": "1808.09029:s0002:p0000:c0000",
+          "paragraph_id": "1808.09029:s0002:p0000",
+          "paper_id": "1808.09029",
+          "section_name": "Pyramidal Recurrent Units",
+          "start_char": 0,
+          "end_char": 386,
+          "text": "We introduce Pyramidal Recurrent Units (PRUs), a new RNN architecture which improves modeling of context by allowing for higher dimensional vector representations while learning fewer parameters. Figure FIGREF2 provides an overview of PRU. We first elaborate on the details of the pyramidal transformation and the grouped linear transformation. We then describe our recurrent unit, PRU.",
+          "token_count": 74,
+          "chunking_version": "paragraph-windows-v1"
+        },
+        {
+          "chunk_id": "1808.09029:s0010:p0003:c0000",
+          "paragraph_id": "1808.09029:s0010:p0003",
+          "paper_id": "1808.09029",
+          "section_name": "Ablation studies",
+          "start_char": 0,
+          "end_char": 617,
+          "text": "Fixed INLINEFORM0 and variable INLINEFORM1 : When we vary the value of INLINEFORM2 at fixed number of pyramidal levels INLINEFORM3 , the total number of recurrent unit parameters decreases significantly with a minimal impact on the perplexity. For example, PRUs with INLINEFORM4 and INLINEFORM5 learns 77% fewer recurrent unit parameters while its perplexity (lower is better) increases by about 12% in comparison to LSTMs. Moreover, the decrease in number of parameters at higher value of INLINEFORM6 enables PRUs to learn the representations in high dimensional space with better generalizability (Table TABREF23 ).",
+          "token_count": 132,
+          "chunking_version": "paragraph-windows-v1"
+        }
+      ]
+    },
+    {
+      "number": 12,
+      "question_id": "bdf93053b1b9b0a21f77ed370cf4d5a10df70e3e",
+      "request_id": "baf9bef09a584646a076ba7ac4d17b2b",
+      "paper_id": "1706.01875",
+      "question": "What was their system's performance?",
+      "status": "answered",
+      "human_reviewed": false,
+      "reviewed_at": null,
+      "correctness": null,
+      "refusal_appropriate_to_supplied_context": null,
+      "notes": null,
+      "human_response_verbatim": null,
+      "claims": [
+        {
+          "text": "The classifier achieved an accuracy of 89.6% and an F1‑score of 89.2% on the holdout set.",
+          "citation_chunk_ids": [
+            "1706.01875:s0004:p0002:c0000"
+          ],
+          "support": null,
+          "note": null
+        }
+      ],
+      "citations": [
+        {
+          "chunk_id": "1706.01875:s0004:p0002:c0000",
+          "paper_id": "1706.01875",
+          "paragraph_id": "1706.01875:s0004:p0002",
+          "section_name": "Classifier evaluation",
+          "start_char": 0,
+          "end_char": 445,
+          "quote": "Real-world classifier performance. To evaluate real-world performance of our selected classifier (i.e., performance in the absence of model and parameter bias), we perform classification of the holdout set. On this set, our classifier had an accuracy and F1-score of 89.6% and 89.2%, respectively. These results show that in addition to superior accuracy during training and validation, our chosen classifier is also robust against over-fitting."
+        }
+      ],
+      "supplied_passages": [
+        {
+          "chunk_id": "1706.01875:s0004:p0004:c0000",
+          "paragraph_id": "1706.01875:s0004:p0004",
+          "paper_id": "1706.01875",
+          "section_name": "Classifier evaluation",
+          "start_char": 0,
+          "end_char": 188,
+          "text": "The results illustrated in fig:classifier-performance show the performance of the classifier while evaluating the corresponding holdout set. We make several conclusions from these results:",
+          "token_count": 33,
+          "chunking_version": "paragraph-windows-v1"
+        },
+        {
+          "chunk_id": "1706.01875:s0004:p0006:c0000",
+          "paragraph_id": "1706.01875:s0004:p0006",
+          "paper_id": "1706.01875",
+          "section_name": "Classifier evaluation",
+          "start_char": 0,
+          "end_char": 249,
+          "text": "Quality of manual labeling has a significant impact on the accuracy and precision of the classifier. Using only tweets which had at least 70% of contributors agreeing on a class resulted in between 5-7% higher accuracy and up to 5% higher precision.",
+          "token_count": 52,
+          "chunking_version": "paragraph-windows-v1"
+        },
+        {
+          "chunk_id": "1706.01875:s0004:p0002:c0000",
+          "paragraph_id": "1706.01875:s0004:p0002",
+          "paper_id": "1706.01875",
+          "section_name": "Classifier evaluation",
+          "start_char": 0,
+          "end_char": 445,
+          "text": "Real-world classifier performance. To evaluate real-world performance of our selected classifier (i.e., performance in the absence of model and parameter bias), we perform classification of the holdout set. On this set, our classifier had an accuracy and F1-score of 89.6% and 89.2%, respectively. These results show that in addition to superior accuracy during training and validation, our chosen classifier is also robust against over-fitting.",
+          "token_count": 97,
+          "chunking_version": "paragraph-windows-v1"
+        },
+        {
+          "chunk_id": "1706.01875:s0004:p0000:c0000",
+          "paragraph_id": "1706.01875:s0004:p0000",
+          "paper_id": "1706.01875",
+          "section_name": "Classifier evaluation",
+          "start_char": 0,
+          "end_char": 162,
+          "text": "We now present results to (1) validate our choice of classifier and (2) demonstrate the impact of training/validation sample count on our classifiers performance.",
+          "token_count": 34,
+          "chunking_version": "paragraph-windows-v1"
+        },
+        {
+          "chunk_id": "1706.01875:s0005:p0002:c0000",
+          "paragraph_id": "1706.01875:s0005:p0002",
+          "paper_id": "1706.01875",
+          "section_name": "Measurements",
+          "start_char": 0,
+          "end_char": 756,
+          "text": "Reactions to offensive comments. We use the comment score, roughly the difference between up-votes and down-votes received, as a proxy for understanding how users reacted to offensive comments. We find that comments that were offensive: (1) on average, had a higher score than non-offensive comments (average scores: 8.9 vs. 6.7) and (2) were better received when they were posted in the general context than in the political context (average scores: 8.6 vs. 9.0). To understand how peoples reactions to offensive comments evolved over time, fig:offensive-scores-timeline shows the average scores received by offensive comments over time. Again, we observe an increasing trend in average scores received by offensive and political comments after July 2016.",
+          "token_count": 156,
+          "chunking_version": "paragraph-windows-v1"
+        }
+      ]
+    },
+    {
+      "number": 13,
+      "question_id": "4e1a67f8dc68b55a5ce18e6cd385ae9ab90d891f",
+      "request_id": "442bc641773a4164aaed794e519fa095",
+      "paper_id": "1703.04001",
+      "question": "Does the experiments focus on a specific domain?",
+      "status": "insufficient_evidence",
+      "human_reviewed": false,
+      "reviewed_at": null,
+      "correctness": null,
+      "refusal_appropriate_to_supplied_context": null,
+      "notes": null,
+      "human_response_verbatim": null,
+      "claims": [],
+      "citations": [],
+      "supplied_passages": [
+        {
+          "chunk_id": "1703.04001:s0002:p0003:c0000",
+          "paragraph_id": "1703.04001:s0002:p0003",
+          "paper_id": "1703.04001",
+          "section_name": "Linguistic activities on Quora",
+          "start_char": 0,
+          "end_char": 27,
+          "text": "Psycholinguistic analysis: ",
+          "token_count": 6,
+          "chunking_version": "paragraph-windows-v1"
+        },
+        {
+          "chunk_id": "1703.04001:s0000:p0001:c0000",
+          "paragraph_id": "1703.04001:s0000:p0001",
+          "paper_id": "1703.04001",
+          "section_name": "Introduction",
+          "start_char": 0,
+          "end_char": 954,
+          "text": "Characterization of the questions based on question quality requires expert human interventions often judging if a question would remain open based on factors like if it is subjective, controversial, open-ended, vague/imprecise, ill-formed, off-topic, ambiguous, uninteresting etc. Collecting judgment data for thousands of question posts is a very expensive process. Therefore, such an experiment can be done only for a small set of questions and it would be practically impossible to scale it up for the entire collection of posts on the Q&A site. In this work, we show that appropriate quantification of various linguistic activities can naturally correspond to many of the judgment factors mentioned above (see table 2 for a collection of examples). These quantities encoding such linguistic activities can be easily measured for each question post and thus helps us to have an alternative mechanism to characterize the answerability on the Q&A site.",
+          "token_count": 182,
+          "chunking_version": "paragraph-windows-v1"
+        },
+        {
+          "chunk_id": "1703.04001:s0000:p0002:c0000",
+          "paragraph_id": "1703.04001:s0000:p0002",
+          "paper_id": "1703.04001",
+          "section_name": "Introduction",
+          "start_char": 0,
+          "end_char": 616,
+          "text": "There are several research works done in Q&A focusing on content of posts. BIBREF0 exploit community feedback to identify high quality content on Yahoo! Answers. BIBREF1 use textual features to predict answer quality on Yahoo! Answers. BIBREF2 , investigate predictors of answer quality through a comparative, controlled field study of user responses. BIBREF3 study the problem of how long questions remain unanswered. BIBREF4 propose a prediction model on how many answers a question shall receive. BIBREF5 analyze and predict unanswered questions on Yahoo Answers. BIBREF6 study question quality in Yahoo! Answers.",
+          "token_count": 133,
+          "chunking_version": "paragraph-windows-v1"
+        },
+        {
+          "chunk_id": "1703.04001:abstract:p0000:c0001",
+          "paragraph_id": "1703.04001:abstract:p0000",
+          "paper_id": "1703.04001",
+          "section_name": "Abstract",
+          "start_char": 746,
+          "end_char": 919,
+          "text": "for an accuracy of 74.18%. We also compare our method with some of the similar works (Dror et al., Yang et al.) achieving a maximum improvement of ~39% in terms of accuracy.",
+          "token_count": 45,
+          "chunking_version": "paragraph-windows-v1"
+        },
+        {
+          "chunk_id": "1703.04001:s0003:p0002:c0000",
+          "paragraph_id": "1703.04001:s0003:p0002",
+          "paper_id": "1703.04001",
+          "section_name": "Prediction model",
+          "start_char": 0,
+          "end_char": 273,
+          "text": "The content and way of posing a question is important to attract answers. We have observed in the previous section that these linguistic as well as psycholinguistic aspects of the question asker are discriminatory factors. For the prediction, we use the following features:",
+          "token_count": 53,
+          "chunking_version": "paragraph-windows-v1"
+        }
+      ]
+    },
+    {
+      "number": 14,
+      "question_id": "b7c3f3942a07c118e57130bc4c3ec4adc431d725",
+      "request_id": "8382d1377769466982e4c7ae82302df6",
+      "paper_id": "1907.03187",
+      "question": "What did the best systems use for their model?",
+      "status": "answered",
+      "human_reviewed": false,
+      "reviewed_at": null,
+      "correctness": null,
+      "refusal_appropriate_to_supplied_context": null,
+      "notes": null,
+      "human_response_verbatim": null,
+      "claims": [
+        {
+          "text": "The best systems used a QRNN-based language model with about 60 million trainable parameters.",
+          "citation_chunk_ids": [
+            "1907.03187:s0006:p0000:c0001"
+          ],
+          "support": null,
+          "note": null
+        },
+        {
+          "text": "They tokenized the data with sentencepiece BIBREF4 using a byte‑pair encoding (BPE) vocabulary of 30,000 sub‑word units.",
+          "citation_chunk_ids": [
+            "1907.03187:s0005:p0000:c0000"
+          ],
+          "support": null,
+          "note": null
+        }
+      ],
+      "citations": [
+        {
+          "chunk_id": "1907.03187:s0006:p0000:c0001",
+          "paper_id": "1907.03187",
+          "paragraph_id": "1907.03187:s0006:p0000",
+          "section_name": "LM Training and Fine-tuning",
+          "start_char": 611,
+          "end_char": 905,
+          "quote": "We performed some simple tests with LSTM units and a Transformer Language model, finding all models were similar in performance during LM training. We thus chose to use QRNN units due to improved training speed compared to the alternatives. This model has about 60 million trainable parameters."
+        },
+        {
+          "chunk_id": "1907.03187:s0005:p0000:c0000",
+          "paper_id": "1907.03187",
+          "paragraph_id": "1907.03187:s0005:p0000",
+          "section_name": "Tokenization",
+          "start_char": 0,
+          "end_char": 318,
+          "quote": "We used sentencepiece BIBREF4 to parse into sub-word units and reduce the possible out-of-vocabulary terms in the data set. We selected a vocab size of 30,000 and used the byte-pair encoding (BPE) model. To our knowledge this is the first time that the BPE toenization has been used with ULMFiT in a competition model."
+        }
+      ],
+      "supplied_passages": [
+        {
+          "chunk_id": "1907.03187:s0002:p0001:c0000",
+          "paragraph_id": "1907.03187:s0002:p0001",
+          "paper_id": "1907.03187",
+          "section_name": "System Description",
+          "start_char": 0,
+          "end_char": 91,
+          "text": "Below we will give more detail on each step and the parameters used to generate our system.",
+          "token_count": 18,
+          "chunking_version": "paragraph-windows-v1"
+        },
+        {
+          "chunk_id": "1907.03187:s0006:p0000:c0001",
+          "paragraph_id": "1907.03187:s0006:p0000",
+          "paper_id": "1907.03187",
+          "section_name": "LM Training and Fine-tuning",
+          "start_char": 611,
+          "end_char": 905,
+          "text": "We performed some simple tests with LSTM units and a Transformer Language model, finding all models were similar in performance during LM training. We thus chose to use QRNN units due to improved training speed compared to the alternatives. This model has about 60 million trainable parameters.",
+          "token_count": 58,
+          "chunking_version": "paragraph-windows-v1"
+        },
+        {
+          "chunk_id": "1907.03187:s0011:p0000:c0000",
+          "paragraph_id": "1907.03187:s0011:p0000",
+          "paper_id": "1907.03187",
+          "section_name": "Author Contributions",
+          "start_char": 0,
+          "end_char": 245,
+          "text": "BF was the primary researcher. PC contributed with suggestions for the random seeds as a hyper-parameters and label smoothing to speed up training. JH contributed with suggestion for higher dropout throughout the network for more generalization.",
+          "token_count": 44,
+          "chunking_version": "paragraph-windows-v1"
+        },
+        {
+          "chunk_id": "1907.03187:s0012:p0000:c0000",
+          "paragraph_id": "1907.03187:s0012:p0000",
+          "paper_id": "1907.03187",
+          "section_name": "Acknowledgements",
+          "start_char": 0,
+          "end_char": 201,
+          "text": "The author would like to thank all the participants on the fast.ai forums for their ideas and suggestions. Also, Kyle Kastner for his edits, suggestions and recommendations in writing up these results.",
+          "token_count": 41,
+          "chunking_version": "paragraph-windows-v1"
+        },
+        {
+          "chunk_id": "1907.03187:s0005:p0000:c0000",
+          "paragraph_id": "1907.03187:s0005:p0000",
+          "paper_id": "1907.03187",
+          "section_name": "Tokenization",
+          "start_char": 0,
+          "end_char": 318,
+          "text": "We used sentencepiece BIBREF4 to parse into sub-word units and reduce the possible out-of-vocabulary terms in the data set. We selected a vocab size of 30,000 and used the byte-pair encoding (BPE) model. To our knowledge this is the first time that the BPE toenization has been used with ULMFiT in a competition model.",
+          "token_count": 83,
+          "chunking_version": "paragraph-windows-v1"
+        }
+      ]
+    },
+    {
+      "number": 15,
+      "question_id": "cf874cd9023d901e10aa8664b813d32501e7e4d2",
+      "request_id": "6cd69634d85444a8923f9e8ed9310793",
+      "paper_id": "1705.05437",
+      "question": "What is NER?",
+      "status": "answered",
+      "human_reviewed": false,
+      "reviewed_at": null,
+      "correctness": null,
+      "refusal_appropriate_to_supplied_context": null,
+      "notes": null,
+      "human_response_verbatim": null,
+      "claims": [
+        {
+          "text": "Named Entity Recognition (NER) in the Biomedical domain usually includes recognition of entities such as proteins, genes, diseases, treatments, drugs, etc.",
+          "citation_chunk_ids": [
+            "1705.05437:s0001:p0000:c0000"
+          ],
+          "support": null,
+          "note": null
+        }
+      ],
+      "citations": [
+        {
+          "chunk_id": "1705.05437:s0001:p0000:c0000",
+          "paper_id": "1705.05437",
+          "paragraph_id": "1705.05437:s0001:p0000",
+          "section_name": "Named Entity Recognition and Fact Extraction",
+          "start_char": 0,
+          "end_char": 368,
+          "quote": "Named Entity Recognition (NER) in the Biomedical domain usually includes recognition of entities such as proteins, genes, diseases, treatments, drugs, etc. Fact extraction involves extraction of Named Entities from a corpus, usually given a certain ontology. When compared to NER in the domain of general text, the biomedical domain has some characteristic challenges:"
+        }
+      ],
+      "supplied_passages": [
+        {
+          "chunk_id": "1705.05437:s0001:p0000:c0000",
+          "paragraph_id": "1705.05437:s0001:p0000",
+          "paper_id": "1705.05437",
+          "section_name": "Named Entity Recognition and Fact Extraction",
+          "start_char": 0,
+          "end_char": 368,
+          "text": "Named Entity Recognition (NER) in the Biomedical domain usually includes recognition of entities such as proteins, genes, diseases, treatments, drugs, etc. Fact extraction involves extraction of Named Entities from a corpus, usually given a certain ontology. When compared to NER in the domain of general text, the biomedical domain has some characteristic challenges:",
+          "token_count": 68,
+          "chunking_version": "paragraph-windows-v1"
+        },
+        {
+          "chunk_id": "1705.05437:s0001:p0004:c0000",
+          "paragraph_id": "1705.05437:s0001:p0004",
+          "paper_id": "1705.05437",
+          "section_name": "Named Entity Recognition and Fact Extraction",
+          "start_char": 0,
+          "end_char": 196,
+          "text": "More recently, deep learning techniques have been developed to further enhance the performance of NER systems. BIBREF11 explore recurrent neural networks for the problem of NER in biomedical text.",
+          "token_count": 38,
+          "chunking_version": "paragraph-windows-v1"
+        },
+        {
+          "chunk_id": "1705.05437:s0001:p0002:c0001",
+          "paragraph_id": "1705.05437:s0001:p0002",
+          "paper_id": "1705.05437",
+          "section_name": "Named Entity Recognition and Fact Extraction",
+          "start_char": 684,
+          "end_char": 853,
+          "text": "Brown clustering, distributional clustering, word vectors) to improve performance of the NER Conditional Random Field tagger, and achieves marginal F-Score improvements.",
+          "token_count": 34,
+          "chunking_version": "paragraph-windows-v1"
+        },
+        {
+          "chunk_id": "1705.05437:s0001:p0002:c0000",
+          "paragraph_id": "1705.05437:s0001:p0002",
+          "paper_id": "1705.05437",
+          "section_name": "Named Entity Recognition and Fact Extraction",
+          "start_char": 0,
+          "end_char": 840,
+          "text": " BIBREF5 adopt a machine learning approach for NER. Their NER system extracts medical problems, tests and treatments from discharge summaries and progress notes. They use a semi-Conditional Random Field (semi-CRF) BIBREF6 to output labels over all tokens in the sentence. They use a variety of token, context and sentence level features. They also use some concept mapping features using existing annotation tools, as well as Brown clustering to form 128 clusters over the unlabelled data. The dataset used is the i2b2 2010 challenge dataset. Their system achieves an F-Score of 0.85. BIBREF7 is an incremental paper on NER taggers. It uses 3 types of word-representation techniques (Brown clustering, distributional clustering, word vectors) to improve performance of the NER Conditional Random Field tagger, and achieves marginal F-Score ",
+          "token_count": 192,
+          "chunking_version": "paragraph-windows-v1"
+        },
+        {
+          "chunk_id": "1705.05437:s0002:p0005:c0001",
+          "paragraph_id": "1705.05437:s0002:p0005",
+          "paper_id": "1705.05437",
+          "section_name": "Relation Extraction",
+          "start_char": 756,
+          "end_char": 993,
+          "text": "general domain in BIBREF24 , and attribute to generally poorer performance of NER tools in the biomedical domain, as well as less training examples. BIBREF25 explore distant supervision methods for protein-protein interaction extraction.",
+          "token_count": 45,
+          "chunking_version": "paragraph-windows-v1"
+        }
+      ]
+    },
+    {
+      "number": 16,
+      "question_id": "7cd22ca9e107d2b13a7cc94252aaa9007976b338",
+      "request_id": "a2110378a53247eab91a0f58a207a57c",
+      "paper_id": "1802.07862",
+      "question": "Do they inspect their model to see if their model learned to associate image parts with words related to entities?",
+      "status": "insufficient_evidence",
+      "human_reviewed": false,
+      "reviewed_at": null,
+      "correctness": null,
+      "refusal_appropriate_to_supplied_context": null,
+      "notes": null,
+      "human_response_verbatim": null,
+      "claims": [],
+      "citations": [],
+      "supplied_passages": [
+        {
+          "chunk_id": "1802.07862:s0008:p0005:c0000",
+          "paragraph_id": "1802.07862:s0008:p0005",
+          "paper_id": "1802.07862",
+          "section_name": "Results: SnapCaptions Dataset",
+          "start_char": 0,
+          "end_char": 948,
+          "text": "For the image-aided model (W+C+V; upper row in Figure FIGREF19 ), we confirm that the modality attention successfully attenuates irrelevant signals (selfies, etc.) and amplifies relevant modality-based contexts in prediction of a given token. In the example of “disney word essential = coffee\" with visual tags selfie, phone, person, the modality attention successfully attenuates distracting visual signals and focuses on textual modalities, consequently making correct predictions. The named entities in the examples of “Beautiful night atop The Space Needle\" and “Splash Mountain\" are challenging to predict because they are composed of common nouns (space, needle, splash, mountain), and thus they often need additional contexts to correctly predict. In the training data, visual contexts make stronger indicators for these named entities (space needle, splash mountain), and the modality attention module successfully attends more to stronger ",
+          "token_count": 192,
+          "chunking_version": "paragraph-windows-v1"
+        },
+        {
+          "chunk_id": "1802.07862:s0008:p0003:c0000",
+          "paragraph_id": "1802.07862:s0008:p0003",
+          "paper_id": "1802.07862",
+          "section_name": "Results: SnapCaptions Dataset",
+          "start_char": 0,
+          "end_char": 877,
+          "text": "Error Analysis: Table TABREF17 shows example cases where incorporation of visual contexts affects prediction of named entities. For example, the token `curry' in the caption “The curry's \" is polysemous and may refer to either a type of food or a famous basketball player `Stephen Curry', and the surrounding textual contexts do not provide enough information to disambiguate it. On the other hand, visual contexts (visual tags: `parade', `urban area', ...) provide similarities to the token's distributional semantics from other training examples (snaps from “NBA Championship Parade Story\"), and thus the model successfully predicts the token as a named entity. Similarly, while the text-only model erroneously predicts `Apple' in the caption “Grandma w dat lit Apple Crisp\" as an organization (Apple Inc.), the visual contexts (describing objects related to food) help disam",
+          "token_count": 192,
+          "chunking_version": "paragraph-windows-v1"
+        },
+        {
+          "chunk_id": "1802.07862:s0008:p0007:c0000",
+          "paragraph_id": "1802.07862:s0008:p0007",
+          "paper_id": "1802.07862",
+          "section_name": "Results: SnapCaptions Dataset",
+          "start_char": 0,
+          "end_char": 390,
+          "text": "Figure FIGREF19 (b) shows the cases where the modality attention led to incorrect predictions. For example, the model predicts missing tokens HUUUGE and Shampooer incorrectly as named entities by amplifying misleading character-based contexts (capitalized first letters) or visual contexts (concert scenes, associated contexts of which often include named entities in the training dataset).",
+          "token_count": 79,
+          "chunking_version": "paragraph-windows-v1"
+        },
+        {
+          "chunk_id": "1802.07862:s0008:p0003:c0001",
+          "paragraph_id": "1802.07862:s0008:p0003",
+          "paper_id": "1802.07862",
+          "section_name": "Results: SnapCaptions Dataset",
+          "start_char": 737,
+          "end_char": 1358,
+          "text": "caption “Grandma w dat lit Apple Crisp\" as an organization (Apple Inc.), the visual contexts (describing objects related to food) help disambiguate the token, making the model predict it correctly as a non-named entity (a fruit). Trending entities (musicians or DJs such as `CID', `Duke Dumont', `Marshmello', etc.) are also recognized correctly with strengthened contexts from visual information (describing concert scenes) despite lack of surrounding textual contexts. A few cases where visual contexts harmed the performance mostly include visual tags that are unrelated to a token or its surrounding textual contexts.",
+          "token_count": 129,
+          "chunking_version": "paragraph-windows-v1"
+        },
+        {
+          "chunk_id": "1802.07862:s0001:p0004:c0000",
+          "paragraph_id": "1802.07862:s0001:p0004",
+          "paper_id": "1802.07862",
+          "section_name": "Related Work",
+          "start_char": 0,
+          "end_char": 127,
+          "text": "To the best of our knowledge, our approach is the first work to incorporate visual contexts for named entity recognition tasks.",
+          "token_count": 23,
+          "chunking_version": "paragraph-windows-v1"
+        }
+      ]
+    },
+    {
+      "number": 17,
+      "question_id": "ef7212075e80bf35b7889dc8dd52fcbae0d1400a",
+      "request_id": "6962d5a79faa43b9a332d923237bb57e",
+      "paper_id": "1806.05504",
+      "question": "Why are current ELS's not sufficiently effective?",
+      "status": "answered",
+      "human_reviewed": false,
+      "reviewed_at": null,
+      "correctness": null,
+      "refusal_appropriate_to_supplied_context": null,
+      "notes": null,
+      "human_response_verbatim": null,
+      "claims": [
+        {
+          "text": "Current entity linking systems (ELS) suffer from low precision, leading to many incorrect and irrelevant entities being extracted.",
+          "citation_chunk_ids": [
+            "1806.05504:s0003:p0000:c0000",
+            "1806.05504:s0003:p0002:c0001"
+          ],
+          "support": null,
+          "note": null
+        },
+        {
+          "text": "The extracted entities are often ambiguous and too coarse, which further degrades their usefulness for downstream tasks such as summarization.",
+          "citation_chunk_ids": [
+            "1806.05504:s0003:p0000:c0000"
+          ],
+          "support": null,
+          "note": null
+        }
+      ],
+      "citations": [
+        {
+          "chunk_id": "1806.05504:s0003:p0000:c0000",
+          "paper_id": "1806.05504",
+          "paragraph_id": "1806.05504:s0003:p0000",
+          "section_name": "Possible issues",
+          "start_char": 0,
+          "end_char": 239,
+          "quote": "Despite its usefulness, linked entities extracted from ELS's have issues because of low precision rates BIBREF11 and design challenges in training datasets BIBREF12 . These issues can be summarized into two parts: ambiguity and coarseness."
+        },
+        {
+          "chunk_id": "1806.05504:s0003:p0002:c0001",
+          "paper_id": "1806.05504",
+          "paragraph_id": "1806.05504:s0003:p0002",
+          "section_name": "Possible issues",
+          "start_char": 704,
+          "end_char": 852,
+          "quote": "$30.0\\%$ , and $26.9\\%$ are tagged with A, B, C, and D, respectively, which shows that there is a large amount of incorrect and irrelevant entities."
+        }
+      ],
+      "supplied_passages": [
+        {
+          "chunk_id": "1806.05504:s0003:p0000:c0000",
+          "paragraph_id": "1806.05504:s0003:p0000",
+          "paper_id": "1806.05504",
+          "section_name": "Possible issues",
+          "start_char": 0,
+          "end_char": 239,
+          "text": "Despite its usefulness, linked entities extracted from ELS's have issues because of low precision rates BIBREF11 and design challenges in training datasets BIBREF12 . These issues can be summarized into two parts: ambiguity and coarseness.",
+          "token_count": 51,
+          "chunking_version": "paragraph-windows-v1"
+        },
+        {
+          "chunk_id": "1806.05504:s0007:p0001:c0000",
+          "paragraph_id": "1806.05504:s0007:p0001",
+          "paper_id": "1806.05504",
+          "section_name": "Pooling submodule",
+          "start_char": 0,
+          "end_char": 418,
+          "text": "Our pooling submodule instead uses firm attention mechanism to consider only top $k$ entities when constructing the topic vector. This is done in a differentiable way as follows: $\nG &= v_a^\\top tanh(W_a \\tilde{E} + U_a s) \\\\\nK &= top\\_k(G) \\\\\nP &= sparse\\_vector(K, 0, -\\infty ) \\\\\ng^{\\prime }_i &= g_i + p_i \\\\\na_i &= \\frac{exp(g^{\\prime }_i)}{\\sum _i exp(g^{\\prime }_i)} \\\\\nt &= \\sum _i a_i \\tilde{e}_i \\nonumber $ ",
+          "token_count": 182,
+          "chunking_version": "paragraph-windows-v1"
+        },
+        {
+          "chunk_id": "1806.05504:s0007:p0002:c0001",
+          "paragraph_id": "1806.05504:s0007:p0002",
+          "paper_id": "1806.05504",
+          "section_name": "Pooling submodule",
+          "start_char": 540,
+          "end_char": 724,
+          "text": "of the input text and summary. Moreover, when $k$4 increases towards infinity, firm attention becomes soft attention. We decide $k$5 empirically (see Section \"Experimental settings\" ).",
+          "token_count": 41,
+          "chunking_version": "paragraph-windows-v1"
+        },
+        {
+          "chunk_id": "1806.05504:abstract:p0000:c0001",
+          "paragraph_id": "1806.05504:abstract:p0000",
+          "paper_id": "1806.05504",
+          "section_name": "Abstract",
+          "start_char": 780,
+          "end_char": 1251,
+          "text": "ambiguities and irrelevant entities. We resolve the imperfections of the ELS by (a) encoding entities with selective disambiguation, and (b) pooling entity vectors using firm attention. By applying E2T to a simple sequence-to-sequence model with attention mechanism as base model, we see significant improvements of the performance in the Gigaword (sentence to title) and CNN (long document to multi-sentence highlights) summarization datasets by at least 2 ROUGE points.",
+          "token_count": 105,
+          "chunking_version": "paragraph-windows-v1"
+        },
+        {
+          "chunk_id": "1806.05504:s0003:p0002:c0001",
+          "paragraph_id": "1806.05504:s0003:p0002",
+          "paper_id": "1806.05504",
+          "section_name": "Possible issues",
+          "start_char": 704,
+          "end_char": 852,
+          "text": "$30.0\\%$ , and $26.9\\%$ are tagged with A, B, C, and D, respectively, which shows that there is a large amount of incorrect and irrelevant entities.",
+          "token_count": 44,
+          "chunking_version": "paragraph-windows-v1"
+        }
+      ]
+    },
+    {
+      "number": 18,
+      "question_id": "61a9ea36ddc37c60d1a51dabcfff9445a2225725",
+      "request_id": "fd4b4677811c4fa08a2373dfbd675bba",
+      "paper_id": "1703.10344",
+      "question": "What news article sources are used?",
+      "status": "insufficient_evidence",
+      "human_reviewed": false,
+      "reviewed_at": null,
+      "correctness": null,
+      "refusal_appropriate_to_supplied_context": null,
+      "notes": null,
+      "human_response_verbatim": null,
+      "claims": [],
+      "citations": [],
+      "supplied_passages": [
+        {
+          "chunk_id": "1703.10344:s0000:p0006:c0000",
+          "paragraph_id": "1703.10344:s0000:p0006",
+          "paper_id": "1703.10344",
+          "section_name": "Introduction",
+          "start_char": 0,
+          "end_char": 480,
+          "text": "We evaluate the proposed approach on a news corpus consisting of 351,982 articles crawled from the news external references in Wikipedia from 73,734 entity pages. Given the Wikipedia snapshot at a given year (in our case [2009-2014]), we suggest news articles that might be cited in the coming years. The existing news references in the entity pages along with their reference date act as our ground-truth to evaluate our approach. In summary, we make the following contributions.",
+          "token_count": 98,
+          "chunking_version": "paragraph-windows-v1"
+        },
+        {
+          "chunk_id": "1703.10344:s0008:p0002:c0000",
+          "paragraph_id": "1703.10344:s0008:p0002",
+          "paper_id": "1703.10344",
+          "section_name": "Datasets",
+          "start_char": 0,
+          "end_char": 449,
+          "text": "News Articles. We extract all news references from the collected Wikipedia entity pages. The extracted news references are associated with the sections in which they appear. In total there were INLINEFORM0 news references, and after crawling we end up with INLINEFORM1 successfully crawled news articles. The details of the news article distribution, and the number of entities and sections from which they are referred are shown in Table TABREF44 .",
+          "token_count": 83,
+          "chunking_version": "paragraph-windows-v1"
+        },
+        {
+          "chunk_id": "1703.10344:s0000:p0004:c0000",
+          "paragraph_id": "1703.10344:s0000:p0004",
+          "paper_id": "1703.10344",
+          "section_name": "Introduction",
+          "start_char": 0,
+          "end_char": 1021,
+          "text": "We identify four properties of good news recommendations: salience, relative authority, novelty and placement. First, we need to identify the most salient entities in a news article. This is done to avoid pollution of entity pages with only marginally related news. Second, we need to determine whether the news is important to the entity as only the most relevant news should be added to a precise reference work. To do this, we compute the relative authority of all entities in the news article: we call an entity more authoritative than another if it is more popular or noteworthy in the real world. Entities with very high authority have many news items associated with them and only the most relevant of these should be included in Wikipedia whereas for entities of lower authority the threshold for inclusion of a news article will be lower. Third, a good recommendation should be able to identify novel news by minimizing redundancy coming from multiple news articles. Finally, addition of facts is facilitated if ",
+          "token_count": 192,
+          "chunking_version": "paragraph-windows-v1"
+        },
+        {
+          "chunk_id": "1703.10344:s0012:p0001:c0000",
+          "paragraph_id": "1703.10344:s0012:p0001",
+          "paper_id": "1703.10344",
+          "section_name": "Conclusion and Future Work",
+          "start_char": 0,
+          "end_char": 292,
+          "text": "In the future, we will enhance our work by extracting facts from the suggested news articles. Results suggest that the news content cited in entity pages comes from the first paragraphs. However, challenging task such as the canonicalization and chronological ordering of facts, still remain.",
+          "token_count": 54,
+          "chunking_version": "paragraph-windows-v1"
+        },
+        {
+          "chunk_id": "1703.10344:s0005:p0008:c0000",
+          "paragraph_id": "1703.10344:s0005:p0008",
+          "paper_id": "1703.10344",
+          "section_name": "Article–Entity Placement",
+          "start_char": 0,
+          "end_char": 901,
+          "text": "Relative Authority. In this case, we consider the comparative relevance of the news article to the different entities occurring in it. As an example, let us consider the meeting of the Sudanese bishop Elias Taban with Hillary Clinton. Both entities are salient for the meeting. However, in Taban's Wikipedia page, this meeting is discussed prominently with a corresponding news reference, whereas in Hillary Clinton's Wikipedia page it is not reported at all. We believe this is not just an omission in Clinton's page but mirrors the fact that for the lesser known Taban the meeting is big news whereas for the more famous Clinton these kind of meetings are a regular occurrence, not all of which can be reported in what is supposed to be a selection of the most important events for her. Therefore, if two entities co-occur, the news is more relevant for the entity with the lower a priori authority.",
+          "token_count": 183,
+          "chunking_version": "paragraph-windows-v1"
+        }
+      ]
+    },
+    {
+      "number": 19,
+      "question_id": "2ee715c7c6289669f11a79743a6b2b696073805d",
+      "request_id": "c593ee26219242c984559eeafda35015",
+      "paper_id": "1703.10344",
+      "question": "What baseline model is used?",
+      "status": "answered",
+      "human_reviewed": false,
+      "reviewed_at": null,
+      "correctness": null,
+      "refusal_appropriate_to_supplied_context": null,
+      "notes": null,
+      "human_response_verbatim": null,
+      "claims": [
+        {
+          "text": "The first baseline model uses only the salience-based features by Dunietz and Gillick.",
+          "citation_chunk_ids": [
+            "1703.10344:s0005:p0020:c0000"
+          ],
+          "support": null,
+          "note": null
+        }
+      ],
+      "citations": [
+        {
+          "chunk_id": "1703.10344:s0005:p0020:c0000",
+          "paper_id": "1703.10344",
+          "paragraph_id": "1703.10344:s0005:p0020",
+          "section_name": "Article–Entity Placement",
+          "start_char": 0,
+          "end_char": 94,
+          "quote": "B1. The first baseline uses only the salience-based features by Dunietz and Gillick BIBREF11 ."
+        }
+      ],
+      "supplied_passages": [
+        {
+          "chunk_id": "1703.10344:s0011:p0001:c0000",
+          "paragraph_id": "1703.10344:s0011:p0001",
+          "paper_id": "1703.10344",
+          "section_name": "Article-Section Placement",
+          "start_char": 0,
+          "end_char": 155,
+          "text": "Baselines. To the best of our knowledge, we are not aware of any comparable approach for this task. Therefore, the baselines we consider are the following:",
+          "token_count": 33,
+          "chunking_version": "paragraph-windows-v1"
+        },
+        {
+          "chunk_id": "1703.10344:s0005:p0019:c0000",
+          "paragraph_id": "1703.10344:s0005:p0019",
+          "paper_id": "1703.10344",
+          "section_name": "Article–Entity Placement",
+          "start_char": 0,
+          "end_char": 61,
+          "text": "Baselines. We consider the following baselines for this task.",
+          "token_count": 13,
+          "chunking_version": "paragraph-windows-v1"
+        },
+        {
+          "chunk_id": "1703.10344:s0005:p0020:c0000",
+          "paragraph_id": "1703.10344:s0005:p0020",
+          "paper_id": "1703.10344",
+          "section_name": "Article–Entity Placement",
+          "start_char": 0,
+          "end_char": 94,
+          "text": "B1. The first baseline uses only the salience-based features by Dunietz and Gillick BIBREF11 .",
+          "token_count": 25,
+          "chunking_version": "paragraph-windows-v1"
+        },
+        {
+          "chunk_id": "1703.10344:s0011:p0007:c0000",
+          "paragraph_id": "1703.10344:s0011:p0007",
+          "paper_id": "1703.10344",
+          "section_name": "Article-Section Placement",
+          "start_char": 0,
+          "end_char": 357,
+          "text": "On the other hand, the baseline S1 has an average precision of P=0.12. The performance across the years varies slightly, with the year 2011 having the highest average precision of P=0.13. Always picking the most frequent section as in S2, as shown in Figure FIGREF66 , results in an average precision of P=0.17, with a uniform distribution across the years.",
+          "token_count": 84,
+          "chunking_version": "paragraph-windows-v1"
+        },
+        {
+          "chunk_id": "1703.10344:s0005:p0021:c0000",
+          "paragraph_id": "1703.10344:s0005:p0021",
+          "paper_id": "1703.10344",
+          "section_name": "Article–Entity Placement",
+          "start_char": 0,
+          "end_char": 139,
+          "text": "B2. The second baseline assigns the value relevant to a pair INLINEFORM0 , if and only if INLINEFORM1 appears in the title of INLINEFORM2 .",
+          "token_count": 33,
+          "chunking_version": "paragraph-windows-v1"
+        }
+      ]
+    },
+    {
+      "number": 20,
+      "question_id": "e9cfbfdf30e48cffdeca58d4ac6fdd66a8b27d7a",
+      "request_id": "100a33ab055043a095ea9a9d2776f33b",
+      "paper_id": "1704.04452",
+      "question": "How were crowd workers instructed to identify important elements in large document collections?",
+      "status": "answered",
+      "human_reviewed": false,
+      "reviewed_at": null,
+      "correctness": null,
+      "refusal_appropriate_to_supplied_context": null,
+      "notes": null,
+      "human_response_verbatim": null,
+      "claims": [
+        {
+          "text": "Crowd workers were instructed to judge the importance of individual propositions by scoring each proposition’s relevance to the document cluster, using only a brief description of the cluster’s topic and the propositions themselves, without viewing the full documents.",
+          "citation_chunk_ids": [
+            "1704.04452:s0004:p0000:c0000"
+          ],
+          "support": null,
+          "note": null
+        }
+      ],
+      "citations": [
+        {
+          "chunk_id": "1704.04452:s0004:p0000:c0000",
+          "paper_id": "1704.04452",
+          "paragraph_id": "1704.04452:s0004:p0000",
+          "section_name": "Task Design",
+          "start_char": 0,
+          "end_char": 588,
+          "quote": "We break down the task of importance annotation to the level of single propositions. The goal of our crowdsourcing scheme is to obtain a score for each proposition indicating its importance in a document cluster, such that a ranking according to the score would reveal what is most important and should be included in a summary. In contrast to other work, we do not show the documents to the workers at all, but provide only a description of the document cluster's topic along with the propositions. This ensures that tasks are small, simple and can be done quickly (see Figure FIGREF4 )."
+        }
+      ],
+      "supplied_passages": [
+        {
+          "chunk_id": "1704.04452:s0003:p0001:c0000",
+          "paragraph_id": "1704.04452:s0003:p0001",
+          "paper_id": "1704.04452",
+          "section_name": "Low-Context Importance Annotation",
+          "start_char": 0,
+          "end_char": 466,
+          "text": "To overcome these issues, we introduce a new task design, low-context importance annotation, to determine summary-worthy parts of documents. Compared to Lloret et al.'s approach, it is more in line with crowdsourcing best practices, as the tasks are simple, intuitive and small BIBREF30 and workers receive reasonable payment BIBREF31 . Most importantly, it is also much more efficient and scalable, as it does not require workers to read all documents in a cluster.",
+          "token_count": 103,
+          "chunking_version": "paragraph-windows-v1"
+        },
+        {
+          "chunk_id": "1704.04452:s0004:p0000:c0000",
+          "paragraph_id": "1704.04452:s0004:p0000",
+          "paper_id": "1704.04452",
+          "section_name": "Task Design",
+          "start_char": 0,
+          "end_char": 588,
+          "text": "We break down the task of importance annotation to the level of single propositions. The goal of our crowdsourcing scheme is to obtain a score for each proposition indicating its importance in a document cluster, such that a ranking according to the score would reveal what is most important and should be included in a summary. In contrast to other work, we do not show the documents to the workers at all, but provide only a description of the document cluster's topic along with the propositions. This ensures that tasks are small, simple and can be done quickly (see Figure FIGREF4 ).",
+          "token_count": 122,
+          "chunking_version": "paragraph-windows-v1"
+        },
+        {
+          "chunk_id": "1704.04452:s0003:p0000:c0000",
+          "paragraph_id": "1704.04452:s0003:p0000",
+          "paper_id": "1704.04452",
+          "section_name": "Low-Context Importance Annotation",
+          "start_char": 0,
+          "end_char": 358,
+          "text": "Lloret.2013 describe several experiments to crowdsource reference summaries. Workers are asked to read 10 documents and then select 10 summary sentences from them for a reward of $0.05. They discovered several challenges, including poor work quality and the subjectiveness of the annotation task, indicating that crowdsourcing is not useful for this purpose.",
+          "token_count": 73,
+          "chunking_version": "paragraph-windows-v1"
+        },
+        {
+          "chunk_id": "1704.04452:s0000:p0004:c0000",
+          "paragraph_id": "1704.04452:s0000:p0004",
+          "paper_id": "1704.04452",
+          "section_name": "Introduction",
+          "start_char": 0,
+          "end_char": 606,
+          "text": "As a crucial step of the corpus creation, we developed a new crowdsourcing scheme called low-context importance annotation. In contrast to traditional approaches, it allows us to determine important elements in a document cluster without requiring annotators to read all documents, making it feasible to crowdsource the task and overcome quality issues observed in previous work BIBREF13 . We show that the approach creates reliable data for our focused summarization scenario and, when tested on traditional summarization corpora, creates annotations that are similar to those obtained by earlier efforts.",
+          "token_count": 116,
+          "chunking_version": "paragraph-windows-v1"
+        },
+        {
+          "chunk_id": "1704.04452:s0005:p0005:c0000",
+          "paragraph_id": "1704.04452:s0005:p0005",
+          "paper_id": "1704.04452",
+          "section_name": "Pilot Study",
+          "start_char": 0,
+          "end_char": 275,
+          "text": "Based on the pilot study, we conclude that the proposed crowdsourcing scheme allows us to obtain proper importance annotations for propositions. As workers are not required to read all documents, the annotation is much more efficient and scalable as with traditional methods.",
+          "token_count": 54,
+          "chunking_version": "paragraph-windows-v1"
+        }
+      ]
+    },
+    {
+      "number": 21,
+      "question_id": "99e78c390932594bd833be0f5c890af5c605d808",
+      "request_id": "b482a42d70c44ca993a857053b41a7a5",
+      "paper_id": "1912.04961",
+      "question": "What is the baseline?",
+      "status": "answered",
+      "human_reviewed": false,
+      "reviewed_at": null,
+      "correctness": null,
+      "refusal_appropriate_to_supplied_context": null,
+      "notes": null,
+      "human_response_verbatim": null,
+      "claims": [
+        {
+          "text": "The baseline models used in the experiments are QA PGNet and Multi-decoder QA PGNet with lookup table embedding.",
+          "citation_chunk_ids": [
+            "1912.04961:s0009:p0000:c0000"
+          ],
+          "support": null,
+          "note": null
+        }
+      ],
+      "citations": [
+        {
+          "chunk_id": "1912.04961:s0009:p0000:c0000",
+          "paper_id": "1912.04961",
+          "paragraph_id": "1912.04961:s0009:p0000",
+          "section_name": "Experiments ::: Model variations",
+          "start_char": 0,
+          "end_char": 162,
+          "quote": "We consider QA PGNet and Multi-decoder QA PGNet with lookup table embedding as baseline models and improve on the baselines with other variations described below."
+        }
+      ],
+      "supplied_passages": [
+        {
+          "chunk_id": "1912.04961:s0009:p0001:c0000",
+          "paragraph_id": "1912.04961:s0009:p0001",
+          "paper_id": "1912.04961",
+          "section_name": "Experiments ::: Model variations",
+          "start_char": 0,
+          "end_char": 558,
+          "text": "Apart from learning-based baselines, we also create two naive baselines, one each for the Dosage and Frequency extraction tasks. For Dosage extraction, the baseline we consider is `Nearest Number', where we take the number nearest to the Medication Name as the prediction, and `none' if no number is mentioned or if the Medication Name is not detected in the input. For Frequency extraction, the baseline we consider is `Random Top-3' where we predict a random Frequency tag, from top-3 most frequent ones from our dataset - {`none', `daily', `twice a day'}.",
+          "token_count": 128,
+          "chunking_version": "paragraph-windows-v1"
+        },
+        {
+          "chunk_id": "1912.04961:s0001:p0004:c0001",
+          "paragraph_id": "1912.04961:s0001:p0004",
+          "paper_id": "1912.04961",
+          "section_name": "Data",
+          "start_char": 566,
+          "end_char": 706,
+          "text": "- used to evaluate all the models, and $\\mathcal {D}_{test}$ - used to measure the performance of best performing models on ASR transcripts.",
+          "token_count": 37,
+          "chunking_version": "paragraph-windows-v1"
+        },
+        {
+          "chunk_id": "1912.04961:s0009:p0000:c0000",
+          "paragraph_id": "1912.04961:s0009:p0000",
+          "paper_id": "1912.04961",
+          "section_name": "Experiments ::: Model variations",
+          "start_char": 0,
+          "end_char": 162,
+          "text": "We consider QA PGNet and Multi-decoder QA PGNet with lookup table embedding as baseline models and improve on the baselines with other variations described below.",
+          "token_count": 37,
+          "chunking_version": "paragraph-windows-v1"
+        },
+        {
+          "chunk_id": "1912.04961:s0001:p0001:c0000",
+          "paragraph_id": "1912.04961:s0001:p0001",
+          "paper_id": "1912.04961",
+          "section_name": "Data",
+          "start_char": 0,
+          "end_char": 749,
+          "text": "The transcript of the conversations are annotated with summaries and Medication Regimen tags (MR tags), both grounded using the timestamps of the sentences from the transcript deemed relevant by the expert annotators, refer to Table TABREF1. The transcript for a typical conversation can be quite long, and not easy for many of the high performing deep learning models to act on. Moreover, the medical information about a concept/condition/entity can change during the conversation after a significant time gap. For example, dosage of a medication can be different when discussing current medication the patient is on vs when they are prescribed a different dosage. Hence, we have annotations, that are grounded to a short segment of the transcript.",
+          "token_count": 151,
+          "chunking_version": "paragraph-windows-v1"
+        },
+        {
+          "chunk_id": "1912.04961:s0001:p0002:c0000",
+          "paragraph_id": "1912.04961:s0001:p0002",
+          "paper_id": "1912.04961",
+          "section_name": "Data",
+          "start_char": 0,
+          "end_char": 380,
+          "text": "The summaries (#words - $\\mu = 9.7; \\sigma = 10.1$) are medically relevant and local. The MR tags are also local and are of the form {Medication Name, Dosage, Frequency}. If dosage ($\\mu = 2.0; \\sigma = 0$) or frequency ($\\mu = 2.1; \\sigma = 1.07$) information for a medication is not present in a grounded sentence, the corresponding field in the MR tag will be marked as `none'.",
+          "token_count": 116,
+          "chunking_version": "paragraph-windows-v1"
+        }
+      ]
+    },
+    {
+      "number": 22,
+      "question_id": "7ae38f51243cb80b16a1df14872b72a1f8a2048f",
+      "request_id": "7302709489054025a228182175e5ecf1",
+      "paper_id": "1904.04358",
+      "question": "How do they demonstrate that this type of EEG has discriminative information about the intended articulatory movements responsible for speech?",
+      "status": "insufficient_evidence",
+      "human_reviewed": false,
+      "reviewed_at": null,
+      "correctness": null,
+      "refusal_appropriate_to_supplied_context": null,
+      "notes": null,
+      "human_response_verbatim": null,
+      "claims": [],
+      "citations": [],
+      "supplied_passages": [
+        {
+          "chunk_id": "1904.04358:s0000:p0002:c0000",
+          "paragraph_id": "1904.04358:s0000:p0002",
+          "paper_id": "1904.04358",
+          "section_name": "Introduction",
+          "start_char": 0,
+          "end_char": 950,
+          "text": "Production of articulatory speech is an extremely complicated process, thereby rendering understanding of the discriminative EEG manifold corresponding to imagined speech highly challenging. As a result, most of the existing approaches failed to achieve satisfactory accuracy on decoding speech tokens from the speech imagery EEG data. Perhaps, for these reasons, very little work has been devoted to relating the brain signals to the underlying articulation. The few exceptions include BIBREF17 , BIBREF18 . In BIBREF17 , Zhao et al. used manually handcrafted features from EEG data, combined with speech audio and facial features to achieve classification of the phonological categories varying based on the articulatory steps. However, the imagined speech classification accuracy based on EEG data alone, as reported in BIBREF17 , BIBREF18 , are not satisfactory in terms of accuracy and reliability. We now turn to describing our proposed models.",
+          "token_count": 191,
+          "chunking_version": "paragraph-windows-v1"
+        },
+        {
+          "chunk_id": "1904.04358:s0007:p0000:c0000",
+          "paragraph_id": "1904.04358:s0007:p0000",
+          "paper_id": "1904.04358",
+          "section_name": "Dataset",
+          "start_char": 0,
+          "end_char": 788,
+          "text": "We evaluate our model on a publicly available dataset, KARA ONE BIBREF17 , composed of multimodal data for stimulus-based, imagined and articulated speech state corresponding to 7 phonemic/syllabic ( /iy/, /piy/, /tiy/, /diy/, /uw/, /m/, /n/ ) as well as 4 words(pat, pot, knew and gnaw). The dataset consists of 14 participants, with each prompt presented 11 times to each individual. Since our intention is to classify the phonological categories from human thoughts, we discard the facial and audio information and only consider the EEG data corresponding to imagined speech. It is noteworthy that given the mixed nature of EEG signals, it is reportedly challenging to attain a pairwise EEG-phoneme mapping BIBREF18 . In order to explore the problem space, we thus specifically target ",
+          "token_count": 192,
+          "chunking_version": "paragraph-windows-v1"
+        },
+        {
+          "chunk_id": "1904.04358:s0000:p0001:c0000",
+          "paragraph_id": "1904.04358:s0000:p0001",
+          "paper_id": "1904.04358",
+          "section_name": "Introduction",
+          "start_char": 0,
+          "end_char": 942,
+          "text": "Among the various brain activity-monitoring modalities in BCI, electroencephalography (EEG) BIBREF5 , BIBREF6 has demonstrated promising potential to differentiate between various brain activities through measurement of related electric fields. EEG is non-invasive, portable, low cost, and provides satisfactory temporal resolution. This makes EEG suitable to realize BCI systems. EEG data, however, is challenging: these data are high dimensional, have poor SNR, and suffer from low spatial resolution and a multitude of artifacts. For these reasons, it is not particularly obvious how to decode the desired information from raw EEG signals. Although the area of BCI based speech intent recognition has received increasing attention among the research community in the past few years, most research has focused on classification of individual speech categories in terms of discrete vowels, phonemes and words BIBREF7 , BIBREF8 , BIBREF9 , BI",
+          "token_count": 192,
+          "chunking_version": "paragraph-windows-v1"
+        },
+        {
+          "chunk_id": "1904.04358:s0000:p0001:c0001",
+          "paragraph_id": "1904.04358:s0000:p0001",
+          "paper_id": "1904.04358",
+          "section_name": "Introduction",
+          "start_char": 812,
+          "end_char": 1403,
+          "text": "on classification of individual speech categories in terms of discrete vowels, phonemes and words BIBREF7 , BIBREF8 , BIBREF9 , BIBREF10 , BIBREF11 , BIBREF12 , BIBREF13 , BIBREF14 , BIBREF15 . This includes categorization of imagined EEG signal into binary vowel categories like /a/, /u/ and rest BIBREF7 , BIBREF8 , BIBREF9 ; binary syllable classes like /ba/ and /ku/ BIBREF1 , BIBREF10 , BIBREF11 , BIBREF12 ; a handful of control words like 'up', 'down', 'left', 'right' and 'select' BIBREF15 or others like 'water', 'help', 'thanks', 'food', 'stop' BIBREF13 , Chinese characters BIBREF",
+          "token_count": 192,
+          "chunking_version": "paragraph-windows-v1"
+        },
+        {
+          "chunk_id": "1904.04358:s0001:p0000:c0000",
+          "paragraph_id": "1904.04358:s0001:p0000",
+          "paper_id": "1904.04358",
+          "section_name": "Proposed Framework",
+          "start_char": 0,
+          "end_char": 763,
+          "text": "Cognitive learning process underlying articulatory speech production involves incorporation of intermediate feedback loops and utilization of past information stored in the form of memory as well as hierarchical combination of several feature extractors. To this end, we develop our mixed neural network architecture composed of three supervised and a single unsupervised learning step, discussed in the next subsections and shown in Fig. FIGREF1 . We formulate the problem of categorizing EEG data based on speech imagery as a non-linear mapping INLINEFORM0 of a multivariate time-series input sequence INLINEFORM1 to fixed output INLINEFORM2 , i.e, mathematically INLINEFORM3 : INLINEFORM4 , where c and t denote the EEG channels and time instants respectively.",
+          "token_count": 156,
+          "chunking_version": "paragraph-windows-v1"
+        }
+      ]
+    },
+    {
+      "number": 23,
+      "question_id": "1591068b747c94f45b948e12edafe74b5e721047",
+      "request_id": "2e33bfacc8d74482b16f2964c00968fd",
+      "paper_id": "1802.07862",
+      "question": "How large is their MNER SnapCaptions dataset?",
+      "status": "answered",
+      "human_reviewed": false,
+      "reviewed_at": null,
+      "correctness": null,
+      "refusal_appropriate_to_supplied_context": null,
+      "notes": null,
+      "human_response_verbatim": null,
+      "claims": [
+        {
+          "text": "The SnapCaptions dataset contains 10,000 user-generated image and textual caption pairs.",
+          "citation_chunk_ids": [
+            "1802.07862:s0006:p0000:c0000"
+          ],
+          "support": null,
+          "note": null
+        }
+      ],
+      "citations": [
+        {
+          "chunk_id": "1802.07862:s0006:p0000:c0000",
+          "paper_id": "1802.07862",
+          "paragraph_id": "1802.07862:s0006:p0000",
+          "section_name": "SnapCaptions Dataset",
+          "start_char": 0,
+          "end_char": 859,
+          "quote": "The SnapCaptions dataset is composed of 10K user-generated image (snap) and textual caption pairs where named entities in captions are manually labeled by expert human annotators (entity types: PER, LOC, ORG, MISC). These captions are collected exclusively from snaps submitted to public and crowd-sourced stories (aka Snapchat Live Stories or Our Stories). Examples of such public crowd-sourced stories are “New York Story” or “Thanksgiving Story”, which comprise snaps that are aggregated for various public events, venues, etc. All snaps were posted between year 2016 and 2017, and do not contain raw images or other associated information (only textual captions and obfuscated visual descriptor features extracted from the pre-trained InceptionNet are available). We split the dataset into train (70%), validation (15%), and test sets (15%). The captions "
+        }
+      ],
+      "supplied_passages": [
+        {
+          "chunk_id": "1802.07862:s0006:p0000:c0001",
+          "paragraph_id": "1802.07862:s0006:p0000",
+          "paper_id": "1802.07862",
+          "section_name": "SnapCaptions Dataset",
+          "start_char": 756,
+          "end_char": 1344,
+          "text": "available). We split the dataset into train (70%), validation (15%), and test sets (15%). The captions data have average length of 30.7 characters (5.81 words) with vocabulary size 15,733, where 6,612 are considered unknown tokens from Stanford GloVE embeddings BIBREF22 . Named entities annotated in the SnapCaptions dataset include many of new and emerging entities, and they are found in various surface forms (various nicknames, typos, etc.) To the best of our knowledge, SnapCaptions is the only dataset that contains natural image-caption pairs with expert-annotated named entities.",
+          "token_count": 149,
+          "chunking_version": "paragraph-windows-v1"
+        },
+        {
+          "chunk_id": "1802.07862:s0006:p0000:c0000",
+          "paragraph_id": "1802.07862:s0006:p0000",
+          "paper_id": "1802.07862",
+          "section_name": "SnapCaptions Dataset",
+          "start_char": 0,
+          "end_char": 859,
+          "text": "The SnapCaptions dataset is composed of 10K user-generated image (snap) and textual caption pairs where named entities in captions are manually labeled by expert human annotators (entity types: PER, LOC, ORG, MISC). These captions are collected exclusively from snaps submitted to public and crowd-sourced stories (aka Snapchat Live Stories or Our Stories). Examples of such public crowd-sourced stories are “New York Story” or “Thanksgiving Story”, which comprise snaps that are aggregated for various public events, venues, etc. All snaps were posted between year 2016 and 2017, and do not contain raw images or other associated information (only textual captions and obfuscated visual descriptor features extracted from the pre-trained InceptionNet are available). We split the dataset into train (70%), validation (15%), and test sets (15%). The captions ",
+          "token_count": 192,
+          "chunking_version": "paragraph-windows-v1"
+        },
+        {
+          "chunk_id": "1802.07862:s0008:p0000:c0000",
+          "paragraph_id": "1802.07862:s0008:p0000",
+          "paper_id": "1802.07862",
+          "section_name": "Results: SnapCaptions Dataset",
+          "start_char": 0,
+          "end_char": 192,
+          "text": "Table TABREF6 shows the NER performance on the Snap Captions dataset. We report both entity types recognition (PER, LOC, ORG, MISC) and named entity segmentation (named entity or not) results.",
+          "token_count": 48,
+          "chunking_version": "paragraph-windows-v1"
+        },
+        {
+          "chunk_id": "1802.07862:s0000:p0004:c0000",
+          "paragraph_id": "1802.07862:s0000:p0004",
+          "paper_id": "1802.07862",
+          "section_name": "Introduction",
+          "start_char": 0,
+          "end_char": 851,
+          "text": "Our contributions are three-fold: we propose (1) an LSTM-CNN hybrid multimodal NER network that takes as input both image and text for recognition of a named entity in text input. To the best of our knowledge, our approach is the first work to incorporate visual contexts for named entity recognition tasks. (2) We propose a general modality attention module that selectively chooses modalities to extract primary context from, maximizing information gain and suppressing irrelevant contexts from each modality (we treat words, characters, and images as separate modalities). (3) We show that the proposed approaches outperform the state-of-the-art NER models (both with and without using additional visual contexts) on our new MNER dataset SnapCaptions, a large collection of informal and extremely short social media posts paired with unique images.",
+          "token_count": 179,
+          "chunking_version": "paragraph-windows-v1"
+        },
+        {
+          "chunk_id": "1802.07862:s0004:p0000:c0000",
+          "paragraph_id": "1802.07862:s0004:p0000",
+          "paper_id": "1802.07862",
+          "section_name": "Bi-LSTM + CRF for Multimodal NER",
+          "start_char": 0,
+          "end_char": 118,
+          "text": "Our MNER model is built on a Bi-LSTM and CRF hybrid model. We use the following implementation for the entity Bi-LSTM.",
+          "token_count": 33,
+          "chunking_version": "paragraph-windows-v1"
+        }
+      ]
+    },
+    {
+      "number": 24,
+      "question_id": "78292bc57ee68fdb93ed45430d80acca25a9e916",
+      "request_id": "dff1a51ba2de4fe584c7a7cf7e50ee8b",
+      "paper_id": "1911.03343",
+      "question": "How did they extend LAMA evaluation framework to focus on negation?",
+      "status": "answered",
+      "human_reviewed": false,
+      "reviewed_at": null,
+      "correctness": null,
+      "refusal_appropriate_to_supplied_context": null,
+      "notes": null,
+      "human_response_verbatim": null,
+      "claims": [
+        {
+          "text": "They extended the LAMA evaluation framework by creating a new dataset called negated LAMA, which is obtained by inserting negation elements (e.g., “not”) into the original LAMA cloze statements (e.g., “The theory of relativity was not developed by [MASK].”).",
+          "citation_chunk_ids": [
+            "1911.03343:s0000:p0002:c0000"
+          ],
+          "support": null,
+          "note": null
+        },
+        {
+          "text": "In their experiments they query pretrained language models with both the original LAMA statements and the corresponding negated statements, and then compare the predictions in terms of rank correlation and overlap of top predictions.",
+          "citation_chunk_ids": [
+            "1911.03343:s0000:p0002:c0000"
+          ],
+          "support": null,
+          "note": null
+        }
+      ],
+      "citations": [
+        {
+          "chunk_id": "1911.03343:s0000:p0002:c0000",
+          "paper_id": "1911.03343",
+          "paragraph_id": "1911.03343:s0000:p0002",
+          "section_name": "Introduction",
+          "start_char": 0,
+          "end_char": 881,
+          "quote": "This work analyzes the understanding of pretrained language models of factual and commonsense knowledge stored in negated statements. To this end, we introduce the negated LAMA dataset. We construct it by simply inserting negation elements (e.g., “not”) in LAMA cloze statement (e.g., “The theory of relativity was not developed by [MASK].”). In our experiments, we query the pretrained language models with both original LAMA and negated LAMA statements and compare their predictions in terms of rank correlation and overlap of top predictions. We find that the predicted filler words often have high overlap. Thus, negating a cloze statement does not change the predictions in many cases – but of course it should as our example “birds can fly” vs. “birds cannot fly” shows. We identify and analyze a subset of cloze statements where predictions are different. We find that BERT "
+        }
+      ],
+      "supplied_passages": [
+        {
+          "chunk_id": "1911.03343:s0003:p0003:c0000",
+          "paragraph_id": "1911.03343:s0003:p0003",
+          "paper_id": "1911.03343",
+          "section_name": "Results",
+          "start_char": 0,
+          "end_char": 373,
+          "text": "A key problem is that the LAMA setup does not allow to refrain from giving an answer. Generally, prediction probabilities drop in the negated statements, which would suggest the existence of a threshold to filter answers. But a closer look at the probabilities of correct and incorrect predictions shows that they fall into the same range. No common threshold can be found.",
+          "token_count": 73,
+          "chunking_version": "paragraph-windows-v1"
+        },
+        {
+          "chunk_id": "1911.03343:s0005:p0000:c0000",
+          "paragraph_id": "1911.03343:s0005:p0000",
+          "paper_id": "1911.03343",
+          "section_name": "Conclusion",
+          "start_char": 0,
+          "end_char": 168,
+          "text": "We show that pretrained language models have problems handling negation. Output predictions for the original LAMA query and the negated statement are highly correlated.",
+          "token_count": 30,
+          "chunking_version": "paragraph-windows-v1"
+        },
+        {
+          "chunk_id": "1911.03343:s0000:p0002:c0000",
+          "paragraph_id": "1911.03343:s0000:p0002",
+          "paper_id": "1911.03343",
+          "section_name": "Introduction",
+          "start_char": 0,
+          "end_char": 881,
+          "text": "This work analyzes the understanding of pretrained language models of factual and commonsense knowledge stored in negated statements. To this end, we introduce the negated LAMA dataset. We construct it by simply inserting negation elements (e.g., “not”) in LAMA cloze statement (e.g., “The theory of relativity was not developed by [MASK].”). In our experiments, we query the pretrained language models with both original LAMA and negated LAMA statements and compare their predictions in terms of rank correlation and overlap of top predictions. We find that the predicted filler words often have high overlap. Thus, negating a cloze statement does not change the predictions in many cases – but of course it should as our example “birds can fly” vs. “birds cannot fly” shows. We identify and analyze a subset of cloze statements where predictions are different. We find that BERT ",
+          "token_count": 192,
+          "chunking_version": "paragraph-windows-v1"
+        },
+        {
+          "chunk_id": "1911.03343:s0004:p0002:c0000",
+          "paragraph_id": "1911.03343:s0004:p0002",
+          "paper_id": "1911.03343",
+          "section_name": "Related Work",
+          "start_char": 0,
+          "end_char": 511,
+          "text": "Concerning negation the following papers are of interest: BIBREF20 analyze the grammatical knowledge captured by BERT. In a case study, they test for correct licensing environments for negative polarity items. They study a set of classifiers distinguishing between grammatically correct and incorrect sentences. We take a different approach by focusing on factual knowledge stored in negated statements. Grammatically correct statements can still be factually false (e.g., “General relativity, Newton develop”).",
+          "token_count": 96,
+          "chunking_version": "paragraph-windows-v1"
+        },
+        {
+          "chunk_id": "1911.03343:s0003:p0002:c0000",
+          "paragraph_id": "1911.03343:s0003:p0002",
+          "paper_id": "1911.03343",
+          "section_name": "Results",
+          "start_char": 0,
+          "end_char": 492,
+          "text": "Our interpretation of the results is that BERT mostly did not learn the meaning of negation. The impressive results in QA suggest that pretrained language models are able to memorize aspects of specific facts; but, apparently, they ignore negation markers in many cases and rely on the co-occurrence of the subject with the original relation only. One reason for the poor performance we observe probably is that negated statements occur much less in training corpora than positive statements.",
+          "token_count": 94,
+          "chunking_version": "paragraph-windows-v1"
+        }
+      ]
+    },
+    {
+      "number": 25,
+      "question_id": "7bd6a6ec230e1efb27d691762cc0674237dc7967",
+      "request_id": "e25f2a1be4d24f79b964bbd23e14edd8",
+      "paper_id": "1808.09029",
+      "question": "what data did they use?",
+      "status": "answered",
+      "human_reviewed": false,
+      "reviewed_at": null,
+      "correctness": null,
+      "refusal_appropriate_to_supplied_context": null,
+      "notes": null,
+      "human_response_verbatim": null,
+      "claims": [
+        {
+          "text": "The authors used the Penn Treebank (PTB) dataset and the WikiText-2 (WT-2) dataset for evaluation.",
+          "citation_chunk_ids": [
+            "1808.09029:s0007:p0000:c0000"
+          ],
+          "support": null,
+          "note": null
+        }
+      ],
+      "citations": [
+        {
+          "chunk_id": "1808.09029:s0007:p0000:c0000",
+          "paper_id": "1808.09029",
+          "paragraph_id": "1808.09029:s0007:p0000",
+          "section_name": "Set-up",
+          "start_char": 0,
+          "end_char": 244,
+          "quote": "Following recent works, we compare on two widely used datasets, the Penn Treebank (PTB) BIBREF28 as prepared by BIBREF29 and WikiText2 (WT-2) BIBREF20 . For both datasets, we follow the same training, validation, and test splits as in BIBREF0 ."
+        }
+      ],
+      "supplied_passages": [
+        {
+          "chunk_id": "1808.09029:s0012:p0000:c0000",
+          "paragraph_id": "1808.09029:s0012:p0000",
+          "paper_id": "1808.09029",
+          "section_name": "Acknowledgments",
+          "start_char": 0,
+          "end_char": 306,
+          "text": "This research was supported by NSF (IIS 1616112, III 1703166), Allen Distinguished Investigator Award, and gifts from Allen Institute for AI, Google, Amazon, and Bloomberg. We are grateful to Aaron Jaech, Hannah Rashkin, Mandar Joshi, Aniruddha Kembhavi, and anonymous reviewers for their helpful comments.",
+          "token_count": 74,
+          "chunking_version": "paragraph-windows-v1"
+        },
+        {
+          "chunk_id": "1808.09029:s0008:p0002:c0000",
+          "paragraph_id": "1808.09029:s0008:p0002",
+          "paper_id": "1808.09029",
+          "section_name": "Results",
+          "start_char": 0,
+          "end_char": 232,
+          "text": "With the advanced dropouts, the performance of PRUs improves by about 4 points on the PTB dataset and 7 points on the WT-2 dataset. This further improves with finetuning on the PTB (about 2 points) and WT-2 (about 1 point) datasets.",
+          "token_count": 64,
+          "chunking_version": "paragraph-windows-v1"
+        },
+        {
+          "chunk_id": "1808.09029:s0008:p0000:c0000",
+          "paragraph_id": "1808.09029:s0008:p0000",
+          "paper_id": "1808.09029",
+          "section_name": "Results",
+          "start_char": 0,
+          "end_char": 158,
+          "text": "Table TABREF23 compares the performance of the PRU with state-of-the-art methods. We can see that the PRU achieves the best performance with fewer parameters.",
+          "token_count": 38,
+          "chunking_version": "paragraph-windows-v1"
+        },
+        {
+          "chunk_id": "1808.09029:s0007:p0000:c0000",
+          "paragraph_id": "1808.09029:s0007:p0000",
+          "paper_id": "1808.09029",
+          "section_name": "Set-up",
+          "start_char": 0,
+          "end_char": 244,
+          "text": "Following recent works, we compare on two widely used datasets, the Penn Treebank (PTB) BIBREF28 as prepared by BIBREF29 and WikiText2 (WT-2) BIBREF20 . For both datasets, we follow the same training, validation, and test splits as in BIBREF0 .",
+          "token_count": 74,
+          "chunking_version": "paragraph-windows-v1"
+        },
+        {
+          "chunk_id": "1808.09029:s0007:p0001:c0000",
+          "paragraph_id": "1808.09029:s0007:p0001",
+          "paper_id": "1808.09029",
+          "section_name": "Set-up",
+          "start_char": 0,
+          "end_char": 770,
+          "text": "We extend the language model, AWD-LSTM BIBREF0 , by replacing LSTM layers with PRU. Our model uses 3-layers of PRU with an embedding size of 400. The number of parameters learned by state-of-the-art methods vary from 18M to 66M with majority of the methods learning about 22M to 24M parameters on the PTB dataset. For a fair comparison with state-of-the-art methods, we fix the model size to 19M and vary the value of INLINEFORM0 and hidden layer sizes so that total number of learned parameters is similar across different configurations. We use 1000, 1200, and 1400 as hidden layer sizes for values of INLINEFORM1 =1,2, and 4, respectively. We use the same settings for the WT-2 dataset. We set the number of pyramidal levels INLINEFORM2 to two in our experiments and ",
+          "token_count": 192,
+          "chunking_version": "paragraph-windows-v1"
+        }
+      ]
+    },
+    {
+      "number": 26,
+      "question_id": "9af3142630b350c93875441e1e1767312df76d17",
+      "request_id": "7475011f72ed4ccc96b23d12692c6a32",
+      "paper_id": "1703.04001",
+      "question": "Do the answered questions measure for the usefulness of the answer?",
+      "status": "insufficient_evidence",
+      "human_reviewed": false,
+      "reviewed_at": null,
+      "correctness": null,
+      "refusal_appropriate_to_supplied_context": null,
+      "notes": null,
+      "human_response_verbatim": null,
+      "claims": [],
+      "citations": [],
+      "supplied_passages": [
+        {
+          "chunk_id": "1703.04001:abstract:p0000:c0000",
+          "paragraph_id": "1703.04001:abstract:p0000",
+          "paper_id": "1703.04001",
+          "section_name": "Abstract",
+          "start_char": 0,
+          "end_char": 858,
+          "text": "Quora is one of the most popular community Q&A sites of recent times. However, many question posts on this Q&A site often do not get answered. In this paper, we quantify various linguistic activities that discriminates an answered question from an unanswered one. Our central finding is that the way users use language while writing the question text can be a very effective means to characterize answerability. This characterization helps us to predict early if a question remaining unanswered for a specific time period t will eventually be answered or not and achieve an accuracy of 76.26% (t = 1 month) and 68.33% (t = 3 months). Notably, features representing the language use patterns of the users are most discriminative and alone account for an accuracy of 74.18%. We also compare our method with some of the similar works (Dror et al., Yang et al.) ",
+          "token_count": 192,
+          "chunking_version": "paragraph-windows-v1"
+        },
+        {
+          "chunk_id": "1703.04001:s0002:p0006:c0000",
+          "paragraph_id": "1703.04001:s0002:p0006",
+          "paper_id": "1703.04001",
+          "section_name": "Linguistic activities on Quora",
+          "start_char": 0,
+          "end_char": 390,
+          "text": "In table 2 , we show a collection of examples of open questions to illustrate that many of the above quantities based on the linguistic activities described in this section naturally correspond to the factors that human judges consider responsible for a question remaining unanswered. This is one of the prime reasons why these quantities qualify as appropriate indicators of answerability.",
+          "token_count": 67,
+          "chunking_version": "paragraph-windows-v1"
+        },
+        {
+          "chunk_id": "1703.04001:s0000:p0002:c0000",
+          "paragraph_id": "1703.04001:s0000:p0002",
+          "paper_id": "1703.04001",
+          "section_name": "Introduction",
+          "start_char": 0,
+          "end_char": 616,
+          "text": "There are several research works done in Q&A focusing on content of posts. BIBREF0 exploit community feedback to identify high quality content on Yahoo! Answers. BIBREF1 use textual features to predict answer quality on Yahoo! Answers. BIBREF2 , investigate predictors of answer quality through a comparative, controlled field study of user responses. BIBREF3 study the problem of how long questions remain unanswered. BIBREF4 propose a prediction model on how many answers a question shall receive. BIBREF5 analyze and predict unanswered questions on Yahoo Answers. BIBREF6 study question quality in Yahoo! Answers.",
+          "token_count": 133,
+          "chunking_version": "paragraph-windows-v1"
+        },
+        {
+          "chunk_id": "1703.04001:s0000:p0001:c0000",
+          "paragraph_id": "1703.04001:s0000:p0001",
+          "paper_id": "1703.04001",
+          "section_name": "Introduction",
+          "start_char": 0,
+          "end_char": 954,
+          "text": "Characterization of the questions based on question quality requires expert human interventions often judging if a question would remain open based on factors like if it is subjective, controversial, open-ended, vague/imprecise, ill-formed, off-topic, ambiguous, uninteresting etc. Collecting judgment data for thousands of question posts is a very expensive process. Therefore, such an experiment can be done only for a small set of questions and it would be practically impossible to scale it up for the entire collection of posts on the Q&A site. In this work, we show that appropriate quantification of various linguistic activities can naturally correspond to many of the judgment factors mentioned above (see table 2 for a collection of examples). These quantities encoding such linguistic activities can be easily measured for each question post and thus helps us to have an alternative mechanism to characterize the answerability on the Q&A site.",
+          "token_count": 182,
+          "chunking_version": "paragraph-windows-v1"
+        },
+        {
+          "chunk_id": "1703.04001:s0000:p0000:c0001",
+          "paragraph_id": "1703.04001:s0000:p0000",
+          "paper_id": "1703.04001",
+          "section_name": "Introduction",
+          "start_char": 762,
+          "end_char": 1722,
+          "text": ", Yahoo! Answers etc. and these are some of the prime reasons behind its popularity in recent times. Quality question posting and getting them answered are the key objectives of any Q&A site. In this study we focus on the answerability of questions on Quora, i.e., whether a posted question shall eventually get answered. In Quora, the questions with no answers are referred to as “open questions”. These open questions need to be studied separately to understand the reason behind their not being answered or to be precise, are there any characteristic differences between `open' questions and the answered ones. For example, the question “What are the most promising advances in the treatment of traumatic brain injuries?” was posted on Quora on 23rd June, 2011 and got its first answer after almost 2 years on 22nd April, 2013. The reason that this question remained open so long might be the hardness of answering it and the lack of visibility and experts ",
+          "token_count": 192,
+          "chunking_version": "paragraph-windows-v1"
+        }
+      ]
+    },
+    {
+      "number": 27,
+      "question_id": "6becff2967fe7c5256fe0b00231765be5b9db9f1",
+      "request_id": "5433c4e789414a38917c0d4720486e10",
+      "paper_id": "1503.00841",
+      "question": "What are the three regularization terms?",
+      "status": "answered",
+      "human_reviewed": false,
+      "reviewed_at": null,
+      "correctness": null,
+      "refusal_appropriate_to_supplied_context": null,
+      "notes": null,
+      "human_response_verbatim": null,
+      "claims": [
+        {
+          "text": "A regularization term associated with neutral features",
+          "citation_chunk_ids": [
+            "1503.00841:s0000:p0005:c0000"
+          ],
+          "support": null,
+          "note": null
+        },
+        {
+          "text": "The maximum entropy of class distribution regularization term",
+          "citation_chunk_ids": [
+            "1503.00841:s0000:p0005:c0000"
+          ],
+          "support": null,
+          "note": null
+        },
+        {
+          "text": "The KL divergence between reference and predicted class distribution regularization term",
+          "citation_chunk_ids": [
+            "1503.00841:s0000:p0005:c0000"
+          ],
+          "support": null,
+          "note": null
+        }
+      ],
+      "citations": [
+        {
+          "chunk_id": "1503.00841:s0000:p0005:c0000",
+          "paper_id": "1503.00841",
+          "paragraph_id": "1503.00841:s0000:p0005",
+          "section_name": "Introduction",
+          "start_char": 0,
+          "end_char": 570,
+          "quote": "More specifically, we explore three regularization terms to address the problem: (1) a regularization term associated with neutral features; (2) the maximum entropy of class distribution regularization term; and (3) the KL divergence between reference and predicted class distribution. For the first manner, we simply use the most common features as neutral features and assume the neutral features are distributed uniformly over class labels. For the second and third one, we assume we have some knowledge about the class distribution which will be detailed soon later."
+        }
+      ],
+      "supplied_passages": [
+        {
+          "chunk_id": "1503.00841:s0013:p0001:c0000",
+          "paragraph_id": "1503.00841:s0013:p0001",
+          "paper_id": "1503.00841",
+          "section_name": "Conclusion and Discussions",
+          "start_char": 0,
+          "end_char": 368,
+          "text": "We then present more detailed discussions about the three regularization methods. Incorporating neutral features is the simplest way of regularization, which doesn't require any modification of GE-FL but just finding out some common features. But as Figure 1 (a) shows, only using neutral features are not strong enough to handle extremely unbalanced labeled features.",
+          "token_count": 69,
+          "chunking_version": "paragraph-windows-v1"
+        },
+        {
+          "chunk_id": "1503.00841:s0000:p0005:c0000",
+          "paragraph_id": "1503.00841:s0000:p0005",
+          "paper_id": "1503.00841",
+          "section_name": "Introduction",
+          "start_char": 0,
+          "end_char": 570,
+          "text": "More specifically, we explore three regularization terms to address the problem: (1) a regularization term associated with neutral features; (2) the maximum entropy of class distribution regularization term; and (3) the KL divergence between reference and predicted class distribution. For the first manner, we simply use the most common features as neutral features and assume the neutral features are distributed uniformly over class labels. For the second and third one, we assume we have some knowledge about the class distribution which will be detailed soon later.",
+          "token_count": 106,
+          "chunking_version": "paragraph-windows-v1"
+        },
+        {
+          "chunk_id": "1503.00841:s0010:p0003:c0000",
+          "paragraph_id": "1503.00841:s0010:p0003",
+          "paper_id": "1503.00841",
+          "section_name": "The Influence of λ\\lambda ",
+          "start_char": 0,
+          "end_char": 195,
+          "text": "Results are shown in Figure 4 . As expected, $\\lambda $ reflects how strong the regularization is. The model tends to be closer to our preferences with the increasing of $\\lambda $ on both cases.",
+          "token_count": 43,
+          "chunking_version": "paragraph-windows-v1"
+        },
+        {
+          "chunk_id": "1503.00841:s0000:p0007:c0000",
+          "paragraph_id": "1503.00841:s0000:p0007",
+          "paper_id": "1503.00841",
+          "section_name": "Introduction",
+          "start_char": 0,
+          "end_char": 319,
+          "text": "The rest of the paper is structured as follows: In Section 2, we briefly describe the generalized expectation criteria and present the proposed regularization terms. In Section 3, we conduct extensive experiments to justify the proposed methods. We survey related work in Section 4, and summarize our work in Section 5.",
+          "token_count": 61,
+          "chunking_version": "paragraph-windows-v1"
+        },
+        {
+          "chunk_id": "1503.00841:s0013:p0002:c0000",
+          "paragraph_id": "1503.00841:s0013:p0002",
+          "paper_id": "1503.00841",
+          "section_name": "Conclusion and Discussions",
+          "start_char": 0,
+          "end_char": 90,
+          "text": "The maximum entropy regularization term shows the strong ability of controlling unbalance.",
+          "token_count": 15,
+          "chunking_version": "paragraph-windows-v1"
+        }
+      ]
+    },
+    {
+      "number": 28,
+      "question_id": "07d15501a599bae7eb4a9ead63e9df3d55b3dc35",
+      "request_id": "d29ed87681504822a2ce5ebf6c956394",
+      "paper_id": "1612.06685",
+      "question": "How do they obtain psychological dimensions of people?",
+      "status": "answered",
+      "human_reviewed": false,
+      "reviewed_at": null,
+      "correctness": null,
+      "refusal_appropriate_to_supplied_context": null,
+      "notes": null,
+      "human_response_verbatim": null,
+      "claims": [
+        {
+          "text": "They obtain psychological dimensions by mapping the language used in blogs to psycholinguistic word categories from lexical resources such as Linguistic Inquiry and Word Count (LIWC).",
+          "citation_chunk_ids": [
+            "1612.06685:s0005:p0001:c0000"
+          ],
+          "support": null,
+          "note": null
+        }
+      ],
+      "citations": [
+        {
+          "chunk_id": "1612.06685:s0005:p0001:c0000",
+          "paper_id": "1612.06685",
+          "paragraph_id": "1612.06685:s0005:p0001",
+          "section_name": "Psycholinguistic and Semantic Maps",
+          "start_char": 0,
+          "end_char": 836,
+          "quote": "LIWC. In addition to individual words, we can also create maps for word categories that reflect a certain psycholinguistic or semantic property. Several lexical resources, such as Roget or Linguistic Inquiry and Word Count BIBREF9 , group words into categories. Examples of such categories are Money, which includes words such as remuneration, dollar, and payment; or Positive feelings with words such as happy, cheerful, and celebration. Using the distribution of the individual words in a category, we can compile distributions for the entire category, and therefore generate maps for these word categories. For instance, figure FIGREF8 shows the maps created for two categories: Positive Feelings and Money. The maps are not surprising, and interestingly they also reflect an inverse correlation between Money and Positive Feelings ."
+        }
+      ],
+      "supplied_passages": [
+        {
+          "chunk_id": "1612.06685:s0002:p0000:c0000",
+          "paragraph_id": "1612.06685:s0002:p0000",
+          "paper_id": "1612.06685",
+          "section_name": "Maps from Blogs",
+          "start_char": 0,
+          "end_char": 241,
+          "text": "Our dataset provides mappings between location, profile information, and language use, which we can leverage to generate maps that reflect demographic, linguistic, and psycholinguistic properties of the population represented in the dataset.",
+          "token_count": 44,
+          "chunking_version": "paragraph-windows-v1"
+        },
+        {
+          "chunk_id": "1612.06685:s0004:p0000:c0000",
+          "paragraph_id": "1612.06685:s0004:p0000",
+          "paper_id": "1612.06685",
+          "section_name": "Linguistic Maps",
+          "start_char": 0,
+          "end_char": 765,
+          "text": "Another use of the information found in our dataset is to build linguistic maps, which reflect the geographic lexical variation across the 50 states BIBREF7 . We generate maps that represent the relative frequency by which a word occurs in the different states. Figure FIGREF3 shows sample maps created for two different words. The figure shows the map generated for one location specific word, Maui, which unsurprisingly is found predominantly in Hawaii, and a map for a more common word, lake, which has a high occurrence rate in Minnesota (Land of 10,000 Lakes) and Utah (home of the Great Salt Lake). Our demo described in Section SECREF4 , can also be used to generate maps for function words, which can be very telling regarding people's personality BIBREF8 .",
+          "token_count": 164,
+          "chunking_version": "paragraph-windows-v1"
+        },
+        {
+          "chunk_id": "1612.06685:abstract:p0000:c0000",
+          "paragraph_id": "1612.06685:abstract:p0000",
+          "paper_id": "1612.06685",
+          "section_name": "Abstract",
+          "start_char": 0,
+          "end_char": 579,
+          "text": "People's personality and motivations are manifest in their everyday language usage. With the emergence of social media, ample examples of such usage are procurable. In this paper, we aim to analyze the vocabulary used by close to 200,000 Blogger users in the U.S. with the purpose of geographically portraying various demographic, linguistic, and psychological dimensions at the state level. We give a description of a web-based tool for viewing maps that depict various characteristics of the social media users as derived from this large blog dataset of over two billion words.",
+          "token_count": 112,
+          "chunking_version": "paragraph-windows-v1"
+        },
+        {
+          "chunk_id": "1612.06685:s0000:p0001:c0000",
+          "paragraph_id": "1612.06685:s0000:p0001",
+          "paper_id": "1612.06685",
+          "section_name": "Introduction",
+          "start_char": 0,
+          "end_char": 867,
+          "text": "For this paper, we compiled a very large geolocated collection of blogs, written by individuals located in the U.S., with the purpose of creating insightful mappings of the blogging community. In particular, during May-July 2015, we gathered the profile information for all the users that have self-reported their location in the U.S., along with a number of posts for all their associated blogs. We utilize this blog collection to generate maps of the U.S. that reflect user demographics, language use, and distributions of psycholinguistic and semantic word classes. We believe that these maps can provide valuable insights and partial verification of previous claims in support of research in linguistic geography BIBREF1 , regional personality BIBREF2 , and language analysis BIBREF3 , BIBREF4 , as well as psychology and its relation to human geography BIBREF5 .",
+          "token_count": 182,
+          "chunking_version": "paragraph-windows-v1"
+        },
+        {
+          "chunk_id": "1612.06685:s0005:p0001:c0000",
+          "paragraph_id": "1612.06685:s0005:p0001",
+          "paper_id": "1612.06685",
+          "section_name": "Psycholinguistic and Semantic Maps",
+          "start_char": 0,
+          "end_char": 836,
+          "text": "LIWC. In addition to individual words, we can also create maps for word categories that reflect a certain psycholinguistic or semantic property. Several lexical resources, such as Roget or Linguistic Inquiry and Word Count BIBREF9 , group words into categories. Examples of such categories are Money, which includes words such as remuneration, dollar, and payment; or Positive feelings with words such as happy, cheerful, and celebration. Using the distribution of the individual words in a category, we can compile distributions for the entire category, and therefore generate maps for these word categories. For instance, figure FIGREF8 shows the maps created for two categories: Positive Feelings and Money. The maps are not surprising, and interestingly they also reflect an inverse correlation between Money and Positive Feelings .",
+          "token_count": 161,
+          "chunking_version": "paragraph-windows-v1"
+        }
+      ]
+    },
+    {
+      "number": 29,
+      "question_id": "8e44c02c2d9fa56fb74ace35ee70a5add50b52ae",
+      "request_id": "2e89e053de0747af88b9e684701e2943",
+      "paper_id": "1704.04452",
+      "question": "Does the corpus contain only English documents?",
+      "status": "insufficient_evidence",
+      "human_reviewed": false,
+      "reviewed_at": null,
+      "correctness": null,
+      "refusal_appropriate_to_supplied_context": null,
+      "notes": null,
+      "human_response_verbatim": null,
+      "claims": [],
+      "citations": [],
+      "supplied_passages": [
+        {
+          "chunk_id": "1704.04452:s0014:p0001:c0000",
+          "paragraph_id": "1704.04452:s0014:p0001",
+          "paper_id": "1704.04452",
+          "section_name": "Document Clusters",
+          "start_char": 0,
+          "end_char": 454,
+          "text": "Because we used a large web crawl as the source for our corpus, it contains documents from a variety of genres. To further analyze this property, we categorized a sample of 50 documents from the corpus. Among them, we found professionally written articles and blog posts (28%), educational material for parents and kids (26%), personal blog posts (16%), forum discussions and comments (12%), commented link collections (12%) and scientific articles (6%).",
+          "token_count": 99,
+          "chunking_version": "paragraph-windows-v1"
+        },
+        {
+          "chunk_id": "1704.04452:s0014:p0000:c0000",
+          "paragraph_id": "1704.04452:s0014:p0000",
+          "paper_id": "1704.04452",
+          "section_name": "Document Clusters",
+          "start_char": 0,
+          "end_char": 717,
+          "text": "The corpus consists of document clusters for 30 different topics. Each of them contains around 40 documents with on average 2413 tokens, which leads to an average cluster size of 97,880 token. With these characteristics, the document clusters are 15 times larger than typical DUC clusters of ten documents and five times larger than the 25-document-clusters (Table TABREF26 ). In addition, the documents are also more variable in terms of length, as the (length-adjusted) standard deviation is twice as high as in the other corpora. With these properties, the corpus represents an interesting challenge towards real-world application scenarios, in which users typically have to deal with much more than ten documents.",
+          "token_count": 141,
+          "chunking_version": "paragraph-windows-v1"
+        },
+        {
+          "chunk_id": "1704.04452:s0000:p0004:c0000",
+          "paragraph_id": "1704.04452:s0000:p0004",
+          "paper_id": "1704.04452",
+          "section_name": "Introduction",
+          "start_char": 0,
+          "end_char": 606,
+          "text": "As a crucial step of the corpus creation, we developed a new crowdsourcing scheme called low-context importance annotation. In contrast to traditional approaches, it allows us to determine important elements in a document cluster without requiring annotators to read all documents, making it feasible to crowdsource the task and overcome quality issues observed in previous work BIBREF13 . We show that the approach creates reliable data for our focused summarization scenario and, when tested on traditional summarization corpora, creates annotations that are similar to those obtained by earlier efforts.",
+          "token_count": 116,
+          "chunking_version": "paragraph-windows-v1"
+        },
+        {
+          "chunk_id": "1704.04452:s0006:p0000:c0000",
+          "paragraph_id": "1704.04452:s0006:p0000",
+          "paper_id": "1704.04452",
+          "section_name": "Corpus Creation",
+          "start_char": 0,
+          "end_char": 447,
+          "text": "This section presents the corpus construction process, as outlined in Figure FIGREF16 , combining automatic preprocessing, scalable crowdsourcing and high-quality expert annotations to be able to scale to the size of our document clusters. For every topic, we spent about $150 on crowdsourcing and 1.5h of expert annotations, while just a single annotator would already need over 8 hours (at 200 words per minute) to read all documents of a topic.",
+          "token_count": 102,
+          "chunking_version": "paragraph-windows-v1"
+        },
+        {
+          "chunk_id": "1704.04452:s0015:p0001:c0000",
+          "paragraph_id": "1704.04452:s0015:p0001",
+          "paper_id": "1704.04452",
+          "section_name": "Concept Maps",
+          "start_char": 0,
+          "end_char": 572,
+          "text": "To obtain a better picture of what kind of text spans have been used as labels, we automatically tagged them with their part-of-speech and determined their head with a dependency parser. Concept labels tend to be headed by nouns (82%) or verbs (15%), while they also contain adjectives, prepositions and determiners. Relation labels, on the other hand, are almost always headed by a verb (94%) and contain prepositions, nouns and particles in addition. These distributions are very similar to those reported by Villalon.2010 for their (single-document) concept map corpus.",
+          "token_count": 126,
+          "chunking_version": "paragraph-windows-v1"
+        }
+      ]
+    },
+    {
+      "number": 30,
+      "question_id": "67e9e147b2cab5ba43572ce8a17fc863690172f0",
+      "request_id": "de7b8cc820bf4035ae4fa8a59446e0dd",
+      "paper_id": "1912.00667",
+      "question": "How are the interpretability merits of the approach demonstrated?",
+      "status": "answered",
+      "human_reviewed": false,
+      "reviewed_at": null,
+      "correctness": null,
+      "refusal_appropriate_to_supplied_context": null,
+      "notes": null,
+      "human_response_verbatim": null,
+      "claims": [
+        {
+          "text": "The approach demonstrates interpretability by directly soliciting informative keywords from the crowd, which serve as human‑understandable explanations for the improved model and make the training process more transparent.",
+          "citation_chunk_ids": [
+            "1912.00667:abstract:p0000:c0001",
+            "1912.00667:s0012:p0001:c0001"
+          ],
+          "support": null,
+          "note": null
+        }
+      ],
+      "citations": [
+        {
+          "chunk_id": "1912.00667:abstract:p0000:c0001",
+          "paper_id": "1912.00667",
+          "paragraph_id": "1912.00667:abstract:p0000",
+          "section_name": "Abstract",
+          "start_char": 883,
+          "end_char": 1312,
+          "quote": "the model in order to discover new keywords that are most beneficial for model training. These keywords and their expectation not only improve the resulting performance but also make the model training process more transparent. We empirically demonstrate the merits of our approach, both in terms of accuracy and interpretability, on multiple real-world datasets and show that our approach improves the state of the art by 24.3%."
+        },
+        {
+          "chunk_id": "1912.00667:s0012:p0001:c0001",
+          "paper_id": "1912.00667",
+          "paragraph_id": "1912.00667:s0012:p0001",
+          "section_name": "Related Work",
+          "start_char": 720,
+          "end_char": 1040,
+          "quote": "BIBREF11, BIBREF35, BIBREF12, for which humans are increasingly involved, for instance for post-hoc evaluations of the model's interpretability. In contrast, our approach directly solicits informative keywords from the crowd for model training, thereby providing human-understandable explanations for the improved model."
+        }
+      ],
+      "supplied_passages": [
+        {
+          "chunk_id": "1912.00667:s0012:p0001:c0001",
+          "paragraph_id": "1912.00667:s0012:p0001",
+          "paper_id": "1912.00667",
+          "section_name": "Related Work",
+          "start_char": 720,
+          "end_char": 1040,
+          "text": "BIBREF11, BIBREF35, BIBREF12, for which humans are increasingly involved, for instance for post-hoc evaluations of the model's interpretability. In contrast, our approach directly solicits informative keywords from the crowd for model training, thereby providing human-understandable explanations for the improved model.",
+          "token_count": 70,
+          "chunking_version": "paragraph-windows-v1"
+        },
+        {
+          "chunk_id": "1912.00667:s0006:p0005:c0000",
+          "paragraph_id": "1912.00667:s0006:p0005",
+          "paper_id": "1912.00667",
+          "section_name": "Experiments and Results",
+          "start_char": 0,
+          "end_char": 132,
+          "text": "Q4: How much benefit does our unified probabilistic model bring compared to methods that do not take crowd reliability into account?",
+          "token_count": 27,
+          "chunking_version": "paragraph-windows-v1"
+        },
+        {
+          "chunk_id": "1912.00667:abstract:p0000:c0001",
+          "paragraph_id": "1912.00667:abstract:p0000",
+          "paper_id": "1912.00667",
+          "section_name": "Abstract",
+          "start_char": 883,
+          "end_char": 1312,
+          "text": "the model in order to discover new keywords that are most beneficial for model training. These keywords and their expectation not only improve the resulting performance but also make the model training process more transparent. We empirically demonstrate the merits of our approach, both in terms of accuracy and interpretability, on multiple real-world datasets and show that our approach improves the state of the art by 24.3%.",
+          "token_count": 83,
+          "chunking_version": "paragraph-windows-v1"
+        },
+        {
+          "chunk_id": "1912.00667:s0006:p0003:c0000",
+          "paragraph_id": "1912.00667:s0006:p0003",
+          "paper_id": "1912.00667",
+          "section_name": "Experiments and Results",
+          "start_char": 0,
+          "end_char": 98,
+          "text": "Q2: How well does our keyword discovery method work compare to existing keyword expansion methods?",
+          "token_count": 20,
+          "chunking_version": "paragraph-windows-v1"
+        },
+        {
+          "chunk_id": "1912.00667:s0012:p0001:c0000",
+          "paragraph_id": "1912.00667:s0012:p0001",
+          "paper_id": "1912.00667",
+          "section_name": "Related Work",
+          "start_char": 0,
+          "end_char": 839,
+          "text": "Human-in-the-Loop Approaches. Our work extends weakly supervised learning methods by involving humans in the loop BIBREF13. Existing human-in-the-loop approaches mainly leverage crowds to label individual data instances BIBREF9, BIBREF10 or to debug the training data BIBREF30, BIBREF31 or components BIBREF32, BIBREF33, BIBREF34 of a machine learning system. Unlike these works, we leverage crowd workers to label sampled microposts in order to obtain keyword-specific expectations, which can then be generalized to help classify microposts containing the same keyword, thus amplifying the utility of the crowd. Our work is further connected to the topic of interpretability and transparency of machine learning models BIBREF11, BIBREF35, BIBREF12, for which humans are increasingly involved, for instance for post-hoc evaluations of the ",
+          "token_count": 192,
+          "chunking_version": "paragraph-windows-v1"
+        }
+      ]
+    }
+  ]
+}

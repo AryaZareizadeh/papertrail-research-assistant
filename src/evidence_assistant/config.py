@@ -17,6 +17,7 @@ class AppConfig(BaseModel):
     manifest_dir: Path = Path("data/manifests")
     artifact_dir: Path = Path("artifacts")
     report_dir: Path = Path("reports")
+    library_dir: Path | None = None
     dotenv_path: Path = Path(".env")
     seed: int = 42
     retrieval_method: Literal["bm25", "dense", "hybrid"] = "hybrid"
@@ -71,11 +72,20 @@ class AppConfig(BaseModel):
             a, b = getattr(self, left).resolve(), getattr(self, right).resolve()
             if a.is_relative_to(b) or b.is_relative_to(a):
                 raise ValueError(f"{left} and {right} must not overlap")
+        library = self.library_path.resolve()
+        for name in path_fields:
+            protected = getattr(self, name).resolve()
+            if library.is_relative_to(protected) or protected.is_relative_to(library):
+                raise ValueError(f"library_dir and {name} must not overlap")
         return self
 
     @property
     def database_path(self) -> Path:
         return self.artifact_dir / "corpus.sqlite"
+
+    @property
+    def library_path(self) -> Path:
+        return self.library_dir or self.artifact_dir.parent / "library"
 
 
 def load_config(path: Path) -> AppConfig:
@@ -91,6 +101,9 @@ def load_config(path: Path) -> AppConfig:
         raise ValueError("configuration must be a YAML mapping")
     for name, field in AppConfig.model_fields.items():
         if name.endswith("_dir") or name == "dotenv_path":
-            value = Path(values.get(name, field.default)).expanduser()
+            raw = values.get(name, field.default)
+            if raw is None:
+                continue
+            value = Path(raw).expanduser()
             values[name] = (path.parent / value).resolve()
     return AppConfig.model_validate(values)

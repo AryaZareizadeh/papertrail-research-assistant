@@ -5,6 +5,7 @@ import os
 import streamlit as st
 
 from evidence_assistant.ui_client import ApiClient, UIError, highlight_source
+from evidence_assistant.ui_import import show_import
 
 
 def clear_answer():
@@ -51,6 +52,8 @@ def main():
         show_error(error)
         st.info("Start the API service, then refresh this page.")
         st.stop()
+    if os.environ.get("PAPERTRAIL_DEMO_MODE") != "recorded":
+        show_import(client)
     if not papers:
         st.info("No papers are available yet. Prepare the document corpus and restart the API.")
         st.stop()

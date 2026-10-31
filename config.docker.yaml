@@ -5,6 +5,7 @@ evaluation_dir: /unused/evaluation
 manifest_dir: /unused/manifests
 artifact_dir: /artifacts
 report_dir: /runlogs
+library_dir: /library
 dotenv_path: /unused/no-local-env
 seed: 42
 retrieval_method: dense

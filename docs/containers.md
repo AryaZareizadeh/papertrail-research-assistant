@@ -49,3 +49,11 @@ The offline walkthrough in [demo instructions](demo.md) is separate and does not
 require a provider key. New hosted integration inference is intentionally omitted
 under the user's no-more-model-tests instruction; that limit must remain explicit
 in the release report.
+
+## Imported paper persistence
+
+The API also mounts a separate persistent `library` volume at `/library` for user
+PDFs, extracted text, and indices. The image initializes it for UID 10001. This
+does not make `/artifacts` writable. Ordinary restarts preserve imports; removing
+volumes (`docker compose down -v`) deletes the collection. See
+[paper imports](paper_import.md) for backup and import limits.

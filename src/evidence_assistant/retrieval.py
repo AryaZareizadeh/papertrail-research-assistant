@@ -11,6 +11,7 @@ from rank_bm25 import BM25Okapi
 
 from evidence_assistant.config import AppConfig
 from evidence_assistant.data import file_hash, text_hash, write_json
+from evidence_assistant.document_questions import is_authorship_question
 from evidence_assistant.embedding import embedding_metadata, load_encoder
 from evidence_assistant.schemas import Chunk, IndexManifest, RetrievedChunk
 from evidence_assistant.store import list_chunks, list_papers
@@ -132,6 +133,7 @@ class RetrievalIndex:
     encoder: object | None
     config: AppConfig
     index_version: str
+    prefer_pdf_frontmatter: bool = False
 
     @classmethod
     def load(cls, config: AppConfig, *, encoder=None, method: str | None = None):
@@ -222,6 +224,12 @@ def retrieve(
         ordered = [i for i in rank(scores) if scores[i] > 0]
     else:
         ordered = rankings[method]
+    if index.prefer_pdf_frontmatter and is_authorship_question(question):
+        front = sorted(
+            (i for i, chunk in enumerate(chunks) if chunk.section_name == "Page 1"),
+            key=lambda i: chunks[i].start_char,
+        )[:2]
+        ordered = front + [i for i in ordered if i not in front]
     return [
         RetrievedChunk(chunk=chunks[i], rank=position, score=float(scores[i]), method=method)
         for position, i in enumerate(ordered[:top_k], start=1)

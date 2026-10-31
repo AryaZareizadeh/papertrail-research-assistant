@@ -26,5 +26,6 @@ reports/runs/
 *.safetensors
 models/
 runtime/
+library/
 reports/container/
 

@@ -8,6 +8,7 @@ from uuid import uuid4
 
 from evidence_assistant.config import AppConfig
 from evidence_assistant.data import file_hash, text_hash
+from evidence_assistant.document_questions import AUTHORSHIP_POLICY, is_authorship_question
 from evidence_assistant.generation import (
     ANSWER_SCHEMA,
     GENERATION_OPTIONS,
@@ -46,7 +47,9 @@ def prepare_context(question, paper, retrieved, config, counter):
         messages = build_messages(question, paper, supplied)
         estimated = counter.count_prompt(messages, ANSWER_SCHEMA)
         evidence_tokens = (
-            counter.count_text(json.dumps(evidence_records(supplied), ensure_ascii=False))
+            counter.count_text(json.dumps(evidence_records(
+                supplied, readable_pdf=paper.split == "user" and is_authorship_question(question)
+            ), ensure_ascii=False))
             if supplied
             else 0
         )
@@ -114,6 +117,8 @@ def answer_question(
         if paper is None:
             raise KeyError(f"Unknown paper: {paper_id}")
         record["source_revision"] = paper.source_revision
+        if paper.split == "user" and is_authorship_question(question):
+            record["document_context_policy"] = AUTHORSHIP_POLICY
         record["source_hash"] = file_hash(config.database_path)
         stage = "retrieval"
         if fixed_context is None:
@@ -138,6 +143,9 @@ def answer_question(
         )
         supplied, messages, estimated, evidence_tokens = prepare_context(
             question, paper, retrieved, config, service.counter
+        )
+        record["prompt_sha256"] = text_hash(
+            messages[0]["content"] + json.dumps(ANSWER_SCHEMA, sort_keys=True)
         )
         if fixed_context is not None and len(supplied) != len(retrieved):
             raise ProviderError(

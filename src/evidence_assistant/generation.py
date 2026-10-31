@@ -10,6 +10,11 @@ from dotenv import dotenv_values
 from pydantic import ValidationError
 
 from evidence_assistant.config import AppConfig
+from evidence_assistant.document_questions import (
+    AUTHORSHIP_GUIDANCE,
+    is_authorship_question,
+    readable_pdf_text,
+)
 from evidence_assistant.schemas import DraftAnswer, DraftClaim, Paper, RetrievedChunk
 
 SYSTEM_PROMPT = (
@@ -81,16 +86,27 @@ class ProviderReply:
     cost_usd: float | None = None
 
 
-def evidence_records(chunks: list[RetrievedChunk]) -> list[dict]:
-    return [
+def evidence_records(chunks: list[RetrievedChunk], *, readable_pdf=False) -> list[dict]:
+    records = [
         {"chunk_id": r.chunk.chunk_id, "section_name": r.chunk.section_name, "text": r.chunk.text}
         for r in chunks
     ]
+    if readable_pdf:
+        for record in records:
+            readable = readable_pdf_text(record["text"])
+            if readable != record["text"]:
+                record["readable_text"] = readable
+    return records
 
 
 def build_messages(question: str, paper: Paper, chunks: list[RetrievedChunk]) -> list[dict]:
+    system = SYSTEM_PROMPT
+    authorship = paper.split == "user" and is_authorship_question(question)
+    evidence = evidence_records(chunks, readable_pdf=authorship)
+    if authorship:
+        system += AUTHORSHIP_GUIDANCE
     return [
-        {"role": "system", "content": SYSTEM_PROMPT},
+        {"role": "system", "content": system},
         {
             "role": "user",
             "content": json.dumps(
@@ -98,7 +114,7 @@ def build_messages(question: str, paper: Paper, chunks: list[RetrievedChunk]) ->
                     "paper_id": paper.paper_id,
                     "title": paper.title,
                     "question": question,
-                    "evidence": evidence_records(chunks),
+                    "evidence": evidence,
                 },
                 ensure_ascii=False,
             ),

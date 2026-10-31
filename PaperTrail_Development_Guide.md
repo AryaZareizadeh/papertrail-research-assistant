@@ -1,6 +1,6 @@
 # PaperTrail Development Guide
 
-> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development or superpowers:executing-plans to implement this plan task-by-task. Track progress with the checkboxes. This document describes future implementation; the application has not been built or tested by creating this guide.
+> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development or superpowers:executing-plans for further implementation task-by-task. Track progress with the checkboxes. This document began as a development plan and now records implementation progress; use the verification reports and explicit acceptance limits below as evidence of completion.
 
 **Goal:** Build a research-paper assistant that answers questions about a selected paper, shows the source passages supporting its answer, and declines when it cannot find sufficient support.
 
@@ -10,23 +10,43 @@
 
 **Spec:** The design contract in Section 2 of this document. The defaults below are proposed implementation choices, not requirements previously supplied by Arya.
 
-**Prepared:** 26 October 2026. **Deliverable type:** A development guide and implementation plan, not a completed software project.
+**Prepared:** 26 October 2026. **Readiness checked:** 27 October 2026.
+**Deliverable type:** Development guide and implementation checklist for the local application.
 
-**Implementation progress (26 October 2026):** The SQLite/BM25 foundation is now
-implemented and tested. Tasks 1–5 are complete, including the full dependency lock,
-real dense/hybrid retrieval, live Groq generation, and calibrated provider token
-accounting. Task 6 evaluation and the 30-response agent audit are implemented and
-measured. Task 6 is complete with the user-accepted, explicitly labeled agent
-audit; human claim support remains unavailable. Task 7's model comparison selected
-  Groq plus dense retrieval; the final held-out pilot is in progress with quota
-  backoff. The reviewed API draft is saved separately and awaits integration. See
-`reports/experiment_log.md` for evidence, setup decisions, and remaining work.
+**Current status:** The local application is ready to try. Tasks 1–10 are
+implemented and closed for the local milestone with the accepted exceptions below.
+There are 79 checked items and one open publication item. A checked item that
+records a waiver or deferral does not mean its original acceptance check ran.
+
+- Groq GPT-OSS-20B plus dense retrieval, the shared FastAPI pipeline, Streamlit
+  evidence viewer, recorded offline demo, and CPU Docker packaging are integrated.
+- Fresh verification: 150 deterministic tests passed, two hosted tests skipped,
+  Ruff passed, installed dependencies are compatible, and both Docker services
+  are healthy. API readiness, the 85-paper catalog, and three saved citation
+  passages passed read-only HTTP checks. The 26-file runtime bundle matches its hashes.
+- The held-out pilot is complete: 187/187 attempted, 185 completed responses,
+  2 retained rate-limit failures, and zero unattempted cases. The user authorized
+  the final 33 cases; all original 154 records and the frozen candidate are intact.
+  Whole-pilot Answer F1 is 0.2600; see `reports/evaluation.md` for denominators.
+- The user accepted the labeled 30-response agent audit. Human claim-support
+  review and peer usability feedback remain unavailable/deferred. Live API
+  generation remains unrun under the user's instruction to stop model tests.
+- Publication is explicitly deferred. No Git remote is configured, nothing has
+  been published, and configured CI has not run on GitHub.
+
+See [the current readiness audit](reports/readiness_audit.md),
+[local release verification](reports/release.md), and
+[the experiment log](reports/experiment_log.md) for evidence and limits.
 
 ## 1. How to use this guide
 
 Work through the tasks in order. Finish each task's acceptance checks before adding the next feature. Keep a short experiment log explaining what changed, why, and what the measurements showed.
 
-The commands using `evidence_assistant.cli` describe the command-line interface you will implement. They become executable after the corresponding task is complete; they are not an existing package to download.
+The commands using `evidence_assistant.cli` refer to this repository's implemented
+package. The task instructions below retain the build sequence and initial design
+choices; use the README for current setup and launch commands. Calibration and
+hosted evaluation commands make model requests and are not part of a read-only
+readiness check. Preserve the completed held-out run and its consumed-selection marker.
 
 Your first useful milestone is a reliable evidence retriever. The next is an evaluated answer pipeline. The interface and packaging come after those foundations.
 
@@ -56,7 +76,7 @@ The assistant gives a short answer with clickable source passages. The user can 
 
 | Decision | Version 1 scope |
 | --- | --- |
-| Documents | English NLP research papers supplied by QASPER |
+| Documents | QASPER papers plus selectable-text PDF uploads and arXiv imports (31 October extension) |
 | Question scope | One explicitly selected paper per question |
 | Input | Released structured paper text |
 | Citations | Paper, section, paragraph, and exact source span |
@@ -65,7 +85,13 @@ The assistant gives a short answer with clickable source passages. The user can 
 | Execution | Local development and a reproducible container |
 | Model training | No fine-tuning required for the initial version |
 
-PDF ingestion, OCR, visual table/figure reasoning, Persian support, cross-paper comparisons, authentication, and public multi-user hosting are later extensions. QASPER's paragraph annotations do not automatically supply PDF page coordinates. Do not invent page numbers.
+Selectable-text PDF ingestion and arXiv imports were added on 31 October 2026;
+see [paper imports](docs/paper_import.md). OCR, visual table/figure reasoning,
+Persian support, cross-paper comparisons, authentication and public multi-user
+hosting remain later extensions. Imported documents use actual PDF page labels
+and offsets into extracted text, without glyph/region coordinates. QASPER's
+paragraph annotations do not supply PDF page coordinates. Existing evaluation
+results do not measure quality on new user documents.
 
 Start with five training papers for debugging. Use a deterministic pilot of 30 validation papers and 50 test papers for the first evaluation. Retain every question from the selected papers. Record that these are pilot subsets, not full-benchmark results. Expand to the full official splits after the pipeline is stable.
 
@@ -463,7 +489,7 @@ python -m evidence_assistant.cli evaluate-qa --split test --manifest data/manife
 - [x] State the hypothesis before running the change and change one major factor at a time.
 - [x] Compare against the frozen baseline on the same validation cases and report quality, latency, and resource tradeoffs. Keep a change only when the evidence justifies it; document regressions as well as gains.
 - [x] Decide on an optional **oracle-context diagnostic** (not run; no more model tests requested). This would run with gold evidence on a separate offline path to estimate how much failure is caused by retrieval. Label it clearly and use the same question slice. It is never a user-facing feature or a fair score for the normal pipeline.
-- [x] Freeze the final candidate and record the held-out pilot outcome: stopped by the user after 154/187 attempts, with the remaining 33 waived. No complete held-out score is claimed. If later changes use that test's answers, call it a development set and create a genuinely new held-out evaluation.
+- [x] Freeze the final candidate and complete the held-out pilot: 187/187 attempted, with the two original rate-limit failures retained and no unattempted cases. The user authorized the final 33 calls; all original 154 records remain intact. Publish the complete scores and denominators. If later changes use that test's answers, call it a development set and create a genuinely new held-out evaluation.
 
 **Check:** The report explains what changed and why. If the more complex system loses to BM25, retain and report the stronger simple baseline.
 
@@ -584,7 +610,7 @@ Choose one extension only after the first version is complete.
 
 The database roadmap is SQLite first, followed by a planned PostgreSQL migration in a later version. Complete and evaluate the SQLite application before beginning that migration.
 
-1. **Real PDF ingestion:** Preserve page/region coordinates, test extraction quality, and evaluate new documents separately from QASPER's structured text. Keep PDF ingestion quality and QA quality as separate measurements.
+1. **PDF ingestion follow-up:** Selectable-text uploads and arXiv imports are implemented. OCR, region coordinates and extraction-quality/QA evaluation on new documents remain future work. Keep extraction quality and QA quality as separate measurements.
 2. **Cross-paper discovery and comparison:** Add a paper-retrieval stage and a collection-level relevance test set. QASPER's supplied-paper scores do not establish collection-search quality.
 3. **Retrieval/reranker fine-tuning:** Use training annotations and paper-disjoint validation, mine negatives from training documents, and compare against the unchanged pretrained baseline. Keep final test labels held out.
 4. **Persian questions or documents:** Build an independently checked Persian evaluation set; measure the relevant language pairs. Translation alone does not establish Persian retrieval/answer quality.

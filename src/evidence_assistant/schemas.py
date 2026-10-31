@@ -6,7 +6,7 @@ from pydantic import BaseModel, ConfigDict, Field, model_validator
 
 from evidence_assistant.config import AppConfig as AppConfig
 
-Split = Literal["train", "validation", "test"]
+Split = Literal["train", "validation", "test", "user"]
 Method = Literal["bm25", "dense", "hybrid"]
 Status = Literal["answered", "insufficient_evidence"]
 

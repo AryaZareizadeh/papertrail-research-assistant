@@ -59,7 +59,7 @@ deterministic suite passes 195 tests with two hosted checks skipped.
   zero unattempted. All original 154 records, frozen inputs, and consumed marker
   are unchanged. Whole-pilot Answer F1: 0.2600. See evaluation.md and heldout_status.md.
 - [x] Task 8 — Integrated FastAPI service; live API generation remains unrun.
-  Draft saved separately at d004ee3 on codex/api-draft. Fresh review fixes verified
+  Draft saved separately at d004ee3. Fresh review fixes verified
   RED→GREEN; 137 tests pass in both dependency environments, two live tests skipped.
   Integrated at2e75db6. Real read-only HTTP/source/docs checks pass. The live API
   question smoke remains unrun under the user's no-more-model-tests instruction.

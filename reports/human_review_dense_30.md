@@ -2,7 +2,7 @@
 
 Status: **awaiting human judgments; 0/30 reviewed**.
 
-Reviewer: Arya. Codex prepares and records; only explicit human judgments count.
+Reviewer: Arya. An automated agent prepares and records; only explicit human judgments count.
 All 30 saved dense responses are included in their original order. No new model calls.
 Earlier agent labels are omitted. This is a single-reviewer, descriptive validation audit.
 

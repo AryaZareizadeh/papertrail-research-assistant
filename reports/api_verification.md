@@ -1,6 +1,6 @@
 # API verification — 27 October 2026
 
-Task 8 was prepared on `codex/api-draft`, based on `7788140`, reviewed and saved at
+Task 8 was prepared in a separate worktree, based on `7788140`, reviewed and saved at
 `d004ee3`, then integrated into the main project at `2e75db6`. The user stopped
 further model testing and selected Groq GPT-OSS-20B. The user later explicitly
 authorized finishing the original held-out pilot, now complete at 187/187 attempts;

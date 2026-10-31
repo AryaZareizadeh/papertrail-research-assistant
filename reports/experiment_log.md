@@ -354,7 +354,7 @@ The once-only 187-question test pilot is running in `reports/runs/final-test`,
 paced at 20 seconds between requests. Its consumed-selection marker is retained.
 No held-out answer has been used to change configuration or implementation.
 
-Ruling: prepare Task 8 in a separate managed worktree on `codex/api-draft` while
+Ruling: prepare Task 8 in a separate managed worktree while
 the paced test runs. Keep the original checkout's source, configuration, model,
 index, and data bytes unchanged; do not integrate or check off Task 8 until Task 7
 finishes. This avoids invalidating the frozen run or its resume identity. Cost if

@@ -4,7 +4,7 @@
   "status": "awaiting_human_judgments",
   "reviewer": "Arya",
   "reviewer_type": "human",
-  "recorded_by": "codex-agent",
+  "recorded_by": "automated-agent",
   "source_run": "reports/runs/validation-qa-baseline-30",
   "split": "validation",
   "method": "dense",

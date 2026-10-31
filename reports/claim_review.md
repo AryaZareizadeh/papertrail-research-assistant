@@ -1,6 +1,6 @@
 # Human claim-support review: 30 validation responses
 
-All labels below are from Codex agent inspection. No response has been human-reviewed.
+All labels below are from automated agent inspection. No response has been human-reviewed.
 Review the quoted passages, then fill each Human support/correctness field and check its review box.
 Support labels: fully_supported, partially_supported, unsupported. Judge question correctness separately.
 A refusal has no claims; judge whether the supplied context justified refusing. Errors stay errors.

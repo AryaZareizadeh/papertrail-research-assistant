@@ -452,3 +452,18 @@ in all denominators and receive official zero. Scoring was regenerated
 with the unchanged original scoring identity, without new model calls.
 See heldout_summary.json for aggregate metrics/hashes and heldout_status.md
 for provenance. No other deferred work is claimed complete.
+
+## 31 October 2026 — Imports, authorship repair and public repository
+
+Added preview/confirmation for selectable-text PDF uploads and arXiv links in a
+separate persistent library; verified real import, deduplication and restart behavior.
+An authorship refusal exposed missing front matter and small-cap glyph artifacts;
+the narrow imported-document policy now supplies author-page evidence and readable
+glyph hints without rewriting source spans. Current offline suite: 195 passed,
+2 hosted checks skipped; no hosted answer-generation test was added.
+
+The user requested GitHub publication and selected public visibility. Published
+source/history and reproducibility instructions to
+[AryaZareizadeh/papertrail-research-assistant](https://github.com/AryaZareizadeh/papertrail-research-assistant)
+on `main`. Private PDFs, keys, model assets and run logs remain excluded. This
+does not close independent human review or constitute public application hosting.

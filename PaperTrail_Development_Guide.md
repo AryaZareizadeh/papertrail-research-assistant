@@ -10,20 +10,21 @@
 
 **Spec:** The design contract in Section 2 of this document. The defaults below are proposed implementation choices, not requirements previously supplied by Arya.
 
-**Prepared:** 26 October 2026. **Readiness checked:** 27 October 2026.
+**Prepared:** 26 October 2026. **Updated:** 31 October 2026.
 **Deliverable type:** Development guide and implementation checklist for the local application.
 
 **Current status:** The local application is ready to try. Tasks 1–10 are
 implemented and closed for the local milestone with the accepted exceptions below.
-There are 79 checked items and one open publication item. A checked item that
+All 80 checklist items are closed, including public source publication. An item that
 records a waiver or deferral does not mean its original acceptance check ran.
 
 - Groq GPT-OSS-20B plus dense retrieval, the shared FastAPI pipeline, Streamlit
   evidence viewer, recorded offline demo, and CPU Docker packaging are integrated.
-- Fresh verification: 150 deterministic tests passed, two hosted tests skipped,
-  Ruff passed, installed dependencies are compatible, and both Docker services
-  are healthy. API readiness, the 85-paper catalog, and three saved citation
-  passages passed read-only HTTP checks. The 26-file runtime bundle matches its hashes.
+- Current verification: 195 deterministic tests passed, two hosted tests skipped,
+  Ruff passed, and both local services are ready. PDF/arXiv imports and authorship
+  context handling are implemented; the original 85-paper corpus remains separate
+  from the persistent user collection. Earlier asset-integrity checks remain in
+  the dated readiness audit; new feature checks are in the import/authorship reports.
 - The held-out pilot is complete: 187/187 attempted, 185 completed responses,
   2 retained rate-limit failures, and zero unattempted cases. The user authorized
   the final 33 cases; all original 154 records and the frozen candidate are intact.
@@ -31,8 +32,9 @@ records a waiver or deferral does not mean its original acceptance check ran.
 - The user accepted the labeled 30-response agent audit. Human claim-support
   review and peer usability feedback remain unavailable/deferred. Live API
   generation remains unrun under the user's instruction to stop model tests.
-- Publication is explicitly deferred. No Git remote is configured, nothing has
-  been published, and configured CI has not run on GitHub.
+- Source is published at [AryaZareizadeh/papertrail-research-assistant](https://github.com/AryaZareizadeh/papertrail-research-assistant)
+  on `main`, following the user's explicit public-publication request. GitHub
+  Actions status is separate from local checks. The app remains locally hosted.
 
 See [the current readiness audit](reports/readiness_audit.md),
 [local release verification](reports/release.md), and
@@ -552,9 +554,11 @@ The UI calls the API. A UI change must not silently change the retrieval or gene
 - [x] Give the README: problem, intended user, short demo, architecture, setup commands, data provenance/license, evaluation protocol, result table, failure examples, limitations, and your contribution.
 - [x] Record model revisions/digests, corpus/index hashes, prompts, run IDs, dependencies, hardware, and evaluation denominators in `reports/evaluation.md`.
 - [x] Include QASPER attribution and its CC BY 4.0 data terms separately from your code license. Review licenses of any reused code and model weights. [Dataset card and license](https://huggingface.co/datasets/allenai/qasper)
-- [ ] **Deferred by user:** Publish code and reproducibility instructions after local use and improvement. Keep large raw datasets and private run logs out of the repository; make selected non-sensitive evaluation examples inspectable without revealing secrets.
+- [x] **Published 31 October 2026:** Code and reproducibility instructions are public on GitHub. Large raw datasets, private PDFs, model assets, keys and private run logs remain excluded; selected non-sensitive examples and clearly labeled audits are included.
 
-Local packaging is verified. The user explicitly deferred publication until after trying and improving the app. See `reports/release.md` for checks and explicit acceptance limits.
+Local packaging and public source publication are complete. See `reports/release.md`
+for checks, chronology and explicit acceptance limits. Public application hosting
+and independent human quality review are not claimed.
 
 **Final local checks:**
 

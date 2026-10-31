@@ -1,5 +1,9 @@
 # Guide readiness audit — 27 October 2026
 
+Historical snapshot: public source publication was subsequently completed on
+31 October 2026. See [release.md](release.md#public-source-publication--31-october-2026)
+for the current publication status; original checks below retain their date.
+
 Verdict: ready for local use and user evaluation within the accepted scope.
 The guide has 79 checked items and one open publication item. Several checked
 items explicitly close with a user waiver or deferral, so this does not mean every

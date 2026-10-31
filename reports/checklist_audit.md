@@ -1,11 +1,14 @@
 # Sequential checklist audit
 
-Updated: 27 October 2026. Task entries record acceptance closeout, including
+Updated: 31 October 2026. Task entries record acceptance closeout, including
 explicitly stated user waivers and deferrals; they do not imply every original
-acceptance check ran. The guide has 79 checked items and one open publication
-item. Fresh verification is recorded in [readiness_audit.md](readiness_audit.md).
+acceptance check ran. All 80 guide items are closed, with publication authorized
+and completed on 31 October. The original readiness snapshot is in
+[readiness_audit.md](readiness_audit.md); current feature checks are in
+[paper_import_verification.md](paper_import_verification.md) and
+[authorship_fix.md](authorship_fix.md).
 The per-task test counts below are historical milestone results; the current
-deterministic suite passes 150 tests with two hosted checks skipped.
+deterministic suite passes 195 tests with two hosted checks skipped.
 
 - [x] Task 1 — Project, configuration, full dependencies, and reproducible lock.
   Verified all eight guide items; 16 configuration tests and 47 total tests pass.
@@ -68,12 +71,16 @@ deterministic suite passes 150 tests with two hosted checks skipped.
   fixed; 146 deterministic checks passed, two hosted tests skipped. Real narrow-
   browser walkthrough and four captured states are saved in reports/demo/.
   The user explicitly deferred peer feedback; no human usability result is claimed.
-- [x] Task 10 — Local packaging complete; publication explicitly deferred by user.
+- [x] Task 10 — Local packaging complete; public source published on 31 October.
   CPU Docker image and separate API/UI services are running. Runtime assets are
   mounted read-only, logs use a writable Docker volume, and no benchmark labels or
   keys enter the image. Final review's two important bugs were reproduced and fixed.
   Windows and offline Linux suites each pass 150 checks; two hosted tests skip.
   Restart/source/log persistence checks pass. CI, README, licenses, data/model cards,
   and release notes are prepared. Live generation stays unrun by user instruction.
-  No Git remote is configured and nothing has been published. The user wants to
-  try and improve the app before asking for publication. See release.md.
+  After trying the app, the user requested public GitHub publication. Source and
+  reproducibility instructions are now at
+  [AryaZareizadeh/papertrail-research-assistant](https://github.com/AryaZareizadeh/papertrail-research-assistant).
+  Keys, imported PDFs, large assets and private run logs are excluded. The current
+  local suite passes 195 tests, 2 hosted skipped. Public app hosting and independent
+  human claim-support review remain outside this publication. See release.md.

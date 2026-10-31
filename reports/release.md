@@ -73,3 +73,21 @@ prepared locally; no repository push, public deployment, or GitHub release has
 been performed. The user explicitly deferred publication to try and improve the
 app first and will request publication later. This closes local packaging with
 publication deferred, rather than claiming a public release.
+
+## Public source publication — 31 October 2026
+
+The user subsequently requested GitHub publication and explicitly selected public
+visibility, superseding the earlier publication deferral. Source is now at
+[AryaZareizadeh/papertrail-research-assistant](https://github.com/AryaZareizadeh/papertrail-research-assistant),
+with `main` as the default branch and `origin` configured locally. Existing history
+was preserved. PDF/arXiv import support and the authorship fix are included.
+
+Pre-publication verification: 195 deterministic tests passed, 2 hosted checks
+skipped, Ruff passed. Candidate-file and reachable-history scans found no configured
+API keys or credential patterns and no tracked private PDFs/runtime/model assets.
+The repository includes MIT licensing, upstream attribution, setup instructions,
+evaluation limitations and clearly labeled pending human-review material. API keys,
+original datasets, imported paper files and private run logs remain local/ignored.
+
+GitHub Actions runs independently of these local checks; inspect its actual status
+on the repository. No public app deployment or GitHub release/tag is claimed.

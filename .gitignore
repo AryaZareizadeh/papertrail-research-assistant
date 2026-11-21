@@ -2,7 +2,10 @@
 .venv-verify/
 .venv-repro/
 .cache/
-.superpowers/
+# Keep local hidden directories out of version control.
+.*/
+!/.github/
+!/.streamlit/
 .pytest_cache/
 .ruff_cache/
 __pycache__/

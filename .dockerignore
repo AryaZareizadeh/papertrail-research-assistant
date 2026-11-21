@@ -1,7 +1,10 @@
 .git
 .venv*
 .cache
-.superpowers
+# Keep local hidden paths out of the build context.
+.*
+!.github
+!.streamlit
 .pytest_cache
 .ruff_cache
 .env

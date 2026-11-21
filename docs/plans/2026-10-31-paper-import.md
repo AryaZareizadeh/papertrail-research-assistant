@@ -1,7 +1,5 @@
 # Paper import implementation plan
 
-> **For agentic workers:** Use superpowers:executing-plans to implement this plan task-by-task.
-
 **Goal:** Add selectable-text PDF upload and arXiv link import to the local collection.
 
 **Architecture:** Preview extracted text and an editable title before confirmation. Commit each PDF as an atomic, content-addressed bundle in a separate writable library, leaving the frozen benchmark corpus unchanged. Reuse the existing chunker, embedding encoder, retrieval index, generation service, and exact-span citation validator.
@@ -36,7 +34,7 @@
 
 ## Execution ledger
 
-- Baseline: 150 passed, 2 opt-in hosted tests skipped; Ruff passed earlier in this chat; no source modifications since.
+- Baseline: 150 passed, 2 opt-in hosted tests skipped; Ruff passed before implementation; no source modifications since.
 - Ruling: implement in this existing feature checkout to retain prepared assets and the running local app; preserve existing uncommitted documentation and review files. Do not auto-commit unrelated work or publish.
 - Ruling: no second format/approval question; the user's `both` authorizes the proposed PDF and arXiv import feature. Implement inline; use a fresh reviewer for the final diff.
 - Steps 1–3: RED failures observed before implementation; full suite 186 passed, 2 hosted skipped. Ruff and whitespace checks pass; uv reports all 83 installed packages compatible.

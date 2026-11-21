@@ -1,6 +1,6 @@
 # PaperTrail Development Guide
 
-> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development or superpowers:executing-plans for further implementation task-by-task. Track progress with the checkboxes. This document began as a development plan and now records implementation progress; use the verification reports and explicit acceptance limits below as evidence of completion.
+This guide began as a development plan and now records implementation progress. Checkboxes track each task, and the verification reports and acceptance limits below document completion.
 
 **Goal:** Build a research-paper assistant that answers questions about a selected paper, shows the source passages supporting its answer, and declines when it cannot find sufficient support.
 
